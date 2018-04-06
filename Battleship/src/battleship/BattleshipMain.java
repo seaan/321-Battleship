@@ -9,12 +9,12 @@ package battleship;
  *
  * @author Sean Widmier, Kyle Daigle, Kelly Manley, Robert Womack 
  */
-public class Battleship {
-
+public class BattleshipMain {
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
         // TODO code application logic here
         // TEST 123
     }
