@@ -10,7 +10,6 @@ package battleship;
  * @author Sean Widmier, Kyle Daigle, Kelly Manley, Robert Womack 
  */
 public class BattleshipMain {
-
     /**
      * @param args the command line arguments
      */
@@ -18,5 +17,4 @@ public class BattleshipMain {
         // TODO code application logic here
         // TEST 123
     }
-    // comment here
 }
