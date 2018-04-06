@@ -7,7 +7,7 @@ package battleship;
 
 /**
  *
- * @author Kyle
+ * @author Sean Widmier, Kyle Daigle, Kelly Manley, Robert Womack 
  */
 public class BattleshipGame {
     
