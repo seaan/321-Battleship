@@ -9,7 +9,7 @@ package battleship;
  *
  * @author Sean Widmier, Kyle Daigle, Kelly Manley, Robert Womack 
  */
-public class Battleship {
+public class BattleshipMain {
 
     /**
      * @param args the command line arguments
