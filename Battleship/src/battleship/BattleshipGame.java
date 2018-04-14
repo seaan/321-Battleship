@@ -15,10 +15,10 @@ public class BattleshipGame extends Menu {
     private int friendlyShipsSunkCount;
     private int enemyShipsSunkCount;
     
-    protected Fleet fleet;
+    private Fleet fleet;
     
-    TargetGrid target;
-    OceanGrid ocean;
+    private TargetGrid target;
+    private OceanGrid ocean;
     
     protected BattleshipGame(){
         
@@ -73,6 +73,7 @@ public class BattleshipGame extends Menu {
         else{
             target.setPeg(x, y, pegType);
         }
+        
     }
     
     protected void addfriendlyShipSunk(){
