@@ -14,7 +14,21 @@ public class BattleshipMain {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        // TEST 123
+        OceanGrid oGrid = OceanGrid.getInstance();
+        oGrid.setPeg(1, 9, 1);
+        oGrid.setPeg(1, 8, 1);
+        oGrid.setPeg(1, 7, 2);
+        oGrid.setPeg(1, 6, 1);
+        oGrid.setPeg(2, 9, 3);
+        oGrid.setPeg(3, 9, 3);
+        oGrid.setPeg(1, 5, 3);
+        oGrid.setPeg(1, 4, 3);
+        oGrid.setPeg(5, 5, 5);
+        
+        
+        OceanGrid testGrid = OceanGrid.getInstance();
+        System.out.println("Testing singleton grid: ");
+        testGrid.printGrid();
+        
     }
 }
