@@ -31,8 +31,8 @@ public class BattleshipGame extends Menu {
         playerName = input.nextLine();
         greetPlayer();
         
-        target = new TargetGrid();
-        ocean = new OceanGrid();
+        //OceanGrid ocean = OceanGrid.getInstance();
+        //TargetGrid target = TargetGrid.getInstance();
         
         initializeAllShips();
     }

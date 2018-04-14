@@ -10,9 +10,37 @@ package battleship;
  * @author Sean
  */
 public class Fleet {
-    Ship Carrier = new Ship("Carrier", 5);
-    Ship Battleship = new Ship("Battleship", 4);
-    Ship Cruiser = new Ship("Cruiser", 3);
-    Ship Submarine = new Ship("Submarine", 3);
-    Ship Destroyer = new Ship("Destroyer", 2);
+    private final Ship Carrier;
+    private final Ship Battleship;
+    private final Ship Cruiser;
+    private final Ship Submarine;
+    private final Ship Destroyer;
+    
+    protected Fleet() {
+    Carrier = new Ship("Carrier", 5);
+    Battleship = new Ship("Battleship", 4);
+    Cruiser = new Ship("Cruiser", 3);
+    Submarine = new Ship("Submarine", 3);
+    Destroyer = new Ship("Destroyer", 2);
+    }
+
+    public Ship getCarrier() {
+        return Carrier;
+    }
+
+    public Ship getBattleship() {
+        return Battleship;
+    }
+
+    public Ship getCruiser() {
+        return Cruiser;
+    }
+
+    public Ship getSubmarine() {
+        return Submarine;
+    }
+
+    public Ship getDestroyer() {
+        return Destroyer;
+    }
 }
