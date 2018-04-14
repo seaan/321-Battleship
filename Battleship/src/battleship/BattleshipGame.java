@@ -38,7 +38,7 @@ public class BattleshipGame extends Menu {
     }
     
     private void initializeAllShips() {
-        fleet = new Fleet();
+        //fleet = new Fleet();
     }
     
     protected void updateShip(Position position, String type){
@@ -57,7 +57,7 @@ public class BattleshipGame extends Menu {
     }
     
     private void checkShips(int x, int y) {
-        fleet.checkShipLocation(x, y);
+        
     }
     
     protected void endGame(){
@@ -83,7 +83,7 @@ public class BattleshipGame extends Menu {
     
     protected void updatePeg(int x, int y, int gridType, int pegType) {
         if(gridType == 0) {
-            ocean.setPeg(x, y, pegType);
+            //ocean.setPeg(x, y, pegType);
         }
         else {
             target.setPeg(x, y, pegType);

@@ -44,11 +44,46 @@ public class Fleet {
         return Destroyer;
     }
     
-    protected void checkShipLocation(int x, int y) {
-        Carrier.checkPosition(x, y);
-        Battleship.checkPosition(x, y);
-        Cruiser.checkPosition(x, y);
-        Submarine.checkPosition(x, y);
-        Destroyer.checkPosition(x, y);
+    protected boolean checkShipLocation(int x, int y) {
+        if(Carrier.checkPosition(x, y))
+            return true;
+        else if(Battleship.checkPosition(x, y))
+            return true;
+        else if(Cruiser.checkPosition(x, y))
+            return true;
+        else if(Submarine.checkPosition(x, y))
+            return true;
+        else if(Destroyer.checkPosition(x, y))
+            return true;
+        else
+            return false;
+    }
+    
+    protected void placeShip(int type, int startX, int startY, int endX, int endY) {        //testing function
+        switch (type) {
+            case 1:
+                Carrier.setPosition(startX, startY, endX, endY);
+                break;
+            case 2:
+                Battleship.setPosition(startX, startY, endX, endY);
+                break;
+            case 3:
+                Cruiser.setPosition(startX, startY, endX, endY);
+                break;
+            case 4:
+                Submarine.setPosition(startX, startY, endX, endY);
+                break;
+            case 5:
+                Destroyer.setPosition(startX, startY, endX, endY);   
+                break;
+        }         
+    }
+    
+    protected void printFleet() {
+        Carrier.printShip();
+        Battleship.printShip();
+        Cruiser.printShip();
+        Submarine.printShip();
+        Destroyer.printShip();
     }
 }
