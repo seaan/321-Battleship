@@ -14,7 +14,8 @@ public class Ship {
     private static String shipType;    
     private static int shipLength;      
     private static int hitCount;
-    private static Boolean isSunk;
+    private static boolean isSunk;
+
     
     private Position startPosition;
     private Position endPosition;
@@ -29,6 +30,7 @@ public class Ship {
         shipLength = length;
         hitCount = 0;
         isSunk = false;
+        
     }
     
     protected static String getType() {
@@ -48,6 +50,7 @@ public class Ship {
         
         if(hitCount == shipLength)
             isSunk = true;               
+<<<<<<< HEAD
     }
     
     protected void setPosition(int startX, int startY, int endX, int endY){
@@ -116,3 +119,7 @@ public class Ship {
         }
     }
 }
+=======
+    }   
+}
+>>>>>>> a03c0b72c6b408ca1af5a04eff6ff2a5bfb8a381
