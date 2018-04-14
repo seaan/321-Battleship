@@ -15,6 +15,8 @@ public class BattleshipGame extends Menu {
     private int friendlyShipsSunkCount;
     private int enemyShipsSunkCount;
     
+    protected Fleet fleet;
+    
     protected BattleshipGame(){
         
     }
@@ -33,15 +35,11 @@ public class BattleshipGame extends Menu {
     }
     
     private void initializeAllShips(){
-        Ship Carrier = new Ship("Carrier", 5);  // **** NEED TO REFERENCE PHYSICAL GAME RULES
-        Ship Battleship = new Ship("Battleship", 4);
-        Ship Cruiser = new Ship("Cruiser", 3);
-        Ship Submarine = new Ship("Submarine", 3);
-        Ship Destroyer = new Ship("Destroyer", 2);
+        
     }
     
     private void placeAllShips(){
-        
+        fleet = new Fleet();
     }
     
     protected void endGame(){
