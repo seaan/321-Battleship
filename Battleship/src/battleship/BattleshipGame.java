@@ -17,6 +17,9 @@ public class BattleshipGame extends Menu {
     
     protected Fleet fleet;
     
+    TargetGrid target;
+    OceanGrid ocean;
+    
     protected BattleshipGame(){
         
     }
@@ -28,8 +31,8 @@ public class BattleshipGame extends Menu {
         playerName = input.nextLine();
         greetPlayer();
         
-        //Grid target = new Grid()    *****TODO*****
-        //Grid ocean = new Grid()     *****TODO*****
+        target = new TargetGrid();
+        ocean = new OceanGrid();
         
         initializeAllShips();
     }
@@ -57,6 +60,19 @@ public class BattleshipGame extends Menu {
     
     private void greetPlayer(){
         System.out.println("Greetings, Admiral " + playerName + "!");
+    }
+    
+    protected void checkGameStatus(){
+        
+    }
+    
+    protected void updatePeg(int x, int y, int gridType, int pegType){
+        if(gridType == 0){
+            ocean.setPeg(x, y, pegType);
+        }
+        else{
+            target.setPeg(x, y, pegType);
+        }
     }
     
     protected void addfriendlyShipSunk(){
