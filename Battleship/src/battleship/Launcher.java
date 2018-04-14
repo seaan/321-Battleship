@@ -10,13 +10,11 @@ package battleship;
  * @author Sean Widmier, Kyle Daigle, Kelly Manley, Robert Womack 
  */
 public class Launcher {
-    protected void initializeSim(){
-        //Menu menu = new Menu();                 ****TODO****
-        //GUI gui = new GUI();                    ****TODO****
-    }
+    protected Menu menu = new Menu();
+    protected GUI gui = new GUI();
     
     protected void runSim(){
-        //gui.showMenu();                        ****TODO****
+        gui.showMenu();
         
     }
 }
