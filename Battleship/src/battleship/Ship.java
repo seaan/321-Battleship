@@ -63,59 +63,53 @@ public class Ship {
     }
     
     protected boolean checkPosition(int x, int y){
-        if(x == this.startPosition.getX() && y == this.startPosition.getY())
-            return true;
-        else if(x == this.endPosition.getX() && y == this.endPosition.getY())
-            return true;
-        else{
-            switch(orientation){
-                case VERTICAL:
-                    if(x == this.startPosition.getX()){
-                        int topY = 0;
-                        int botY = 0;
-                        
-                        if(this.startPosition.getY() > this.endPosition.getY()){
-                            topY = this.startPosition.getY();
-                            botY = this.endPosition.getY();
-                        }
-                        else{
-                            topY = this.endPosition.getY();
-                            botY = this.endPosition.getY();
-                        }
-                        
-                        for(int i  = topY; i > botY; i--){
-                            if(y == i)
-                                return true;
-                        }
-                        return false;
+        switch(orientation){
+            case VERTICAL:
+                if(x == this.startPosition.getX()){
+                    int topY = 0;
+                    int botY = 0;
+
+                    if(this.startPosition.getY() > this.endPosition.getY()){
+                        topY = this.startPosition.getY();
+                        botY = this.endPosition.getY();
                     }
-                    
-                    return false;
-                    
-                case HORIZONTAL:
-                    if(x == this.startPosition.getX()){
-                        int topX = 0;
-                        int botX = 0;
-                        
-                        if(this.startPosition.getY() > this.endPosition.getX()){
-                            topX = this.startPosition.getX();
-                            botX = this.endPosition.getX();
-                        }
-                        else{
-                            topX = this.endPosition.getX();
-                            botX = this.endPosition.getX();
-                        }
-                        
-                        for(int i  = topX; i > botX; i--){
-                            if(x == i)
-                                return true;
-                        }
-                        return false;
+                    else{
+                        topY = this.endPosition.getY();
+                        botY = this.endPosition.getY();
+                    }
+
+                    for(int i  = topY; i > botY; i--){
+                        if(y == i)
+                            return true;
                     }
                     return false;
-                    
-            }
-            return false;
+                }
+
+                return false;
+
+            case HORIZONTAL:
+                if(x == this.startPosition.getX()){
+                    int topX = 0;
+                    int botX = 0;
+
+                    if(this.startPosition.getY() > this.endPosition.getX()){
+                        topX = this.startPosition.getX();
+                        botX = this.endPosition.getX();
+                    }
+                    else{
+                        topX = this.endPosition.getX();
+                        botX = this.endPosition.getX();
+                    }
+
+                    for(int i  = topX; i > botX; i--){
+                        if(x == i)
+                            return true;
+                    }
+                    return false;
+                }
+                return false;
+
         }
+        return false;
     }
 }
