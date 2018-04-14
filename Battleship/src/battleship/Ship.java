@@ -49,8 +49,7 @@ public class Ship {
         hitCount ++;
         
         if(hitCount == shipLength)
-            isSunk = true;               
-<<<<<<< HEAD
+            isSunk = true;
     }
     
     protected void setPosition(int startX, int startY, int endX, int endY){
@@ -116,10 +115,7 @@ public class Ship {
                     return false;
                     
             }
+            return false;
         }
     }
 }
-=======
-    }   
-}
->>>>>>> a03c0b72c6b408ca1af5a04eff6ff2a5bfb8a381
