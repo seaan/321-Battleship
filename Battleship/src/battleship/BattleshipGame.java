@@ -41,12 +41,19 @@ public class BattleshipGame extends Menu {
         fleet = new Fleet();
     }
     
-    private void placeAllShips() {
-//        fleet.getCarrier().setPosition(x, y);
-//        fleet.getBattleship().setPosition(x, y);
-//        fleet.getCruiser().setPosition(x, y);
-//        fleet.getSubmarine().setPosition(x, y);
-//        fleet.getDestroyer().setPosition(x, y);
+    protected void updateShip(Position position, String type){
+        switch(type){
+            case "Carrier":
+                break;
+            case "Battleship":
+                break;
+            case "Cruiser":
+                break;
+            case "Submarine":
+                break;
+            case "Destroyer":
+                break;
+        }
     }
     
     private void checkShips(int x, int y) {
