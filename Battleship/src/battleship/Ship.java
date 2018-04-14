@@ -14,13 +14,15 @@ public class Ship {
     private static String shipType;    
     private static int shipLength;      
     private static int hitCount;
-    private static Boolean isSunk;
+    private static boolean isSunk;
+
     
     protected Ship(String type, int length) {
         shipType = type;
         shipLength = length;
         hitCount = 0;
         isSunk = false;
+        
     }
     
     protected static String getType() {
@@ -40,7 +42,5 @@ public class Ship {
         
         if(hitCount == shipLength)
             isSunk = true;               
-    }
-    
-    
+    }   
 }

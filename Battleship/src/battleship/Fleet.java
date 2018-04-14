@@ -43,4 +43,12 @@ public class Fleet {
     public Ship getDestroyer() {
         return Destroyer;
     }
+    
+    protected void checkShipLocation(int x, int y) {
+//        Carrier.checkPosition(x, y);
+//        Battleship.checkPosition(x, y);
+//        Cruiser.checkPosition(x, y);
+//        Submarine.checkPosition(x, y);
+//        Destroyer.checkPosition(x, y);
+    }
 }

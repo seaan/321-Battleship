@@ -15,38 +15,46 @@ public class BattleshipGame extends Menu {
     private int friendlyShipsSunkCount;
     private int enemyShipsSunkCount;
     
-    private Fleet fleet;
+    protected Fleet fleet;
     
-    private TargetGrid target;
-    private OceanGrid ocean;
+    TargetGrid target;
+    OceanGrid ocean;
     
     protected BattleshipGame(){
         
     }
     
-    protected void initializeGame(){
+    protected void initializeGame() {
         System.out.println("Please enter your name: ");
         Scanner input = new Scanner(System.in);
         
         playerName = input.nextLine();
         greetPlayer();
         
-        //OceanGrid ocean = OceanGrid.getInstance();
-        //TargetGrid target = TargetGrid.getInstance();
+        ocean = OceanGrid.getInstance();
+        target = TargetGrid.getInstance();
         
         initializeAllShips();
     }
     
-    private void initializeAllShips(){
-        
-    }
-    
-    private void placeAllShips(){
+    private void initializeAllShips() {
         fleet = new Fleet();
     }
     
+    private void placeAllShips() {
+//        fleet.getCarrier().setPosition(x, y);
+//        fleet.getBattleship().setPosition(x, y);
+//        fleet.getCruiser().setPosition(x, y);
+//        fleet.getSubmarine().setPosition(x, y);
+//        fleet.getDestroyer().setPosition(x, y);
+    }
+    
+    private void checkShips(int x, int y) {
+        fleet.checkShipLocation(x, y);
+    }
+    
     protected void endGame(){
-        if(friendlyShipsSunkCount > enemyShipsSunkCount){
+        if(friendlyShipsSunkCount > enemyShipsSunkCount) {
             //showVictoryMessage();       *****TODO*****
         }
         else{
@@ -54,26 +62,25 @@ public class BattleshipGame extends Menu {
         }
     }
     
-    protected static void lockShips(){
+    protected static void lockShips() {
         
     }
     
-    private void greetPlayer(){
+    private void greetPlayer() {
         System.out.println("Greetings, Admiral " + playerName + "!");
     }
     
-    protected void checkGameStatus(){
+    protected void checkGameStatus() {
         
     }
     
-    protected void updatePeg(int x, int y, int gridType, int pegType){
-        if(gridType == 0){
+    protected void updatePeg(int x, int y, int gridType, int pegType) {
+        if(gridType == 0) {
             ocean.setPeg(x, y, pegType);
         }
-        else{
+        else {
             target.setPeg(x, y, pegType);
         }
-        
     }
     
     protected void addfriendlyShipSunk(){
