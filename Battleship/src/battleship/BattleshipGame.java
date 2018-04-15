@@ -78,7 +78,10 @@ public class BattleshipGame extends Menu {
     }
     
     protected void checkGameStatus() {
-        
+//        if(ocean.getFriendlyShipSunk() > 4)
+//            gui.showDefeatMessage();
+//        if(ocean.getEnemyShipSunk() > 4)
+//            gui.showVictoryMessage();
     }
     
     protected void updatePeg(int x, int y, int gridType, int pegType) {
