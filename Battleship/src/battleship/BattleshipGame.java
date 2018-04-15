@@ -10,7 +10,7 @@ import java.util.Scanner;
  *
  * @author Sean Widmier, Kyle Daigle, Kelly Manley, Robert Womack 
  */
-public class BattleshipGame extends Menu {
+public class BattleshipGame {
     private String playerName;
     
     protected Fleet fleet;
