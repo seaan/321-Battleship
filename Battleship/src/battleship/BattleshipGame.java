@@ -12,8 +12,6 @@ import java.util.Scanner;
  */
 public class BattleshipGame extends Menu {
     private String playerName;
-    private int friendlyShipsSunkCount;
-    private int enemyShipsSunkCount;
     
     protected Fleet fleet;
     
@@ -56,23 +54,6 @@ public class BattleshipGame extends Menu {
         }
     }
     
-    private void checkShips(int x, int y) {
-        
-    }
-    
-    protected void endGame(){
-        if(friendlyShipsSunkCount > enemyShipsSunkCount) {
-            //showVictoryMessage();       *****TODO*****
-        }
-        else{
-            //showDefeatMessage();        *****TODO*****
-        }
-    }
-    
-    protected static void lockShips() {
-        
-    }
-    
     private void greetPlayer() {
         System.out.println("Greetings, Admiral " + playerName + "!");
     }
@@ -95,18 +76,11 @@ public class BattleshipGame extends Menu {
                 target.setMiss(x, y);
         }
     }
- 
-    protected void addenemyShipSunk(){
-        enemyShipsSunkCount++;
-    }
-    
-    protected int getEnemyShipSunk(){
-        return enemyShipsSunkCount;
-    }
     
     private void showDefeat() {
         System.out.println("You lost");
     }
+
 }
 
 
