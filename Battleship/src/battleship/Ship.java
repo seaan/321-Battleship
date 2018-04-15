@@ -74,7 +74,7 @@ public class Ship {
                 }
             }
             else {
-                for(int i = startY; i <= endY; i++)
+                for(int i = endY; i <= startY; i++)
                 {
                     og.setShip(startX, i);
                 }
@@ -89,7 +89,7 @@ public class Ship {
                 }
             }
             else {
-                for(int i = startX; i <= endX; i++)
+                for(int i = endX; i <= startX; i++)
                 {
                     og.setShip(i, startY);
                 }
@@ -148,6 +148,12 @@ public class Ship {
         }*/
         if((startPosition.getX() <= x && x <=endPosition.getX()) &&
                 ((startPosition.getY() <= y && y <= endPosition.getY())))
+        {
+            incrementHitCount();
+            return true;
+        }
+        else if((startPosition.getX() >= x && x >=endPosition.getX()) &&
+                ((startPosition.getY() >= y && y >= endPosition.getY())))
         {
             incrementHitCount();
             return true;
