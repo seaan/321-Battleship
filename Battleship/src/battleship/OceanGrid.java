@@ -13,6 +13,7 @@ public class OceanGrid {
     
     private static OceanGrid instance = null;
     private static Fleet fleet;
+    private static int shipsSunk;
     private static int[][] grid;                //peg enum wouldn't work. 
                                                 //use 0 for empty, 1 for hit,
                                                 //2 for miss, 3 for ship.
@@ -22,6 +23,7 @@ public class OceanGrid {
     private OceanGrid() {
         grid = new int[10][10];
         fleet = new Fleet();
+        shipsSunk = 0;
         
         for(int i = 0; i < 10; i++) {
             for(int j = 0; j < 10; j++) {
@@ -65,5 +67,14 @@ public class OceanGrid {
             System.out.println();
         }
         fleet.printFleet();
-    }    
+    } 
+    
+    protected void incrementSunkCount() {
+        shipsSunk++;
+    }
+    
+    protected int getFriendlyShipsSunk()
+    {
+        return shipsSunk;
+    }
 }
