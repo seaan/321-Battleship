@@ -8,6 +8,6 @@ BACKEND:
 [X] - grid construct fleet
 [X] - make stuff for sinking ships, keeping track of it, 
 [] - integrate the gets & sets from BattleshipGame
-[] - checkShips for fleet
+[X] - checkShips for fleet
 [] - checkGameStatus()
 [] - check # ships sunk, if needed endGame()
