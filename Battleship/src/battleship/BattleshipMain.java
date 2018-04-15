@@ -15,11 +15,11 @@ public class BattleshipMain {
      */
     public static void main(String[] args) {
         OceanGrid og = OceanGrid.getInstance();
-        og.getFleet().placeShip(1, 1, 1, 1, 5);
-        og.getFleet().placeShip(2, 4, 4, 7, 4);
-        og.getFleet().placeShip(3, 2, 2, 4, 2);
-        og.getFleet().placeShip(4, 9, 4, 9, 6);
-        og.getFleet().placeShip(5, 8, 0, 9, 0);
+        og.getFleet().placeShip("Carrier", 1, 1, 1, 5);
+        og.getFleet().placeShip("Battleship", 4, 4, 7, 4);
+        og.getFleet().placeShip("Cruiser", 2, 2, 4, 2);
+        og.getFleet().placeShip("Submarine", 9, 4, 9, 6);
+        og.getFleet().placeShip("Destroyer", 8, 0, 9, 0);
         og.printGrid();
         System.out.println();
         og.setPeg(1, 1);
