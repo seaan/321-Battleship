@@ -34,13 +34,12 @@ public class TargetGrid {
         return instance;
     }
     
-    protected void setPeg(int x, int y, int peg) {
-        if (0 <= peg && peg <= 2) {
-            grid[x][y] = peg;
-        }
-        else 
-            System.out.println("ERROR: INVALID PEG TYPE AT (" + x + "," + y + 
-                    ")");
+    protected void setHit(int x, int y) {
+        grid[x][y] = 1;
+    }
+    
+    protected void setMiss(int x, int y) {
+        grid[x][y] = 2;
     }
     
     protected int getGridAt(int x, int y) {

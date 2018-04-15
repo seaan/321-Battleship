@@ -85,11 +85,14 @@ public class BattleshipGame extends Menu {
     }
     
     protected void updatePeg(int x, int y, int gridType, int pegType) {
-        if(gridType == 0) {
-            //ocean.setPeg(x, y, pegType);
+        if(gridType == 0) {                 // Ocean
+            ocean.setPeg(x, y);
         }
-        else {
-            target.setPeg(x, y, pegType);
+        else {                              // Target
+            if(pegType == 1)
+                target.setHit(x, y);
+            else
+                target.setMiss(x, y);
         }
     }
     
