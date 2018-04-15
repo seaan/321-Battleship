@@ -14,6 +14,7 @@ public class BattleshipMain {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
+        Launcher launcher = new Launcher();
+        launcher.runSim();
     }
 }
