@@ -15,8 +15,8 @@ public class BattleshipMain {
      */
     public static void main(String[] args) {
         OceanGrid og = OceanGrid.getInstance();
-        og.getFleet().placeShip(1, 1, 1, 1, 5);
-        og.getFleet().placeShip(2, 4, 4, 7, 4);
+        og.getFleet().placeShip(1, 1, 5, 1, 1);
+        og.getFleet().placeShip(2, 7, 4, 4, 4);
         og.getFleet().placeShip(3, 2, 2, 4, 2);
         og.getFleet().placeShip(4, 9, 4, 9, 6);
         og.getFleet().placeShip(5, 8, 0, 9, 0);
