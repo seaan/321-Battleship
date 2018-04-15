@@ -6,25 +6,35 @@
 package battleship;
 
 /**
- *
+ * TO DO: Test ship placements. Integrate fleet.
  * @author Kyle
  */
 public class OceanGrid {
     
     private static OceanGrid instance = null;
+    private static Fleet fleet;
+    private static int shipsSunk;
     private static int[][] grid;                //peg enum wouldn't work. 
                                                 //use 0 for empty, 1 for hit,
                                                 //2 for miss, 3 for ship.
     
     
+    
     private OceanGrid() {
         grid = new int[10][10];
+        fleet = new Fleet();
+        shipsSunk = 0;
         
         for(int i = 0; i < 10; i++) {
             for(int j = 0; j < 10; j++) {
                 grid[i][j] = 0;                 //initialize grid to "empty"
             }
-        }           
+        }  
+        
+    }
+
+    public static Fleet getFleet() {
+        return fleet;
     }
     
     protected static OceanGrid getInstance() {
@@ -34,13 +44,15 @@ public class OceanGrid {
         return instance;
     }
     
-    protected void setPeg(int x, int y, int peg) {
-        if (0 <= peg && peg <= 3) {
-            grid[x][y] = peg;
-        }
+    protected void setPeg(int x, int y) {
+        if(fleet.checkShipLocation(x, y))
+            grid[x][y] = 1;
         else 
-            System.out.println("ERROR: INVALID PEG TYPE AT (" + x + "," + y + 
-                    ")");
+            grid[x][y] = 2;
+    }
+    
+    protected void setShip(int x, int y) {
+        grid[x][y] = 3;
     }
     
     protected int getGridAt(int x, int y) {
@@ -50,9 +62,19 @@ public class OceanGrid {
     protected void printGrid() {
         for(int i = 0; i < 10; i++) {
             for(int j = 0; j < 10; j++) {
-                System.out.print(grid[i][j] + "  ");
+                System.out.print(grid[j][i] + "  ");
             }
             System.out.println();
         }
-    }    
+        fleet.printFleet();
+    } 
+    
+    protected void incrementSunkCount() {
+        shipsSunk++;
+    }
+    
+    protected int getFriendlyShipsSunk()
+    {
+        return shipsSunk;
+    }
 }

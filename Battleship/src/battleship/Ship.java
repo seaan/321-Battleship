@@ -11,36 +11,118 @@ package battleship;
  */
 public class Ship {
     
-    private static String shipType;    
-    private static int shipLength;      
-    private static int hitCount;
-    private static Boolean isSunk;
+    private String shipType;    
+    private int shipLength;      
+    private int hitCount;
+    private boolean isSunk;
+    
+
+    
+    private Position startPosition;
+    private Position endPosition;
+    
+    Orientation orientation;
+    private enum Orientation{
+        HORIZONTAL, VERTICAL;
+    }
     
     protected Ship(String type, int length) {
         shipType = type;
         shipLength = length;
         hitCount = 0;
         isSunk = false;
+        
     }
     
-    protected static String getType() {
+    protected String getType() {
         return shipType;
     }
     
-    protected static int getLength() {
+    protected int getLength() {
         return shipLength;
     }
     
-    protected static Boolean getStatus() {
+    protected Boolean getStatus() {
         return isSunk;
     }
     
-    protected static void incrementHitCount() {
+    protected void incrementHitCount() {
         hitCount ++;
         
-        if(hitCount == shipLength)
-            isSunk = true;               
+        if(hitCount == shipLength) {
+            isSunk = true;
+            
+            OceanGrid og = OceanGrid.getInstance();
+            og.incrementSunkCount();
+        }
     }
     
+    protected void setPosition(int startX, int startY, int endX, int endY){
+        OceanGrid og = OceanGrid.getInstance();
+        
+        startPosition = new Position(startX, startY, Position.Status.SHIP);
+        endPosition = new Position(endX, endY, Position.Status.SHIP);
+        
+        if (this.startPosition.getX() == this.endPosition.getX())
+           orientation = Orientation.VERTICAL; 
+        else if (this.startPosition.getY() == this.endPosition.getY())
+           orientation = Orientation.HORIZONTAL;
+        
+        if(startX == endX)
+        {
+            if(startY < endY)
+            {
+                for(int i = startY; i <= endY; i++)
+                {
+                    og.setShip(startX, i);
+                }
+            }
+            else {
+                for(int i = endY; i <= startY; i++)
+                {
+                    og.setShip(startX, i);
+                }
+            }
+        }
+        else{
+            if(startX < endX)
+            {
+                for(int i = startX; i <= endX; i++)
+                {
+                    og.setShip(i, startY);
+                }
+            }
+            else {
+                for(int i = endX; i <= startX; i++)
+                {
+                    og.setShip(i, startY);
+                }
+            }
+        }
+    }
     
+    protected boolean checkPosition(int x, int y){
+        OceanGrid og = OceanGrid.getInstance();
+        if((startPosition.getX() <= x && x <=endPosition.getX()) &&
+                ((startPosition.getY() <= y && y <= endPosition.getY())))
+        {
+            incrementHitCount();
+            return true;
+        }
+        else if((startPosition.getX() >= x && x >=endPosition.getX()) &&
+                ((startPosition.getY() >= y && y >= endPosition.getY())))
+        {
+            incrementHitCount();
+            return true;
+        }
+        else 
+            return false;
+    }
+    
+    protected void printShip() {
+        System.out.println("Type: " + this.shipType);
+        System.out.println("Length: " + this.shipLength);
+        System.out.println("Hit count: " + this.hitCount);
+        System.out.println("isSunk: " + this.isSunk);
+    }
 }
