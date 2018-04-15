@@ -1,0 +1,13 @@
+FRONTEND:
+[] - getPlayerName()
+[] - displayPlayerName()
+[] - showVictory()
+[] - showDefeat()
+
+BACKEND:
+[X] - grid construct fleet
+[X] - make stuff for sinking ships, keeping track of it, 
+[X] - integrate the gets & sets from BattleshipGame
+[X] - checkShips for fleet
+[X] - checkGameStatus()
+[X] - check # ships sunk, if needed endGame()
