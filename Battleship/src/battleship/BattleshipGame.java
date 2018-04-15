@@ -78,8 +78,8 @@ public class BattleshipGame extends Menu {
     }
     
     protected void checkGameStatus() {
-//        if(ocean.getFriendlyShipSunk() > 4)
-//            gui.showDefeatMessage();
+        if(ocean.getFriendlyShipsSunk() > 4)
+            showDefeat();
 //        if(ocean.getEnemyShipSunk() > 4)
 //            gui.showVictoryMessage();
     }
@@ -95,20 +95,18 @@ public class BattleshipGame extends Menu {
                 target.setMiss(x, y);
         }
     }
-    
-    protected void addfriendlyShipSunk(){
-        friendlyShipsSunkCount++;
-    }
-    
+ 
     protected void addenemyShipSunk(){
         enemyShipsSunkCount++;
-    }
-    
-    protected int getFriendlyShipSunk(){
-        return friendlyShipsSunkCount;
     }
     
     protected int getEnemyShipSunk(){
         return enemyShipsSunkCount;
     }
+    
+    private void showDefeat() {
+        System.out.println("You lost");
+    }
 }
+
+
