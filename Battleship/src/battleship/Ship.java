@@ -49,8 +49,12 @@ public class Ship {
     protected void incrementHitCount() {
         hitCount ++;
         
-        if(hitCount == shipLength)
+        if(hitCount == shipLength) {
             isSunk = true;
+            
+            OceanGrid og = OceanGrid.getInstance();
+            og.incrementSunkCount();
+        }
     }
     
     protected void setPosition(int startX, int startY, int endX, int endY){
