@@ -59,22 +59,22 @@ public class Fleet {
             return false;
     }
     
-    protected void placeShip(String type, int startX, int startY, int endX, int endY) {        //testing function
+    protected void placeShip(String type, int startX, int startY, int endX, int endPosition.getY()) {        //testing function
         switch (type) {
             case "Carrier":
-                Carrier.setPosition(startX, startY, endX, endY);
+                Carrier.setPosition(startX, startY);
                 break;
             case "Battleship":
-                Battleship.setPosition(startX, startY, endX, endY);
+                Battleship.setPosition(startX, startY);
                 break;
             case "Cruiser":
-                Cruiser.setPosition(startX, startY, endX, endY);
+                Cruiser.setPosition(startX, startY);
                 break;
             case "Submarine":
-                Submarine.setPosition(startX, startY, endX, endY);
+                Submarine.setPosition(startX, startY);
                 break;
             case "Destroyer":
-                Destroyer.setPosition(startX, startY, endX, endY);   
+                Destroyer.setPosition(startX, startY);   
                 break;
         }         
     }
