@@ -11,7 +11,7 @@ package battleship;
  */
 public class OceanGrid {
 
-    /* UNFINISHED */
+    /* Singleton instance of object */
     private static OceanGrid instance = null;
     /* */
     private static Fleet fleet;
@@ -21,7 +21,9 @@ public class OceanGrid {
     private static Position.Status[][] grid;
 
     /**
-     * A private constructor, so that OceanGrid is a singleton. UNFINISHED
+     * A private constructor, so that OceanGrid is a singleton. The constructor
+     * can only be called in the getInstance function to ensure only one 
+     * object of this class exists.
      */
     private OceanGrid() {
         grid = new Position.Status[10][10];
@@ -46,7 +48,8 @@ public class OceanGrid {
     }
 
     /**
-     * UNFINISHED
+     * Returns singleton instance of OceanGrid. If there is no instance (this is
+     * the first time the instance is needed) it creates one.
      *
      * @return
      */

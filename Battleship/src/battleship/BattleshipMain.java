@@ -23,27 +23,27 @@ public class BattleshipMain {
 
         /* Carrier 5 */
         Position startPosition = new Position(1, 1, Position.Status.SHIP);
-        Position endPosition = new Position(1, 6, Position.Status.SHIP);
+        Position endPosition = new Position(1, 5, Position.Status.SHIP);
         bsg.updateShip(startPosition, endPosition, "Carrier");
 
         /* Battleship 4 */
         startPosition.setPosition(2, 1);
-        endPosition.setPosition(2, 5);
+        endPosition.setPosition(2, 4);
         bsg.updateShip(startPosition, endPosition, "Battleship");
 
         /* Cruiser 3 */
         startPosition.setPosition(3, 1);
-        endPosition.setPosition(3, 4);
+        endPosition.setPosition(3, 3);
         bsg.updateShip(startPosition, endPosition, "Cruiser");
 
         /* Submarine 3 */
         startPosition.setPosition(4, 1);
-        endPosition.setPosition(4, 4);
+        endPosition.setPosition(4, 3);
         bsg.updateShip(startPosition, endPosition, "Submarine");
 
         /* Destroyer 2 */
         startPosition.setPosition(5, 1);
-        endPosition.setPosition(5, 3);
+        endPosition.setPosition(5, 2);
         bsg.updateShip(startPosition, endPosition, "Destroyer");
 
         bsg.ocean.printGrid();
