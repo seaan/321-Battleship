@@ -1,7 +1,5 @@
 package battleship;
 
-import java.util.Scanner;
-
 /**
  * Contains elements of a game of battleship, as well as handle the
  * interactions between the GUI and the underlying data structures.

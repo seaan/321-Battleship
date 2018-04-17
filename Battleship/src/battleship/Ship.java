@@ -54,6 +54,9 @@ public class Ship {
         shipLength = length;
         hitCount = 0;
         isSunk = false;
+
+        startPosition = new Position(0, 0, Position.Status.EMPTY);
+        endPosition = new Position(0, 0, Position.Status.EMPTY);
     }
 
     /**
@@ -111,11 +114,14 @@ public class Ship {
         /* Create a reference to the OceanGrid singleton. */
         OceanGrid og = OceanGrid.getInstance();
         /* Create a position to be used when setPeg is called. */
-        Position newPosition = new Position(startPosition.getX(), startPosition.getY(), Position.Status.SHIP);
+        Position newPosition = new Position(start.getX(), start.getY(), Position.Status.SHIP);
 
         /* Copy the contents of the parameters to the Ship fields. */
-        this.startPosition = start;
-        this.endPosition = end;
+        startPosition.setPosition(start.getX(), start.getY());
+        startPosition.setStatus(start.getStatus());
+
+        endPosition.setPosition(end.getX(), end.getY());
+        endPosition.setStatus(end.getStatus());
 
         /* First set the orientation of the ship. */
         if (startPosition.getX() == endPosition.getX()) {
@@ -174,7 +180,7 @@ public class Ship {
         OceanGrid og = OceanGrid.getInstance();
 
         /* Check to see if the position is within the range of the ship. */
-        if ((startPosition.getX() <= position.getX()) && (position.getX() <= endPosition.getX())
+        if ((this.startPosition.getX() <= position.getX()) && (position.getX() <= endPosition.getX())
                 && ((startPosition.getY() <= position.getY() && position.getY() <= endPosition.getY()))) {
             return true;
         } else if ((startPosition.getX() >= position.getX() && position.getX() >= endPosition.getX())
