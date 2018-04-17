@@ -10,19 +10,13 @@ import java.util.Scanner;
  */
 public class BattleshipGame {
 
-    /**
-     * Field to hold the player's name, which will be used in initalizeGame
-     */
+    /* Field to hold the player's name, which will be used in initalizeGame */
     private String playerName;
 
-    /**
-     * An instance of Fleet is needed to hold the appropriate ships.
-     */
+    /* An instance of Fleet is needed to hold the appropriate ships. */
     Fleet fleet;
 
-    /**
-     * An instance of both TargetGrid and OceanGrid are needed.
-     */
+    /* An instance of both TargetGrid and OceanGrid are needed. */
     TargetGrid target;
     OceanGrid ocean;
 

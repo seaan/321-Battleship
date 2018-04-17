@@ -6,8 +6,9 @@
 package battleship;
 
 /**
+ * Contains the main method for the program.
  *
- * @author Sean Widmier, Kyle Daigle
+ * @author Sean Widmier, Kyle Daigle, Kelly Manley, Robert Womack
  */
 public class BattleshipMain {
 
@@ -16,6 +17,6 @@ public class BattleshipMain {
      */
     public static void main(String[] args) {
         Launcher launcher = new Launcher();
-        launcher.runSim();
+        launcher.runGame();
     }
 }

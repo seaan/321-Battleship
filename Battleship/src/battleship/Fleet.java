@@ -1,17 +1,27 @@
 package battleship;
 
 /**
+ * Aggregates instances of ship needed for a game of Battleship. This includes:
+ * Carrier, Battleship, Cruiser, Submarine, and Destroyer. Also provides methods
+ * to access each Ship, as well as methods to easily place, check the position
+ * of, and hit multiple or unspecified ships.
  *
- * @author Sean
+ * @author Sean Widmier, Kyle Daigle
  */
 public class Fleet {
 
+    /* Instances of each ship needed for a game of Battleship */
     private final Ship Carrier;
     private final Ship Battleship;
     private final Ship Cruiser;
     private final Ship Submarine;
     private final Ship Destroyer;
 
+    /**
+     * Constructor for fleet, will create instances of each ship needed for a
+     * game of Battleship. Includes: Carrier, Battleship, Cruiser, Submarine,
+     * and Destroyer.
+     */
     protected Fleet() {
         Carrier = new Ship("Carrier", 5);
         Battleship = new Ship("Battleship", 4);
@@ -20,22 +30,47 @@ public class Fleet {
         Destroyer = new Ship("Destroyer", 2);
     }
 
+    /**
+     * Accessor for the Fleet's instance of the Carrier Ship.
+     *
+     * @return A Ship instance for the Carrier.
+     */
     public Ship getCarrier() {
         return Carrier;
     }
 
+    /**
+     * Accessor for the Fleet's instance of the Battleship Ship.
+     *
+     * @return A ship instance for the Battleship.
+     */
     public Ship getBattleship() {
         return Battleship;
     }
 
+    /**
+     * Accessor for the Fleet's instance of the Cruiser Ship.
+     *
+     * @return A ship instance for the Cruiser.
+     */
     public Ship getCruiser() {
         return Cruiser;
     }
 
+    /**
+     * Accessor for the Fleet's instance of the Submarine Ship.
+     *
+     * @return A ship instance for the Submarine.
+     */
     public Ship getSubmarine() {
         return Submarine;
     }
 
+    /**
+     * Accessor for the Fleet's instance of the Destroyer Ship.
+     *
+     * @return A ship instance for the Destroyer.
+     */
     public Ship getDestroyer() {
         return Destroyer;
     }
@@ -84,12 +119,14 @@ public class Fleet {
     }
 
     /**
+     * Sets the position of a given ship type within the Fleet aggregation.
      *
-     * @param type the value of type
-     * @param start the value of start
-     * @param end the value of end
+     * @param type The type of ship to be placed, includes:
+     * Carrier, Battleship, Cruiser, Submarine, and Destroyer.
+     * @param start The "start" position of the ship, typically the front.
+     * @param end The "end" position of the ship, typically the back.
      */
-    protected void placeShip(String type, Position start, Position end) {        //testing function
+    protected void placeShip(String type, Position start, Position end) {
         switch (type) {
             case "Carrier":
                 Carrier.setPosition(start, end);

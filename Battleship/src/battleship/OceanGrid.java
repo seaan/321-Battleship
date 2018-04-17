@@ -1,21 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package battleship;
 
 /**
+ * A singleton that acts as the ocean grid for a game of Battleship.
+ * The ocean grid is where the user places their ships, and marks where the
+ * enemy has hit their ships or missed a shot. OceanGrid contains an instance of
+ * Fleet, as well as a counter for the number of ships sunk and a grid
+ * indicating the Status of each location.
  *
  * @author Kyle Daigle, Sean Widmier
  */
 public class OceanGrid {
 
+    /* UNFINISHED */
     private static OceanGrid instance = null;
+    /* */
     private static Fleet fleet;
+    /* Counter to keep track of the number of friendly ships sunk. */
     private static int shipsSunk;
+    /* A grid containing information about the Status of each location. */
     private static Position.Status[][] grid;
 
+    /**
+     * A private constructor, so that OceanGrid is a singleton. UNFINISHED
+     */
     private OceanGrid() {
         grid = new Position.Status[10][10];
         fleet = new Fleet();
@@ -23,16 +30,26 @@ public class OceanGrid {
 
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                grid[i][j] = Position.Status.EMPTY;                 //initialize grid to "empty"
+                grid[i][j] = Position.Status.EMPTY;
             }
         }
 
     }
 
+    /**
+     * Accesses the instance of Fleet in OceanGrid.
+     *
+     * @return A fleet instance.
+     */
     public static Fleet getFleet() {
         return fleet;
     }
 
+    /**
+     * UNFINISHED
+     *
+     * @return
+     */
     protected static OceanGrid getInstance() {
         if (instance == null) {
             instance = new OceanGrid();
@@ -40,6 +57,13 @@ public class OceanGrid {
         return instance;
     }
 
+    /**
+     * Sets the status of the location given in position to the held status of
+     * position. Also checks whether the location is currently filled by a ship,
+     * if it is call hitLocation(), and set the status to HIT.
+     *
+     * @param position The Position on which the peg to be set is.
+     */
     protected void setPeg(Position position) {
         if (fleet.checkShipLocation(position)) {
             fleet.hitLocation(position);
@@ -49,14 +73,28 @@ public class OceanGrid {
         grid[position.getX()][position.getY()] = position.getStatus();
     }
 
+    /**
+     * Accesses the Status of the grid at the given Position.
+     *
+     * @param position The Position to be used when accessing the grid.
+     * @return The Status of the grid at position.
+     */
     protected Position.Status getGridAt(Position position) {
         return grid[position.getX()][position.getY()];
     }
 
-    protected void incrementSunkCount() {
+    /**
+     * Mutates the counter for the number of friendly ships sunk.
+     */
+    protected void incrementFriendlyShipsSunk() {
         shipsSunk++;
     }
 
+    /**
+     * Accessor for the counter for the number of friendly ships sunk.
+     *
+     * @return The number of friendly ships sunk.
+     */
     protected int getFriendlyShipsSunk() {
         return shipsSunk;
     }

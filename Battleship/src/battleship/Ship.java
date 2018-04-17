@@ -6,43 +6,36 @@
 package battleship;
 
 /**
+ * A single ship within the game, has fields detailing the type, length,
+ * hit count, sunk status, and position, as well as appropriate accessors and
+ * mutators. Meant to be aggregated within an instance of Fleet.
  *
- * @author Sean Widmier, Kyle Daigle, Kelly Manley, Robert Womack
+ * @author Sean Widmier, Kyle Daigle
  */
 public class Ship {
 
-    /**
-     * The field for type of ship is held by a string. This can include:
-     * Carrier, Battleship, Cruiser, Submarine, Destroyer
+    /* The field for type of ship is held by a string. This can include:
+     * Carrier, Battleship, Cruiser, Submarine, Destroyer.
      */
     private String shipType;
-    /**
-     * The number of grid squares that the ship takes up
-     */
+    /* The number of grid squares that the ship takes up. */
     private int shipLength;
-    /**
-     * The number of hits the ship has sustained
-     */
+    /* The number of hits the ship has sustained. */
     private int hitCount;
-    /**
-     * Indicates whether the ship object has been sunk or not
-     */
+    /* Indicates whether the ship object has been sunk or not. */
     private boolean isSunk;
 
-    /**
-     * Holds the "start" position of the ship, typically the front.
-     */
+    /* Holds the "start" position of the ship, typically the front. */
     private Position startPosition;
-    /**
-     * Holds the "end" position of the ship, typically the back.
-     */
+    /* Holds the "end" position of the ship, typically the back. */
     private Position endPosition;
 
-    /**
-     * Holds the orientation of the ship, used in setPosition()
-     */
     Orientation orientation;
 
+    /**
+     * The orientation of the ship, either horizontal (x locations are the same)
+     * or vertical (y locations are the same), to be used in setPosition().
+     */
     private enum Orientation {
         HORIZONTAL, VERTICAL;
     }
@@ -103,7 +96,7 @@ public class Ship {
             isSunk = true;
 
             OceanGrid og = OceanGrid.getInstance();
-            og.incrementSunkCount();
+            og.incrementFriendlyShipsSunk();
         }
     }
 
@@ -171,6 +164,7 @@ public class Ship {
 
     /**
      * Checks to see if the Ship is located within the given position.
+     *
      * @param position The position to be checked
      *
      * @return True indicates the ship is present, false indicates it is not.
