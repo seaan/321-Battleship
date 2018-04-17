@@ -5,7 +5,7 @@
  */
 package battleship;
 
-import battleship.OceanGrid;
+import battleship.TargetGrid;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -26,8 +26,8 @@ import javax.swing.SwingUtilities;
  *
  * @author Kyle
  */
-public class OceanGUI extends JFrame {
-     OceanGrid og = OceanGrid.getInstance();
+public class TargetGUI extends JFrame {
+     TargetGrid tg = TargetGrid.getInstance();
      
    // Grid Layout
    public static final int ROWS = 10;  
@@ -60,7 +60,7 @@ public class OceanGUI extends JFrame {
    private JLabel statusBar;  // Status Bar
   
    /** Constructor to setup the game and the GUI components */
-   public OceanGUI() {
+   public TargetGUI() {
       canvas = new DrawCanvas();  // Construct a drawing canvas (a JPanel)
       canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
   
@@ -78,10 +78,14 @@ public class OceanGUI extends JFrame {
             if (currentState == GameState.PLAYING) {
                if (row >= 0 && row < ROWS && col >= 0
                      && col < COLS && board[row][col] == Peg.EMPTY) {
-                    if(og.setPeg(row, col) == 1)
-                        board[row][col] = Peg.HIT;
-                    else
+                    if(e.getButton() == 1) {
                         board[row][col] = Peg.MISS;
+                        tg.setMiss(row, col);
+                    }
+                    else {
+                        board[row][col] = Peg.HIT;
+                        tg.setHit(row, col);
+                    }
                     //board[row][col] = Peg.HIT;  
                }
             } else {       // game over
