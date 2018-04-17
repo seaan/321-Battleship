@@ -17,9 +17,9 @@ public class Ship {
     /* The field for type of ship is held by a string. This can include:
      * Carrier, Battleship, Cruiser, Submarine, Destroyer.
      */
-    private String shipType;
+    private final String shipType;
     /* The number of grid squares that the ship takes up. */
-    private int shipLength;
+    private final int shipLength;
     /* The number of hits the ship has sustained. */
     private int hitCount;
     /* Indicates whether the ship object has been sunk or not. */

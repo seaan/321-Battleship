@@ -13,7 +13,7 @@ public class OceanGrid {
 
     /* UNFINISHED */
     private static OceanGrid instance = null;
-    /* */
+    /* Instance of Fleet to hold all of the ships necessary for OceanGrid */
     private static Fleet fleet;
     /* Counter to keep track of the number of friendly ships sunk. */
     private static int shipsSunk;
