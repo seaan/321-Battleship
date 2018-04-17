@@ -45,7 +45,10 @@ public class BattleshipMain {
         startPosition.setPosition(5, 1);
         endPosition.setPosition(5, 2);
         bsg.updateShip(startPosition, endPosition, "Destroyer");
-
+        
+        Position pegPosition = new Position(1,1,Position.Status.HIT);
+        bsg.updatePeg(pegPosition, 0);
+        
         bsg.ocean.printGrid();
 
 //        Launcher launcher = new Launcher();
