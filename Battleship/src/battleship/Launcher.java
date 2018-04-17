@@ -7,13 +7,13 @@ package battleship;
 
 /**
  *
- * @author Sean Widmier, Kyle Daigle, Kelly Manley, Robert Womack 
+ * @author Sean Widmier, Kyle Daigle, Kelly Manley, Robert Womack
  */
 public class Launcher {
 //    protected GUI gui = new GUI();
-    
-    protected void runSim(){
+
+    protected void runSim() {
 //        gui.start();
-        
+
     }
 }

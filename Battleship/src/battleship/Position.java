@@ -10,24 +10,33 @@ package battleship;
  * @author Sean
  */
 public class Position {
+
     private int x;
     private int y;
 
-    protected enum Status{
+    protected enum Status {
         EMPTY, HIT, MISS, SHIP
     }
-    
-    private Status status; 
-    
-    protected Position(int x, int y, Status status){
+
+    private Status status;
+
+    protected Position(int x, int y, Status status) {
         this.x = x;
         this.y = y;
         this.status = status;
     }
-    
+
     public void setPosition(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Status getStatus() {
+        return status;
     }
 
     public int getX() {

@@ -7,9 +7,10 @@ package battleship;
 
 /**
  *
- * @author Sean Widmier, Kyle Daigle, Kelly Manley, Robert Womack 
+ * @author Sean Widmier, Kyle Daigle
  */
 public class BattleshipMain {
+
     /**
      * @param args the command line arguments
      */

@@ -7,8 +7,8 @@ package battleship;
 
 /**
  *
- * @author Sean Widmier, Kyle Daigle, Kelly Manley, Robert Womack 
+ * @author Sean Widmier, Kyle Daigle, Kelly Manley, Robert Womack
  */
 public class Menu {
-    
+
 }
