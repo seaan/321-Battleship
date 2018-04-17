@@ -44,11 +44,11 @@ public class OceanGrid {
         return instance;
     }
     
-    protected void setPeg(int x, int y) {
-        if(fleet.checkShipLocation(x, y))
-            grid[x][y] = 1;
+    protected void setPeg(Position position) {
+        if(fleet.checkShipLocation(position))
+            grid[position.getX()][position.getY()] = 1;
         else 
-            grid[x][y] = 2;
+            grid[position.getX()][position.getY()] = 2;
     }
     
     protected void setShip(int x, int y) {

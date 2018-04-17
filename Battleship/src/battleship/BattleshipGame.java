@@ -31,11 +31,8 @@ public class BattleshipGame {
          * grids and ships needed.
          */
         protected void initializeGame() {
-                System.out.println("Please enter your name: ");
-                Scanner input = new Scanner(System.in);
-
-                playerName = input.nextLine();
-                greetPlayer();
+//            playerName = gui.promptPlayerName();
+//            gui.greetPlayer(playerName);
 
                 ocean = OceanGrid.getInstance();
                 target = TargetGrid.getInstance();
@@ -45,22 +42,27 @@ public class BattleshipGame {
 
         /**
          * Updates the location of a ship on the ocean grid.
-         * @param position The position to move the ship to.
+         * @param start The start position to move the ship to.
+         * @param end The end position to move the ship to.
          * @param type The type of ship to be moved, includes:
          *             Carrier, Battleship, Cruiser, Submarine, Destroyer
          */
-        protected void updateShip(Position position, String type) {
+        protected void updateShip(Position start, Position end, String type) {
                 switch (type) {
                         case "Carrier":
-                                fleet.getCarrier().setPosition(0, 0);
+                                fleet.getCarrier().setPosition(start, end);
                                 break;
                         case "Battleship":
+                            fleet.getBattleship().setPosition(start, end);
                                 break;
                         case "Cruiser":
+                            fleet.getCruiser().setPosition(start, end);
                                 break;
                         case "Submarine":
+                            fleet.getSubmarine().setPosition(start, end);
                                 break;
                         case "Destroyer":
+                            fleet.getDestroyer().setPosition(start, end);
                                 break;
                 }
         }
@@ -73,8 +75,8 @@ public class BattleshipGame {
                 if (ocean.getFriendlyShipsSunk() > 4) {
                         showDefeat();
                 }
-        if(gui.getEnemyShipSunk() > 4)
-            gui.showVictoryMessage();
+//        if(gui.getEnemyShipSunk() > 4)
+//            gui.showVictoryMessage();
         }
         
         /**
@@ -90,7 +92,7 @@ public class BattleshipGame {
         protected void updatePeg(Position position, int gridType, int pegType) {
                 if (gridType == 0) {
                         /* Ocean Grid */
-                        ocean.setPeg(x, y);
+                        ocean.setPeg(x);
                 } else {
                         /* Target Grid */
                         if (pegType == 1) {

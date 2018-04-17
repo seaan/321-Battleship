@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package battleship;
 
 /**
@@ -44,16 +39,16 @@ public class Fleet {
         return Destroyer;
     }
     
-    protected boolean checkShipLocation(int x, int y) {
-        if(Carrier.checkPosition(x, y))
+    protected boolean checkShipLocation(Position position) {
+        if(Carrier.checkPosition(position.getX(), position.getY()))
             return true;
-        else if(Battleship.checkPosition(x, y))
+        else if(Battleship.checkPosition(position.getX(), position.getY()))
             return true;
-        else if(Cruiser.checkPosition(x, y))
+        else if(Cruiser.checkPosition(position.getX(), position.getY()))
             return true;
-        else if(Submarine.checkPosition(x, y))
+        else if(Submarine.checkPosition(position.getX(), position.getY()))
             return true;
-        else if(Destroyer.checkPosition(x, y))
+        else if(Destroyer.checkPosition(position.getX(), position.getY()))
             return true;
         else
             return false;
