@@ -10,13 +10,15 @@ package battleship;
  */
 public class TargetGrid {
 
-    /* UNFINISHED */
+    /* Singleton instance of object */
     private static TargetGrid instance = null;
     /* A grid containing the Status of each location. */
     private static Position.Status[][] grid;
 
     /**
-     * UNFINISHED
+     * A private constructor, so that OceanGrid is a singleton. The constructor
+     * can only be called in the getInstance function to ensure only one 
+     * object of this class exists.
      */
     private TargetGrid() {
         grid = new Position.Status[10][10];
@@ -29,9 +31,9 @@ public class TargetGrid {
     }
 
     /**
-     * UNFINISHED
-     *
-     * @return
+     * Returns singleton instance of TargetGrid. If there is no instance (this is
+     * the first time the instance is needed) it creates one.     *
+     * @return 
      */
     protected static TargetGrid getInstance() {
         if (instance == null) {
