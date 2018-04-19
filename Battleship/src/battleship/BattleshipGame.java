@@ -7,7 +7,9 @@ package battleship;
  * @author Sean Widmier, Kyle Daigle
  */
 public class BattleshipGame {
-
+    /* Singleton instance of object */
+    private static BattleshipGame instance = null;
+    
     /* Field to hold the player's name, which will be used in initalizeGame */
     private String playerName;
 
@@ -22,14 +24,21 @@ public class BattleshipGame {
      * Starts a game of Battleship, greeting the player then initializing
      * grids and ships needed.
      */
-    protected void initializeGame() {
+    private BattleshipGame() {
 //            playerName = gui.promptPlayerName();
 //            gui.greetPlayer(playerName);
 
-        ocean = OceanGrid.getInstance();
-        target = TargetGrid.getInstance();
+        ocean = new OceanGrid();
+        target = new TargetGrid();
 
         fleet = new Fleet();
+    }
+    
+    protected static BattleshipGame getInstance() {
+        if (instance == null) {
+            instance = new BattleshipGame();
+        }
+        return instance;
     }
 
     /**
@@ -80,13 +89,21 @@ public class BattleshipGame {
      * 0 = Ocean Grid
      * 1 = Target Grid
      */
-    protected void updatePeg(Position position, int gridType) {
+    protected Position.Status updatePeg(Position position, int gridType) {
         if (gridType == 0) {
             /* Ocean Grid */
-            ocean.setPeg(position);
+            return ocean.setPeg(position);
         } else {
             /* Target Grid */
-            target.setPeg(position);
+            return target.setPeg(position);
         }
+    }
+    
+    protected OceanGrid getOceanGrid(){
+        return ocean;
+    }
+    
+    protected TargetGrid getTargetGrid(){
+        return target;
     }
 }

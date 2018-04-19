@@ -11,46 +11,15 @@ package battleship;
  * @author Sean Widmier, Kyle Daigle, Kelly Manley, Robert Womack
  */
 public class BattleshipMain {
-
-    static BattleshipGame bsg = new BattleshipGame();
-
+    BattleshipGame bsg = BattleshipGame.getInstance();
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         /* TESTING, DELETE */
-        bsg.initializeGame();
-
-        /* Carrier 5 */
-        Position startPosition = new Position(1, 1, Position.Status.SHIP);
-        Position endPosition = new Position(1, 5, Position.Status.SHIP);
-        bsg.updateShip(startPosition, endPosition, "Carrier");
-
-        /* Battleship 4 */
-        startPosition.setPosition(2, 1);
-        endPosition.setPosition(2, 4);
-        bsg.updateShip(startPosition, endPosition, "Battleship");
-
-        /* Cruiser 3 */
-        startPosition.setPosition(3, 1);
-        endPosition.setPosition(3, 3);
-        bsg.updateShip(startPosition, endPosition, "Cruiser");
-
-        /* Submarine 3 */
-        startPosition.setPosition(4, 1);
-        endPosition.setPosition(4, 3);
-        bsg.updateShip(startPosition, endPosition, "Submarine");
-
-        /* Destroyer 2 */
-        startPosition.setPosition(5, 1);
-        endPosition.setPosition(5, 2);
-        bsg.updateShip(startPosition, endPosition, "Destroyer");
+        OceanGUI ocg = new OceanGUI();
+        TargetGUI tg = new TargetGUI();
         
-        Position pegPosition = new Position(1,1,Position.Status.HIT);
-        bsg.updatePeg(pegPosition, 0);
-        
-        bsg.ocean.printGrid();
-
 //        Launcher launcher = new Launcher();
 //        launcher.runGame();
     }

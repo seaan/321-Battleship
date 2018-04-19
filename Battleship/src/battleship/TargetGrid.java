@@ -9,10 +9,7 @@ package battleship;
  * @author Kyle Daigle, Sean Widmier
  */
 public class TargetGrid {
-
-    /* Singleton instance of object */
-    private static TargetGrid instance = null;
-    /* A grid containing the Status of each location. */
+/* A grid containing the Status of each location. */
     private static Position.Status[][] grid;
 
     /**
@@ -20,7 +17,7 @@ public class TargetGrid {
      * can only be called in the getInstance function to ensure only one 
      * object of this class exists.
      */
-    private TargetGrid() {
+    public TargetGrid() {
         grid = new Position.Status[10][10];
 
         for (int i = 0; i < 10; i++) {
@@ -29,27 +26,16 @@ public class TargetGrid {
             }
         }
     }
-
-    /**
-     * Returns singleton instance of TargetGrid. If there is no instance (this is
-     * the first time the instance is needed) it creates one.     *
-     * @return 
-     */
-    protected static TargetGrid getInstance() {
-        if (instance == null) {
-            instance = new TargetGrid();
-        }
-        return instance;
-    }
-
+    
     /**
      * Sets the status of the location given in position to the held status of
      * position.
      *
      * @param position The Position on which the peg to be set is.
      */
-    protected void setPeg(Position position) {
+    protected Position.Status setPeg(Position position) {
         grid[position.getX()][position.getY()] = position.getStatus();
+        return position.getStatus();
     }
 
     /**
