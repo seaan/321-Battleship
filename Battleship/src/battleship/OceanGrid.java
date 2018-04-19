@@ -18,9 +18,7 @@ public class OceanGrid {
     private static Position.Status[][] grid;
 
     /**
-     * A private constructor, so that OceanGrid is a singleton. The constructor
-     * can only be called in the getInstance function to ensure only one 
-     * object of this class exists.
+     * Makes an instance of OceanGrid such that the resultant grid is empty.
      */
     protected OceanGrid() {
         grid = new Position.Status[10][10];
@@ -50,6 +48,7 @@ public class OceanGrid {
      * if it is call hitLocation(), and set the status to HIT.
      *
      * @param position The Position on which the peg to be set is.
+     * @return The Status of the peg set.
      */
     protected Position.Status setPeg(Position position) {
         if (fleet.checkShipLocation(position)) {
@@ -86,15 +85,5 @@ public class OceanGrid {
      */
     protected int getFriendlyShipsSunk() {
         return shipsSunk;
-    }
-
-    /* TEST METHOD, DELETE */
-    protected void printGrid() {
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                System.out.print(grid[j][i] + "  ");
-            }
-            System.out.println();
-        }
     }
 }

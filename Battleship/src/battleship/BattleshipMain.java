@@ -16,10 +16,6 @@ public class BattleshipMain {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        /* TESTING, DELETE */
-        OceanGUI ocg = new OceanGUI();
-        TargetGUI tg = new TargetGUI();
-        
 //        Launcher launcher = new Launcher();
 //        launcher.runGame();
     }

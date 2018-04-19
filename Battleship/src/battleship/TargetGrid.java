@@ -13,9 +13,7 @@ public class TargetGrid {
     private static Position.Status[][] grid;
 
     /**
-     * A private constructor, so that OceanGrid is a singleton. The constructor
-     * can only be called in the getInstance function to ensure only one 
-     * object of this class exists.
+     * Makes an instance of TargetGrid such that the resultant grid is empty.
      */
     public TargetGrid() {
         grid = new Position.Status[10][10];

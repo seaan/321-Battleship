@@ -19,14 +19,15 @@ public class BattleshipGame {
     /* An instance of both TargetGrid and OceanGrid are needed. */
     TargetGrid target;
     OceanGrid ocean;
-
+    
     /**
-     * Starts a game of Battleship, greeting the player then initializing
-     * grids and ships needed.
+     * A private constructor, so that BattleshipGame is a singleton. The constructor
+     * can only be called in the getInstance function to ensure only one 
+     * object of this class exists.
      */
     private BattleshipGame() {
-//            playerName = gui.promptPlayerName();
-//            gui.greetPlayer(playerName);
+//        playerName = gui.promptPlayerName();
+//        gui.greetPlayer(playerName);
 
         ocean = new OceanGrid();
         target = new TargetGrid();
@@ -34,6 +35,11 @@ public class BattleshipGame {
         fleet = new Fleet();
     }
     
+    /**
+     * Checks for an instance of BattleshipGame. If there is no instance, one
+     * is created.
+     * @return singleton instance of BattleshipGame 
+     */
     protected static BattleshipGame getInstance() {
         if (instance == null) {
             instance = new BattleshipGame();
@@ -88,6 +94,7 @@ public class BattleshipGame {
      * @param gridType The grid upon which the peg will be updated.
      * 0 = Ocean Grid
      * 1 = Target Grid
+     * @return The status of the peg set.
      */
     protected Position.Status updatePeg(Position position, int gridType) {
         if (gridType == 0) {
@@ -99,10 +106,18 @@ public class BattleshipGame {
         }
     }
     
+    /**
+     * Accesses the local instance of OceanGrid.
+     * @return instance of OceanGrid
+     */
     protected OceanGrid getOceanGrid(){
         return ocean;
     }
     
+    /**
+     * Accesses the local instance of TargetGrid.
+     * @return instance of TargetGrid
+     */
     protected TargetGrid getTargetGrid(){
         return target;
     }
