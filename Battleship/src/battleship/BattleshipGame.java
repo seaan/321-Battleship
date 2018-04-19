@@ -1,86 +1,109 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package battleship;
 
-import java.util.Scanner;
 /**
+ * Contains elements of a game of battleship, as well as handle the
+ * interactions between the GUI and the underlying data structures.
  *
- * @author Sean Widmier, Kyle Daigle, Kelly Manley, Robert Womack 
+ * @author Sean Widmier, Kyle Daigle
  */
 public class BattleshipGame {
+    /* Singleton instance of object */
+    private static BattleshipGame instance = null;
+    
+    /* Field to hold the player's name, which will be used in initalizeGame */
     private String playerName;
-    
-    protected Fleet fleet;
-    
+
+    /* An instance of Fleet is needed to hold the appropriate ships. */
+    Fleet fleet;
+
+    /* An instance of both TargetGrid and OceanGrid are needed. */
     TargetGrid target;
     OceanGrid ocean;
-    
-    protected BattleshipGame(){
-        
+
+    /**
+     * Starts a game of Battleship, greeting the player then initializing
+     * grids and ships needed.
+     */
+    private BattleshipGame() {
+//            playerName = gui.promptPlayerName();
+//            gui.greetPlayer(playerName);
+
+        ocean = new OceanGrid();
+        target = new TargetGrid();
+
+        fleet = new Fleet();
     }
     
-    protected void initializeGame() {
-        System.out.println("Please enter your name: ");
-        Scanner input = new Scanner(System.in);
-        
-        playerName = input.nextLine();
-        greetPlayer();
-        
-        ocean = OceanGrid.getInstance();
-        target = TargetGrid.getInstance();
-        
-        initializeAllShips();
+    protected static BattleshipGame getInstance() {
+        if (instance == null) {
+            instance = new BattleshipGame();
+        }
+        return instance;
     }
-    
-    private void initializeAllShips() {
-        //fleet = new Fleet();
-    }
-    
-    protected void updateShip(Position position, String type){
-        switch(type){
+
+    /**
+     * Updates the location of a ship on the ocean grid.
+     *
+     * @param start The start position to move the ship to.
+     * @param end The end position to move the ship to.
+     * @param type The type of ship to be moved, includes:
+     * Carrier, Battleship, Cruiser, Submarine, Destroyer
+     */
+    protected void updateShip(Position start, Position end, String type) {
+        switch (type) {
             case "Carrier":
+                fleet.getCarrier().setPosition(start, end);
                 break;
             case "Battleship":
+                fleet.getBattleship().setPosition(start, end);
                 break;
             case "Cruiser":
+                fleet.getCruiser().setPosition(start, end);
                 break;
             case "Submarine":
+                fleet.getSubmarine().setPosition(start, end);
                 break;
             case "Destroyer":
+                fleet.getDestroyer().setPosition(start, end);
                 break;
         }
     }
-    
-    private void greetPlayer() {
-        System.out.println("Greetings, Admiral " + playerName + "!");
-    }
-    
+
+    /**
+     * Checks the number of friendly and enemy ships sunk.
+     * If either are above 4, the game has ended.
+     */
     protected void checkGameStatus() {
-        if(ocean.getFriendlyShipsSunk() > 4)
-            showDefeat();
-//        if(ocean.getEnemyShipSunk() > 4)
+        if (ocean.getFriendlyShipsSunk() > 4) {
+//                        gui.showDefeatMesssage();
+        }
+//        if(gui.getEnemyShipSunk() > 4)
 //            gui.showVictoryMessage();
     }
-    
-    protected void updatePeg(int x, int y, int gridType, int pegType) {
-        if(gridType == 0) {                 // Ocean
-            ocean.setPeg(x, y);
-        }
-        else {                              // Target
-            if(pegType == 1)
-                target.setHit(x, y);
-            else
-                target.setMiss(x, y);
-        }
-    }
-    
-    private void showDefeat() {
-        System.out.println("You lost");
-    }
 
+    /**
+     * Updates the given position on the given grid to be the given peg.
+     *
+     * @param position The Position on the grid to be updated.
+     * @param gridType The grid upon which the peg will be updated.
+     * 0 = Ocean Grid
+     * 1 = Target Grid
+     */
+    protected Position.Status updatePeg(Position position, int gridType) {
+        if (gridType == 0) {
+            /* Ocean Grid */
+            return ocean.setPeg(position);
+        } else {
+            /* Target Grid */
+            return target.setPeg(position);
+        }
+    }
+    
+    protected OceanGrid getOceanGrid(){
+        return ocean;
+    }
+    
+    protected TargetGrid getTargetGrid(){
+        return target;
+    }
 }
-
-

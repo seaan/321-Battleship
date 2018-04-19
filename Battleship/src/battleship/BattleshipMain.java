@@ -6,15 +6,21 @@
 package battleship;
 
 /**
+ * Contains the main method for the program.
  *
- * @author Sean Widmier, Kyle Daigle, Kelly Manley, Robert Womack 
+ * @author Sean Widmier, Kyle Daigle, Kelly Manley, Robert Womack
  */
 public class BattleshipMain {
+    BattleshipGame bsg = BattleshipGame.getInstance();
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Launcher launcher = new Launcher();
-        launcher.runSim();
+        /* TESTING, DELETE */
+        OceanGUI ocg = new OceanGUI();
+        TargetGUI tg = new TargetGUI();
+        
+//        Launcher launcher = new Launcher();
+//        launcher.runGame();
     }
 }
