@@ -98,8 +98,8 @@ public class Ship {
         if (hitCount == shipLength) {
             isSunk = true;
 
-            OceanGrid og = OceanGrid.getInstance();
-            og.incrementFriendlyShipsSunk();
+            BattleshipGame bsg = BattleshipGame.getInstance();
+            bsg.getOceanGrid().incrementFriendlyShipsSunk();
         }
     }
 
@@ -112,7 +112,7 @@ public class Ship {
      */
     protected void setPosition(Position start, Position end) {
         /* Create a reference to the OceanGrid singleton. */
-        OceanGrid og = OceanGrid.getInstance();
+        BattleshipGame bsg = BattleshipGame.getInstance();
         /* Create a position to be used when setPeg is called. */
         Position newPosition = new Position(start.getX(), start.getY(), Position.Status.SHIP);
 
@@ -141,13 +141,13 @@ public class Ship {
                     /* For the length of the ship, add ship pegs. */
                     for (int i = startPosition.getY(); i <= endPosition.getY(); i++) {
                         newPosition.setPosition(startPosition.getX(), i);
-                        og.setPeg(newPosition);
+                        bsg.getOceanGrid().setPeg(newPosition);
                     }
                 } else {
                     for (int i = endPosition.getY(); i <= startPosition.getY(); i++) {
                         /* For the length of the ship, add ship pegs. */
                         newPosition.setPosition(startPosition.getX(), i);
-                        og.setPeg(newPosition);
+                        bsg.getOceanGrid().setPeg(newPosition);
                     }
                 }
             case HORIZONTAL:
@@ -156,13 +156,13 @@ public class Ship {
                     for (int i = startPosition.getX(); i <= endPosition.getX(); i++) {
                         /* For the length of the ship, add ship pegs. */
                         newPosition.setPosition(i, startPosition.getY());
-                        og.setPeg(newPosition);
+                        bsg.getOceanGrid().setPeg(newPosition);
                     }
                 } else {
                     for (int i = endPosition.getX(); i <= startPosition.getX(); i++) {
                         /* For the length of the ship, add ship pegs. */
                         newPosition.setPosition(i, startPosition.getY());
-                        og.setPeg(newPosition);
+                        bsg.getOceanGrid().setPeg(newPosition);
                     }
                 }
         }
@@ -176,9 +176,7 @@ public class Ship {
      * @return True indicates the ship is present, false indicates it is not.
      */
     protected boolean checkPosition(Position position) {
-        /* Create a reference to the OceanGrid singleton. */
-        OceanGrid og = OceanGrid.getInstance();
-
+        
         /* Check to see if the position is within the range of the ship. */
         if ((this.startPosition.getX() <= position.getX()) && (position.getX() <= endPosition.getX())
                 && ((startPosition.getY() <= position.getY() && position.getY() <= endPosition.getY()))) {

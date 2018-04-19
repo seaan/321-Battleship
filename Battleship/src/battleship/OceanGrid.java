@@ -10,9 +10,6 @@ package battleship;
  * @author Kyle Daigle, Sean Widmier
  */
 public class OceanGrid {
-
-    /* Singleton instance of object */
-    private static OceanGrid instance = null;
     /* Instance of Fleet to hold all of the ships necessary for OceanGrid */
     private static Fleet fleet;
     /* Counter to keep track of the number of friendly ships sunk. */
@@ -25,7 +22,7 @@ public class OceanGrid {
      * can only be called in the getInstance function to ensure only one 
      * object of this class exists.
      */
-    private OceanGrid() {
+    protected OceanGrid() {
         grid = new Position.Status[10][10];
         fleet = new Fleet();
         shipsSunk = 0;
@@ -46,20 +43,7 @@ public class OceanGrid {
     public static Fleet getFleet() {
         return fleet;
     }
-
-    /**
-     * Returns singleton instance of OceanGrid. If there is no instance (this is
-     * the first time the instance is needed) it creates one.
-     *
-     * @return
-     */
-    protected static OceanGrid getInstance() {
-        if (instance == null) {
-            instance = new OceanGrid();
-        }
-        return instance;
-    }
-
+    
     /**
      * Sets the status of the location given in position to the held status of
      * position. Also checks whether the location is currently filled by a ship,
@@ -67,13 +51,15 @@ public class OceanGrid {
      *
      * @param position The Position on which the peg to be set is.
      */
-    protected void setPeg(Position position) {
+    protected Position.Status setPeg(Position position) {
         if (fleet.checkShipLocation(position)) {
             fleet.hitLocation(position);
             grid[position.getX()][position.getY()] = Position.Status.HIT;
+            return Position.Status.HIT;
         }
 
         grid[position.getX()][position.getY()] = position.getStatus();
+        return position.getStatus();
     }
 
     /**

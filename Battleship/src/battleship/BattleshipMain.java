@@ -11,15 +11,14 @@ package battleship;
  * @author Sean Widmier, Kyle Daigle, Kelly Manley, Robert Womack
  */
 public class BattleshipMain {
-
-    static BattleshipGame bsg = new BattleshipGame();
-
+    BattleshipGame bsg = BattleshipGame.getInstance();
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         /* TESTING, DELETE */
-        OceanGUI = new OceanGUI();
+        OceanGUI ocg = new OceanGUI();
+        TargetGUI tg = new TargetGUI();
         
 //        Launcher launcher = new Launcher();
 //        launcher.runGame();
