@@ -7,9 +7,10 @@ package battleship;
  * @author Sean Widmier, Kyle Daigle
  */
 public class BattleshipGame {
+
     /* Singleton instance of object */
     private static BattleshipGame instance = null;
-    
+
     /* Field to hold the player's name, which will be used in initalizeGame */
     private String playerName;
 
@@ -19,10 +20,11 @@ public class BattleshipGame {
     /* An instance of both TargetGrid and OceanGrid are needed. */
     TargetGrid target;
     OceanGrid ocean;
-    
+
     /**
-     * A private constructor, so that BattleshipGame is a singleton. The constructor
-     * can only be called in the getInstance function to ensure only one 
+     * A private constructor, so that BattleshipGame is a singleton. The
+     * constructor
+     * can only be called in the getInstance function to ensure only one
      * object of this class exists.
      */
     private BattleshipGame() {
@@ -34,11 +36,12 @@ public class BattleshipGame {
 
         fleet = new Fleet();
     }
-    
+
     /**
      * Checks for an instance of BattleshipGame. If there is no instance, one
      * is created.
-     * @return singleton instance of BattleshipGame 
+     *
+     * @return singleton instance of BattleshipGame
      */
     protected static BattleshipGame getInstance() {
         if (instance == null) {
@@ -105,20 +108,22 @@ public class BattleshipGame {
             return target.setPeg(position);
         }
     }
-    
+
     /**
      * Accesses the local instance of OceanGrid.
+     *
      * @return instance of OceanGrid
      */
-    protected OceanGrid getOceanGrid(){
+    protected OceanGrid getOceanGrid() {
         return ocean;
     }
-    
+
     /**
      * Accesses the local instance of TargetGrid.
+     *
      * @return instance of TargetGrid
      */
-    protected TargetGrid getTargetGrid(){
+    protected TargetGrid getTargetGrid() {
         return target;
     }
 }

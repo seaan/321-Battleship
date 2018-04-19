@@ -10,6 +10,7 @@ package battleship;
  * @author Kyle Daigle, Sean Widmier
  */
 public class OceanGrid {
+
     /* Instance of Fleet to hold all of the ships necessary for OceanGrid */
     private static Fleet fleet;
     /* Counter to keep track of the number of friendly ships sunk. */
@@ -41,7 +42,7 @@ public class OceanGrid {
     public static Fleet getFleet() {
         return fleet;
     }
-    
+
     /**
      * Sets the status of the location given in position to the held status of
      * position. Also checks whether the location is currently filled by a ship,

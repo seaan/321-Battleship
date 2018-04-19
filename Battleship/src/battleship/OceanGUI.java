@@ -22,8 +22,9 @@ import javax.swing.SwingUtilities;
  * @author Kyle
  */
 public class OceanGUI extends JFrame {
+
     BattleshipGame bsg;
-    
+
     // Grid Layout
     public static final int ROWS = 10;
     public static final int COLS = 10;
@@ -58,8 +59,8 @@ public class OceanGUI extends JFrame {
      */
     public OceanGUI() {
         bsg = BattleshipGame.getInstance();
-        Position position = new Position(0,0,Position.Status.MISS);
-        
+        Position position = new Position(0, 0, Position.Status.MISS);
+
         canvas = new DrawCanvas();  // Construct a drawing canvas (a JPanel)
         canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
 

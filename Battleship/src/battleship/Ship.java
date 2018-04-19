@@ -176,7 +176,7 @@ public class Ship {
      * @return True indicates the ship is present, false indicates it is not.
      */
     protected boolean checkPosition(Position position) {
-        
+
         /* Check to see if the position is within the range of the ship. */
         if ((this.startPosition.getX() <= position.getX()) && (position.getX() <= endPosition.getX())
                 && ((startPosition.getY() <= position.getY() && position.getY() <= endPosition.getY()))) {

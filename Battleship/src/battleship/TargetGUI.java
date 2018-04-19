@@ -22,8 +22,9 @@ import javax.swing.SwingUtilities;
  * @author Kyle
  */
 public class TargetGUI extends JFrame {
+
     BattleshipGame bsg;
-    
+
     // Grid Layout
     public static final int ROWS = 10;
     public static final int COLS = 10;
@@ -58,8 +59,8 @@ public class TargetGUI extends JFrame {
      */
     public TargetGUI() {
         bsg = BattleshipGame.getInstance();
-        Position position = new Position(0,0,Position.Status.MISS);
-        
+        Position position = new Position(0, 0, Position.Status.MISS);
+
         canvas = new DrawCanvas();  // Construct a drawing canvas (a JPanel)
         canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
 
@@ -80,12 +81,12 @@ public class TargetGUI extends JFrame {
                         if (e.getButton() == 1) {
                             position.setPosition(row, col);
                             position.setStatus(Position.Status.MISS);
-                            
+
                             board[row][col] = Peg.MISS;
                         } else {
                             position.setPosition(row, col);
                             position.setStatus(Position.Status.HIT);
-                            
+
                             board[row][col] = Peg.HIT;
                         }
                         //board[row][col] = Peg.HIT;  

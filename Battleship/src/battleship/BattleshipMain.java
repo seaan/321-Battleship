@@ -11,7 +11,9 @@ package battleship;
  * @author Sean Widmier, Kyle Daigle, Kelly Manley, Robert Womack
  */
 public class BattleshipMain {
+
     BattleshipGame bsg = BattleshipGame.getInstance();
+
     /**
      * @param args the command line arguments
      */

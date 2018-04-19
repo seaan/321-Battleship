@@ -9,7 +9,8 @@ package battleship;
  * @author Kyle Daigle, Sean Widmier
  */
 public class TargetGrid {
-/* A grid containing the Status of each location. */
+
+    /* A grid containing the Status of each location. */
     private static Position.Status[][] grid;
 
     /**
@@ -24,7 +25,7 @@ public class TargetGrid {
             }
         }
     }
-    
+
     /**
      * Sets the status of the location given in position to the held status of
      * position.
