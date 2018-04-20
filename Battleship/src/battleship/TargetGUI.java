@@ -37,7 +37,7 @@ public class TargetGUI extends JFrame {
     public static final int COLS = 10;
 
     // Constants for creating the board
-    public static final int CELL_SIZE = 25; // cell width and height (square)
+    public static final int CELL_SIZE = 55; // cell width and height (square)
     public static final int CANVAS_WIDTH = CELL_SIZE * COLS;  // Allows the canvas to be drawn
     public static final int CANVAS_HEIGHT = CELL_SIZE * ROWS;
     public static final int GRID_WIDTH = 1;
@@ -87,6 +87,7 @@ public class TargetGUI extends JFrame {
         canvas.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                System.out.println("I'm also not broken!");
                 int mouseX = e.getX();
                 int mouseY = e.getY();
 
@@ -110,7 +111,7 @@ public class TargetGUI extends JFrame {
                     initGame(); // restarts the game
                 }
                 // Refresh the drawing canvas
-                repaint();  // Call-back paintComponent().
+                canvas.repaint();  // Call-back paintComponent().
             }
         });
 
@@ -118,15 +119,19 @@ public class TargetGUI extends JFrame {
         statusBar.setFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 15));
         statusBar.setBorder(BorderFactory.createEmptyBorder(2, 5, 4, 5));
 
-        //Container cp = getContentPane();
         panel.setLayout(new BorderLayout());
         panel.add(canvas, BorderLayout.CENTER);
         panel.add(buttonPanel, BorderLayout.LINE_END);
+        
+        /*Container cp = getContentPane();
+        cp.setLayout(new BorderLayout());
+        cp.add(canvas, BorderLayout.CENTER);
+        cp.add(buttonPanel, BorderLayout.LINE_END);*/
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        pack();  // pack all the components in this JFrame
-        setTitle("Target Grid");
-        setVisible(true);  // show this JFrame
+        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //pack();  // pack all the components in this JFrame
+        //setTitle("Target Grid");
+        //setVisible(true);  // show this JFrame
 
         board = new Peg[ROWS][COLS]; // allocate array
         initGame(); // initialize the game board contents and game variables
@@ -146,7 +151,7 @@ public class TargetGUI extends JFrame {
     }
 
     /**
-     * Update the currentState after the player with "thePeg" has placed on
+     * Update the currentState after the player with the Peg has placed on
      * (rowSelected, colSelected).
      */
     /**
@@ -176,8 +181,8 @@ public class TargetGUI extends JFrame {
 
             for (int row = 0; row < ROWS; row++) {
                 for (int col = 0; col < COLS; col++) {
-                    int x1 = col * CELL_SIZE + CELL_PADDING + 4;
-                    int y1 = row * CELL_SIZE + CELL_PADDING + 4;
+                    int x1 = col * CELL_SIZE + CELL_PADDING + 5;
+                    int y1 = row * CELL_SIZE + CELL_PADDING + 5;
 
                     if (board[row][col] == Peg.HIT) {
                         g2d.setColor(Color.RED);
