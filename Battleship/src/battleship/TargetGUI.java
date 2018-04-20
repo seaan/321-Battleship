@@ -23,6 +23,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.border.EmptyBorder;
 
 /**
  *
@@ -109,6 +110,7 @@ public class TargetGUI extends JFrame {
         statusBar.setBorder(BorderFactory.createEmptyBorder(2, 5, 4, 5));
 
         panel.setLayout(new BorderLayout());
+        panel.setBorder(new EmptyBorder(10, 10, 10, 10));
         panel.add(canvas, BorderLayout.CENTER);
         panel.add(buttonPanel, BorderLayout.LINE_END);
 
