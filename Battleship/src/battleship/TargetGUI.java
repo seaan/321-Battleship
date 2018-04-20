@@ -11,10 +11,13 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
@@ -32,6 +35,7 @@ import javax.swing.border.EmptyBorder;
 public class TargetGUI extends JFrame {
 
     TargetGrid tg = TargetGrid.getInstance();
+    private int sunk;
 
     // Grid Layout
     public static final int ROWS = 10;
@@ -78,6 +82,53 @@ public class TargetGUI extends JFrame {
         buttonPanel.add(destroyer);
         buttonPanel.setLayout(buttonLayout);
 
+        carrier.addActionListener(new // add actions for rules button
+                ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                if (carrier == (JButton) event.getSource()) {
+                    carrier.setEnabled(false);
+                    checkVictory();
+                }
+            }
+        });
+        battleship.addActionListener(new // add actions for rules button
+                ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                if (battleship == (JButton) event.getSource()) {
+                    battleship.setEnabled(false);
+                    checkVictory();
+                }
+            }
+        });
+        cruiser.addActionListener(new // add actions for rules button
+                ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                if (cruiser == (JButton) event.getSource()) {
+                    cruiser.setEnabled(false);
+                    checkVictory();
+
+                }
+            }
+        });
+        sub.addActionListener(new // add actions for rules button
+                ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                if (sub == (JButton) event.getSource()) {
+                    sub.setEnabled(false);
+                    checkVictory();
+                }
+            }
+        });
+        destroyer.addActionListener(new // add actions for rules button
+                ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                if (destroyer == (JButton) event.getSource()) {
+                    destroyer.setEnabled(false);
+                    checkVictory();
+                }
+            }
+        });
+
         // Code used to create a mouse click so they can place a O or X in the square
         canvas.addMouseListener(new MouseAdapter() {
             @Override
@@ -89,17 +140,17 @@ public class TargetGUI extends JFrame {
                 int row = mouseY / CELL_SIZE;
                 int col = mouseX / CELL_SIZE;
                 // Code above shows the row / colum selected            
-                    if (row >= 0 && row < ROWS && col >= 0
-                            && col < COLS && board[row][col] == Peg.EMPTY) {
-                        if (e.getButton() == 1) {
-                            board[row][col] = Peg.MISS;
-                            tg.setMiss(row, col);
-                        } else {
-                            board[row][col] = Peg.HIT;
-                            tg.setHit(row, col);
-                        }
-                        //board[row][col] = Peg.HIT;  
+                if (row >= 0 && row < ROWS && col >= 0
+                        && col < COLS && board[row][col] == Peg.EMPTY) {
+                    if (e.getButton() == 1) {
+                        board[row][col] = Peg.MISS;
+                        tg.setMiss(row, col);
+                    } else {
+                        board[row][col] = Peg.HIT;
+                        tg.setHit(row, col);
                     }
+                    //board[row][col] = Peg.HIT;  
+                }
                 // Refresh the drawing canvas
                 canvas.repaint();  // Call-back paintComponent().
             }
@@ -180,6 +231,48 @@ public class TargetGUI extends JFrame {
                     }
                 }
             }
+        }
+    }
+
+    public void checkVictory() {
+        sunk++;
+        if (sunk == 5) {
+            JFrame winFrame = new JFrame("You win!");
+            JPanel winPanel = new JPanel();
+
+            JLabel winLabel = new JLabel("YOU WIN!");
+            winLabel.setFont(new Font("Sanserif", Font.PLAIN, 20));
+
+            JButton playBtn = new JButton("Play Again");
+            JButton exitBtn = new JButton("Exit Game");
+
+            winPanel.setLayout(new GridLayout(3, 1));
+            winPanel.add(winLabel);
+            winPanel.add(playBtn);
+            winPanel.add(exitBtn);
+            winPanel.setPreferredSize(new Dimension(400, 200));
+
+            winFrame.getContentPane().add(winPanel);
+            winFrame.pack();
+            winFrame.setResizable(false);
+            winFrame.setLocationRelativeTo(null);
+            winFrame.setVisible(true);
+
+            playBtn.addActionListener(new // add actions for rules button
+                    ActionListener() {
+                public void actionPerformed(ActionEvent event) {
+                    System.out.println("play again");
+                    winFrame.setVisible(false);
+                }
+            });
+
+            exitBtn.addActionListener(new // add actions for exit button
+                    ActionListener() {
+                public void actionPerformed(ActionEvent event) {
+                    System.out.println("exit");
+                    System.exit(0);
+                }
+            });
         }
     }
 }
