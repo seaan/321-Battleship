@@ -5,12 +5,9 @@
  */
 package battleship;
 
-import static battleship.BattleshipGUI.readFile;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
@@ -18,10 +15,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -55,6 +52,8 @@ public class OceanGUI extends JFrame {
     private int endRow;
     private int startCol;
     private int endCol;
+
+    private JFrame frame;
 
     private enum ShipToPlace {
         CARRIER, BATTLESHIP, CRUISER, SUBMARINE, DESTROYER, NULL
@@ -94,6 +93,7 @@ public class OceanGUI extends JFrame {
         JButton cruiser = new JButton("Cruiser");
         JButton sub = new JButton("Submarine");
         JButton destroyer = new JButton("Destroyer");
+        frame = new JFrame();
 
         carrier.setPreferredSize(new Dimension(100, 40));
         battleship.setPreferredSize(new Dimension(100, 40));
@@ -175,21 +175,18 @@ public class OceanGUI extends JFrame {
                     endRow = mouseY2 / CELL_SIZE;
                     endCol = mouseX2 / CELL_SIZE;
 
-                    //if (currentState == GameState.SETUP) {
                     if (startRow >= 0 && startRow < ROWS && startCol >= 0
                             && startCol < COLS && board[startRow][startCol]
                             == Peg.EMPTY) {
                         setShip(currentShip, startRow, startCol, endRow, endCol);
                         canvas.repaint();
                     }
-
-                    System.out.println("I'm not broken!");
                 } else if (testState == 1) {
                     if (startRow >= 0 && startRow < ROWS && startCol >= 0
                             && startCol < COLS) {
-                        if (board[startRow][startCol] == Peg.SHIP) {
+                        if (board[startRow][startCol] == Peg.SHIP || board[startRow][startCol] == Peg.MISS) {
                             board[startRow][startCol] = Peg.HIT;
-                        } else {
+                        } else if (board[startRow][startCol] == Peg.EMPTY || board[startRow][startCol] == Peg.HIT) {
                             board[startRow][startCol] = Peg.MISS;
                         }
                         canvas.repaint();
@@ -221,22 +218,51 @@ public class OceanGUI extends JFrame {
                 board[row][col] = Peg.EMPTY; // all cells empty
             }
         }
+        canvas.repaint();
+    }
+
+    private void showError(String error) {
+        if (error == "shipOutOfBounds") {
+            JOptionPane.showMessageDialog(frame, "ERROR: Ship placement out of "
+                    + "bounds. Please place ship completely on the grid.",
+                    "Warning", JOptionPane.ERROR_MESSAGE);
+        } else if (error == "nullShipPlacement") {
+            JOptionPane.showMessageDialog(frame, "Please select a ship to "
+                    + "place.", "Warning",
+                    JOptionPane.WARNING_MESSAGE);
+        }
     }
 
     private void setShip(ShipToPlace ship, int startX, int startY, int endX,
             int endY) {
         switch (ship) {
+            case NULL:
+                showError("nullShipPlacement");
+                break;
             case CARRIER:
                 if (startX == endX) {
                     if (startY < endY) {
-                        og.getFleet().placeShip("Carrier", startY, startX, startY + 4, endX);
-                        for (int i = startY; i < startY + 5; i++) {
-                            board[startX][i] = Peg.SHIP;
+                        if (startY >= 0 && startY < COLS && startY + 4 >= 0
+                                && startY + 4 < COLS) {
+
+                            og.getFleet().placeShip("Carrier", startY, startX, startY + 4, endX);
+                            for (int i = startY; i < startY + 5; i++) {
+                                board[startX][i] = Peg.SHIP;
+                            }
+                        } else {
+                            showError("shipOutOfBounds");
+                            currentShip = ShipToPlace.CARRIER;
                         }
+
                     } else {
-                        og.getFleet().placeShip("Carrier", endY, startX, endY + 4, endX);
-                        for (int i = endY; i < endY + 5; i++) {
-                            board[startX][i] = Peg.SHIP;
+                        if (endY >= 0 && endY < COLS && endY + 4 >= 0
+                                && startY + 4 < COLS) {
+                            og.getFleet().placeShip("Carrier", endY, startX, endY + 4, endX);
+                            for (int i = endY; i < endY + 5; i++) {
+                                board[startX][i] = Peg.SHIP;
+                            }
+                        } else {
+                            showError("shipOutOfBounds");
                         }
                     }
                 } else {

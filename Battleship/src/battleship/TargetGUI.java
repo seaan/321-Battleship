@@ -82,7 +82,6 @@ public class TargetGUI extends JFrame {
         canvas.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("I'm also not broken!");
                 int mouseX = e.getX();
                 int mouseY = e.getY();
 
@@ -90,7 +89,7 @@ public class TargetGUI extends JFrame {
                 int col = mouseX / CELL_SIZE;
                 // Code above shows the row / colum selected            
                     if (row >= 0 && row < ROWS && col >= 0
-                            && col < COLS && board[row][col] == Peg.EMPTY) {
+                            && col < COLS) {
                         if (e.getButton() == 1) {
                             board[row][col] = Peg.MISS;
                             tg.setMiss(row, col);
@@ -114,27 +113,20 @@ public class TargetGUI extends JFrame {
         panel.add(canvas, BorderLayout.CENTER);
         panel.add(buttonPanel, BorderLayout.LINE_END);
 
-        /*Container cp = getContentPane();
-        cp.setLayout(new BorderLayout());
-        cp.add(canvas, BorderLayout.CENTER);
-        cp.add(buttonPanel, BorderLayout.LINE_END);*/
-        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //pack();  // pack all the components in this JFrame
-        //setTitle("Target Grid");
-        //setVisible(true);  // show this JFrame
         board = new Peg[ROWS][COLS]; // allocate array
-        initGame(); // initialize the game board contents and game variables
+        clearGrid(); // initialize the game board contents and game variables
     }
 
     /**
      * Initialize the game-board contents and the status
      */
-    public void initGame() {
+    protected void clearGrid() {
         for (int row = 0; row < ROWS; row++) {
             for (int col = 0; col < COLS; col++) {
                 board[row][col] = Peg.EMPTY; // all cells empty
             }
         }
+        canvas.repaint();
     }
 
     /**
