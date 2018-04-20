@@ -51,12 +51,14 @@ public class OceanGUI extends JFrame {
         SETUP, PLAYING
         // Represents the value of which player won / lost / drew
     }
-    private GameState currentState;  // the current game state
-
+    private GameState currentState;
+    
     // Use an enumeration (inner class) to represent the seeds and cell contents
     public enum Peg {
         EMPTY, HIT, MISS, SHIP
     }
+    
+    private int testState;
 
     private Peg[][] board; // Game board of ROWS-by-COLS cells
     private DrawCanvas canvas; // Drawing canvas (JPanel) for the game board
@@ -74,6 +76,9 @@ public class OceanGUI extends JFrame {
         JButton sub = new JButton("Submarine");
         JButton destroyer = new JButton("Destroyer");
         ships = 0;
+        testState = 0;
+        //currentState = GameState.PLAYING;
+        
 
         // Code used to create a mouse click so they can place a O or X in the square
         canvas.addMouseListener(new MouseAdapter() {
@@ -85,8 +90,8 @@ public class OceanGUI extends JFrame {
                 // Code above shows the row / colum selected  
                 int startRow = mouseY / CELL_SIZE;
                 int startCol = mouseX / CELL_SIZE;
-                if (currentState == GameState.SETUP) {
-                    /*canvas.addMouseListener(new MouseAdapter() {
+                if (testState == 0) {
+                    canvas.addMouseListener(new MouseAdapter() {
                         @Override
                         public void mouseClicked(MouseEvent f) {
                             int mouseX2 = f.getX();
@@ -99,96 +104,14 @@ public class OceanGUI extends JFrame {
                             if (startRow >= 0 && startRow < ROWS && startCol >= 0
                                     && startCol < COLS && board[startRow][startCol]
                                     == Peg.EMPTY) {
-                                /*switch (currentShip) {
-                                    case CARRIER:
-                                        og.getFleet().placeShip("Carrier", startRow,
-                                                startCol, endRow, endCol);
-                                        if (startRow == endRow) {
-                                            if (startCol > endCol) {
-                                                for (int i = endCol; i < startCol; i++) {
-                                                    board[startRow][i] = Peg.SHIP;
-                                                }
-                                            } else {
-                                                for (int i = startCol; i < endCol; i++) {
-                                                    board[startRow][i] = Peg.SHIP;
-                                                }
-                                            }
-                                        } else {
-                                            if (startRow > endRow) {
-                                                for (int i = endRow; i < startRow; i++) {
-                                                    board[i][startCol] = Peg.SHIP;
-                                                }
-                                            } else {
-                                                for (int i = startCol; i < endCol; i++) {
-                                                    board[startRow][i] = Peg.SHIP;
-
-                                                }
-                                            }
-                                        }
-                                        ships++;
-                                        if (ships == 5) {
-                                            currentState = GameState.PLAYING;
-                                        }
-                                        break;
-                                    case BATTLESHIP:
-                                        og.getFleet().placeShip("Battleship", startRow,
-                                                startCol, endRow, endCol);
-                                        if (startCol > endCol && startRow == endRow) {
-                                            for (int i = endCol; i < startCol; i++) {
-                                                board[startRow][i] = Peg.SHIP;
-                                            }
-                                        }
-                                        ships++;
-                                        if (ships == 5) {
-                                            currentState = GameState.PLAYING;
-                                        }
-                                        break;
-                                    case CRUISER:
-                                        og.getFleet().placeShip("Cruiser", startRow, startCol,
-                                                endRow, endCol);
-                                        if (startCol > endCol && startRow == endRow) {
-                                            for (int i = endCol; i < startCol; i++) {
-                                                board[startRow][i] = Peg.SHIP;
-                                            }
-                                        }
-                                        ships++;
-                                        if (ships == 5) {
-                                            currentState = GameState.PLAYING;
-                                        }
-                                        break;
-                                    case SUBMARINE:
-                                        og.getFleet().placeShip("Submarine", startRow,
-                                                startCol, endRow, endCol);
-                                        if (startCol > endCol && startRow == endRow) {
-                                            for (int i = endCol; i < startCol; i++) {
-                                                board[startRow][i] = Peg.SHIP;
-                                            }
-                                        }
-                                        ships++;
-                                        if (ships == 5) {
-                                            currentState = GameState.PLAYING;
-                                        }
-                                        break;
-                                    case DESTROYER:
-                                        og.getFleet().placeShip("Destroyer", startRow,
-                                                startCol, endRow, endCol);
-                                        if (startCol > endCol && startRow == endRow) {
-                                            for (int i = endCol; i < startCol; i++) {
-                                                board[startRow][i] = Peg.SHIP;
-                                            }
-                                        }
-                                        ships++;
-                                        if (ships == 5) {
-                                            currentState = GameState.PLAYING;
-                                        }
-                                        break;
-                                }
+                                setShip(currentShip, startRow, startCol, endRow, endCol);
+                                repaint();
                             }
 
                         }
-                    });*/
+                    });
                     System.out.println("I'm not broken!");
-                } else if (currentState == GameState.PLAYING) {
+                } else if (testState == 1) {
                     if (startRow >= 0 && startRow < ROWS && startCol >= 0
                             && startCol < COLS && board[startRow][startCol]
                             == Peg.EMPTY) {
@@ -200,7 +123,7 @@ public class OceanGUI extends JFrame {
                     }
                 }
                 // Refresh the drawing canvas
-                //repaint();  // Call-back paintComponent().
+                repaint();  // Call-back paintComponent().
             }
         });
 
@@ -226,8 +149,95 @@ public class OceanGUI extends JFrame {
                 board[row][col] = Peg.EMPTY; // all cells empty
             }
         }
-        currentState = GameState.PLAYING; // ready to play
-//      currentPlayer = Peg.HIT;       // cross plays first
+    }
+
+    private void setShip(ShipToPlace ship, int startX, int startY, int endX,
+            int endY) {
+        switch (currentShip) {
+            case CARRIER:
+                og.getFleet().placeShip("Carrier", startX,
+                        startY, endX, endY);
+                if (startX == endX) {
+                    if (startY > endY) {
+                        for (int i = endY; i < startY; i++) {
+                            board[startX][i] = Peg.SHIP;
+                        }
+                    } else {
+                        for (int i = startY; i < endY; i++) {
+                            board[startX][i] = Peg.SHIP;
+                        }
+                    }
+                } else {
+                    if (startX > endX) {
+                        for (int i = endX; i < startX; i++) {
+                            board[i][startY] = Peg.SHIP;
+                        }
+                    } else {
+                        for (int i = startY; i < endY; i++) {
+                            board[startX][i] = Peg.SHIP;
+
+                        }
+                    }
+                }
+                ships++;
+                if (ships == 5) {
+                    currentState = GameState.PLAYING;
+                }
+                break;
+            case BATTLESHIP:
+                og.getFleet().placeShip("Battleship", startX,
+                        startY, endX, endY);
+                if (startY > endY && startX == endX) {
+                    for (int i = endY; i < startY; i++) {
+                        board[startX][i] = Peg.SHIP;
+                    }
+                }
+                ships++;
+                if (ships == 5) {
+                    currentState = GameState.PLAYING;
+                }
+                break;
+            case CRUISER:
+                og.getFleet().placeShip("Cruiser", startX, startY,
+                        endX, endY);
+                if (startY > endY && startX == endX) {
+                    for (int i = endY; i < startY; i++) {
+                        board[startX][i] = Peg.SHIP;
+                    }
+                }
+                ships++;
+                if (ships == 5) {
+                    currentState = GameState.PLAYING;
+                }
+                break;
+            case SUBMARINE:
+                og.getFleet().placeShip("Submarine", startX,
+                        startY, endX, endY);
+                if (startY > endY && startX == endX) {
+                    for (int i = endY; i < startY; i++) {
+                        board[startX][i] = Peg.SHIP;
+                    }
+                }
+                ships++;
+                if (ships == 5) {
+                    currentState = GameState.PLAYING;
+                }
+                break;
+            case DESTROYER:
+                og.getFleet().placeShip("Destroyer", startX,
+                        startY, endX, endY);
+                if (startY > endY && startX == endX) {
+                    for (int i = endY; i < startY; i++) {
+                        board[startX][i] = Peg.SHIP;
+                    }
+                }
+                ships++;
+                if (ships == 5) {
+                    currentState = GameState.PLAYING;
+                }
+                break;
+
+        }
     }
 
     /**
