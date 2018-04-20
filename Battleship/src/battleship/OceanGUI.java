@@ -5,6 +5,7 @@
  */
 package battleship;
 
+import static battleship.BattleshipGUI.readFile;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -13,6 +14,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
@@ -42,7 +45,7 @@ public class OceanGUI extends JFrame {
     public static final int GRID_WIDHT_HALF = GRID_WIDTH / 1;
     public static final int CELL_PADDING = CELL_SIZE / 6;
     public static final int SYMBOL_SIZE = CELL_SIZE - CELL_PADDING * 4; // width/height
-    
+
     //Variables for mouse locations
     private int mouseX;
     private int mouseY;
@@ -88,6 +91,12 @@ public class OceanGUI extends JFrame {
         JButton sub = new JButton("Submarine");
         JButton destroyer = new JButton("Destroyer");
 
+        carrier.setPreferredSize(new Dimension(100, 40));
+        battleship.setPreferredSize(new Dimension(100, 40));
+        cruiser.setPreferredSize(new Dimension(100, 40));
+        sub.setPreferredSize(new Dimension(100, 40));
+        destroyer.setPreferredSize(new Dimension(100, 40));
+
         buttonPanel.add(carrier);
         buttonPanel.add(battleship);
         buttonPanel.add(cruiser);
@@ -97,6 +106,52 @@ public class OceanGUI extends JFrame {
         ships = 0;
         testState = 0;
         //currentState = GameState.PLAYING;
+
+        carrier.addActionListener(new // add actions for rules button
+                ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                currentShip = ShipToPlace.CARRIER;
+                if (carrier == (JButton) event.getSource()) {
+                    carrier.setEnabled(false);
+                }
+            }
+        });
+        battleship.addActionListener(new // add actions for rules button
+                ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                currentShip = ShipToPlace.BATTLESHIP;
+                if (battleship == (JButton) event.getSource()) {
+                    battleship.setEnabled(false);
+                }
+            }
+        });
+        cruiser.addActionListener(new // add actions for rules button
+                ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                currentShip = ShipToPlace.CRUISER;
+                if (cruiser == (JButton) event.getSource()) {
+                    cruiser.setEnabled(false);
+                }
+            }
+        });
+        sub.addActionListener(new // add actions for rules button
+                ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                currentShip = ShipToPlace.SUBMARINE;
+                if (sub == (JButton) event.getSource()) {
+                    sub.setEnabled(false);
+                }
+            }
+        });
+        destroyer.addActionListener(new // add actions for rules button
+                ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                currentShip = ShipToPlace.DESTROYER;
+                if (destroyer == (JButton) event.getSource()) {
+                    destroyer.setEnabled(false);
+                }
+            }
+        });
 
         // Code used to create a mouse click so they can place a O or X in the square
         canvas.addMouseListener(new MouseAdapter() {
@@ -169,37 +224,27 @@ public class OceanGUI extends JFrame {
         switch (ship) {
             case CARRIER:
                 og.getFleet().placeShip("Carrier", startX, startY, endX, endY);
-                if(startX == endX)
-        {
-            if(startY < endY)
-            {
-                for(int i = startY; i < startY + 5; i++)
-                {
-                    board[startX][i] = Peg.SHIP;
+                if (startX == endX) {
+                    if (startY < endY) {
+                        for (int i = startY; i < startY + 5; i++) {
+                            board[startX][i] = Peg.SHIP;
+                        }
+                    } else {
+                        for (int i = endY; i < endY + 5; i++) {
+                            board[startX][i] = Peg.SHIP;
+                        }
+                    }
+                } else {
+                    if (startX < endX) {
+                        for (int i = startX; i < startX + 5; i++) {
+                            board[i][startY] = Peg.SHIP;
+                        }
+                    } else {
+                        for (int i = endX; i < endX + 5; i++) {
+                            board[i][startY] = Peg.SHIP;
+                        }
+                    }
                 }
-            }
-            else {
-                for(int i = endY; i < endY + 5; i++)
-                {
-                    board[startX][i] = Peg.SHIP;
-                }
-            }
-        }
-        else{
-            if(startX < endX)
-            {
-                for(int i = startX; i < startX + 5; i++)
-                {
-                    board[i][startY] = Peg.SHIP;
-                }
-            }
-            else {
-                for(int i = endX; i < endX + 5; i++)
-                {
-                    board[i][startY] = Peg.SHIP;
-                }
-            }
-        }
                 ships++;
                 if (ships == 5) {
                     currentState = GameState.PLAYING;
@@ -296,7 +341,7 @@ public class OceanGUI extends JFrame {
                     }
                 }
             }
-            
+
             //Draw the grid lines after painting pegs so it can go over the ships
             g.setColor(Color.BLACK);
             for (int row = 0; row <= ROWS; row++) {
