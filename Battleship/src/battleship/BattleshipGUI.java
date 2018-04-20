@@ -11,6 +11,7 @@ import java.awt.GridLayout;
 import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Frame;
 import java.awt.event.*;
 import javax.swing.*;
@@ -32,17 +33,18 @@ public class BattleshipGUI {
     BattleshipGUI() {
 
         BattleshipGame bg = new BattleshipGame();   // create instance of BattleShipGame
-
         final JPanel mainPanel = new JPanel();       // main menu
         final JFrame mainFrame = new JFrame("Main Menu");
+        final JFrame ruleFrame = new JFrame("Game Rules");    // rules display
+
         mainPanel.setPreferredSize(new Dimension(400, 200));
         mainFrame.getContentPane().add(mainPanel);
 
-        final JFrame rules_frame = new JFrame("Game Rules");    // rules display
-        final JTextArea rules_txt = new JTextArea(100, 100);       // txt area to hold rules
+        final JTextArea textRules = new JTextArea(30, 70);    // txt area to hold rules
+        textRules.setFont(new Font("Sanserif", Font.PLAIN, 20));
 
         FlowLayout rules_layout = new FlowLayout();     // set the layouts for main menu and rules window
-        GridLayout main_layout = new GridLayout(3, 1);   // has 3 rows and one column
+        GridLayout main_layout = new GridLayout(3, 1);  // has 3 rows and one column
         JButton start_btn = new JButton("Play Game");   // create buttons
         JButton rules_btn = new JButton("View Rules");
         JButton exit_btn = new JButton("Exit Game");
@@ -60,8 +62,8 @@ public class BattleshipGUI {
         rules_btn.addActionListener(new // add actions for rules button
                 ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                rules_frame.setVisible(true);	// make window visible
-                readFile(rules_txt);
+                ruleFrame.setVisible(true);	// make window visible
+                readFile(textRules);
             }
         });
 
@@ -72,60 +74,74 @@ public class BattleshipGUI {
                 System.exit(0);
             }
         });
+        // add content to mainPanel
 
         mainPanel.setLayout(main_layout);
         mainPanel.add(start_btn, BorderLayout.CENTER);
         mainPanel.add(rules_btn, BorderLayout.CENTER);
         mainPanel.add(exit_btn, BorderLayout.CENTER);
 
-        rules_frame.setLayout(rules_layout);
-        rules_frame.add(rules_txt);
-        rules_frame.pack();
+        // add content to ruleFrame
+        ruleFrame.setLayout(rules_layout);
+        ruleFrame.add(textRules);
+        ruleFrame.pack();
+        ruleFrame.setLocationRelativeTo(null);
 
-        mainPanel.setSize(100, 100);
+        // put mainPanel inside respective frame
         mainFrame.add(mainPanel);
-        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   // default close behaviour
         mainFrame.pack();		// pack all components into minimum space
+        mainFrame.setLocationRelativeTo(null);
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   // default close behaviour
         mainFrame.setVisible(true);	// make window visible
     }
 
     public void useNameWindow() {
-        final JFrame name_frame = new JFrame("Enter Name");     // window that asks for name
+        final JFrame nameFrame = new JFrame("Enter Name");     // window that asks for name
+        final JPanel namePanel = new JPanel();
+        
         final JLabel prompt = new JLabel("Enter Name");
-        final JTextField name_fld = new JTextField(20);
-        final JButton submit_btn = new JButton("Submit");
+        final JTextField nameFld = new JTextField(20);
+        final JButton submitBtn = new JButton("Submit");
+        prompt.setFont(new Font("Sanserif", Font.PLAIN, 20));
+        nameFld.setFont(new Font("Sanserif", Font.PLAIN, 20));
 
-        name_frame.setLayout(new GridLayout(3, 1));
-        name_frame.add(prompt);
-        name_frame.add(name_fld);
-        name_frame.add(submit_btn);
-        name_frame.pack();
-        name_frame.setVisible(true);
+        namePanel.setLayout(new GridLayout(3, 1));
+        namePanel.add(prompt);
+        namePanel.add(nameFld);
+        namePanel.add(submitBtn);
+        namePanel.setPreferredSize(new Dimension(400, 200));
+        
+        nameFrame.getContentPane().add(namePanel);
+        nameFrame.pack();
+        nameFrame.setLocationRelativeTo(null);
+        nameFrame.setVisible(true);
 
-        submit_btn.addActionListener(new // add actions for exit button
+        submitBtn.addActionListener(new // add actions for exit button
                 ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                System.out.println(name_fld.getText());
-                useMainWindow(name_fld.getText());
+                System.out.println(nameFld.getText());
+                useMainWindow(nameFld.getText());
+                nameFrame.setVisible(false);
             }
         });
 
-        name_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   // default close behaviour
+        nameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   // default close behaviour
     }
 
     public void useMainWindow(String name) {
         final JFrame gameFrame = new JFrame("Greetings, Admiral " + name + "!");
         BorderLayout gameLayout = new BorderLayout();
         gameFrame.setLayout(gameLayout);
-        //bg.initializeGame();
 
-        JPanel test = new JPanel();
-        JPanel foo = new JPanel();
-        OceanGUI otest = new OceanGUI(test);
-        gameFrame.add(test, BorderLayout.LINE_START);
-        TargetGUI ttest = new TargetGUI(foo);
-        gameFrame.add(foo, BorderLayout.LINE_END);
+        JPanel oceanPanel = new JPanel();
+        JPanel targetPanel = new JPanel();
+        OceanGUI ogui = new OceanGUI(oceanPanel);
+        gameFrame.add(oceanPanel, BorderLayout.LINE_START);
+        TargetGUI tgui = new TargetGUI(targetPanel);
+        gameFrame.add(targetPanel, BorderLayout.LINE_END);
 
+        gameFrame.pack();
+        gameFrame.setLocationRelativeTo(null);
         gameFrame.setVisible(true);
         gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   // default close behaviour
     }

@@ -27,8 +27,6 @@ class BattleshipMain{
          @Override
          public void run() {
             BattleshipGUI bgui = new BattleshipGUI();
-            //TargetGUI tgui = new TargetGUI();
-            //OceanGUI ogui = new OceanGUI();
             //OceanGrid o = OceanGrid.getInstance();
             /*o.getFleet().placeShip("Carrier", 1, 1, 5, 1);
             o.getFleet().placeShip("Battleship", 4, 4, 7, 4);
