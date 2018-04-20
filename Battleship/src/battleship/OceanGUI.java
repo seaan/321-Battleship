@@ -5,8 +5,6 @@
  */
 package battleship;
 
-import battleship.OceanGrid;
-import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -17,10 +15,10 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -32,20 +30,21 @@ public class OceanGUI extends JFrame {
    // Grid Layout
    public static final int ROWS = 10;  
    public static final int COLS = 10;
-    
-    
+      
    // Constants for creating the board
    public static final int CELL_SIZE = 25; // cell width and height (square)
    public static final int CANVAS_WIDTH = CELL_SIZE * COLS;  // Allows the canvas to be drawn
    public static final int CANVAS_HEIGHT = CELL_SIZE * ROWS;
    public static final int GRID_WIDTH = 1;                  
-   public static final int GRID_WIDHT_HALF = GRID_WIDTH / 1;
-    
+   public static final int GRID_WIDHT_HALF = GRID_WIDTH / 1;   
    public static final int CELL_PADDING = CELL_SIZE / 6;
    public static final int SYMBOL_SIZE = CELL_SIZE - CELL_PADDING * 4; // width/height
+   
+   
+   
  
    public enum GameState {
-      PLAYING, DRAW, HIT_WON, MISS_WON
+      SETUP, PLAYING
       // Represents the value of which player won / lost / drew
    }
    private GameState currentState;  // the current game state
@@ -57,50 +56,56 @@ public class OceanGUI extends JFrame {
   
    private Peg[][] board   ; // Game board of ROWS-by-COLS cells
    private DrawCanvas canvas; // Drawing canvas (JPanel) for the game board
-   private JLabel statusBar;  // Status Bar
   
    /** Constructor to setup the game and the GUI components */
    public OceanGUI() {
       canvas = new DrawCanvas();  // Construct a drawing canvas (a JPanel)
       canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
-  
+      JButton carrier = new JButton("Carrier");
+      JButton battleship = new JButton("Battleship");
+      JButton cruiser = new JButton("Cruiser");
+      JButton sub = new JButton("Submarine");
+      JButton destroyer = new JButton("Destroyer");
+      
       // Code used to create a mouse click so they can place a O or X in the square
       canvas.addMouseListener(new MouseAdapter() {
          @Override
          public void mouseClicked(MouseEvent e) {  
             int mouseX = e.getX();
             int mouseY = e.getY();
-             
+            
+            // Code above shows the row / colum selected  
             int row = mouseY / CELL_SIZE;
             int col = mouseX / CELL_SIZE;
-            // Code above shows the row / colum selected            
-             
-            if (currentState == GameState.PLAYING) {
+                      
+            if (currentState == GameState.SETUP)
+            {
+               if (row >= 0 && row < ROWS && col >= 0
+                     && col < COLS && board[row][col] == Peg.EMPTY)
+               {
+                   
+               }
+            }
+            else if (currentState == GameState.PLAYING) {
                if (row >= 0 && row < ROWS && col >= 0
                      && col < COLS && board[row][col] == Peg.EMPTY) {
                     if(og.setPeg(row, col) == 1)
                         board[row][col] = Peg.HIT;
                     else
                         board[row][col] = Peg.MISS;
-                    //board[row][col] = Peg.HIT;  
                }
-            } else {       // game over
-               initGame(); // restarts the game
-            }
+            } 
             // Refresh the drawing canvas
             repaint();  // Call-back paintComponent().
          }
       });
   
        
-      statusBar = new JLabel("  ");
-      statusBar.setFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 15));
-      statusBar.setBorder(BorderFactory.createEmptyBorder(2, 5, 4, 5));
+      
   
       Container cp = getContentPane();
       cp.setLayout(new BorderLayout());
       cp.add(canvas, BorderLayout.CENTER);
-      cp.add(statusBar, BorderLayout.PAGE_END); 
   
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       pack();  // pack all the components in this JFrame

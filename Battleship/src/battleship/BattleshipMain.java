@@ -28,6 +28,7 @@ class BattleshipMain{
          public void run() {
             
             TargetGUI tgui = new TargetGUI();
+            OceanGUI ogui = new OceanGUI();
             OceanGrid o = OceanGrid.getInstance();
             o.getFleet().placeShip("Carrier", 1, 1, 5, 1);
             o.getFleet().placeShip("Battleship", 4, 4, 7, 4);

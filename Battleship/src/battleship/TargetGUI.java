@@ -108,7 +108,7 @@ public class TargetGUI extends JFrame {
   
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       pack();  // pack all the components in this JFrame
-      setTitle("Battleship Testing Grid");
+      setTitle("Target Grid");
       setVisible(true);  // show this JFrame
   
       board = new Peg[ROWS][COLS]; // allocate array
@@ -128,8 +128,6 @@ public class TargetGUI extends JFrame {
   
    /** Update the currentState after the player with "thePeg" has placed on
        (rowSelected, colSelected). */
-
-      // Otherwise, no change to current state (still GameState.PLAYING).
   
    /**
     *  Inner class DrawCanvas (extends JPanel) used for custom graphics drawing.
@@ -153,7 +151,6 @@ public class TargetGUI extends JFrame {
          }
   
          // Draw the Pegs of all the cells if they are not empty
-         // Use Graphics2D which allows us to set the pen's stroke
          Graphics2D g2d = (Graphics2D)g;
          
          

@@ -18,8 +18,6 @@ public class OceanGrid {
                                                 //use 0 for empty, 1 for hit,
                                                 //2 for miss, 3 for ship.
     
-    
-    
     private OceanGrid() {
         grid = new int[10][10];
         fleet = new Fleet();
