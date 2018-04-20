@@ -27,14 +27,14 @@ class BattleshipMain{
          @Override
          public void run() {
             
-            TargetGUI tgui = new TargetGUI();
+            //TargetGUI tgui = new TargetGUI();
             OceanGUI ogui = new OceanGUI();
-            OceanGrid o = OceanGrid.getInstance();
-            o.getFleet().placeShip("Carrier", 1, 1, 5, 1);
+            //OceanGrid o = OceanGrid.getInstance();
+            /*o.getFleet().placeShip("Carrier", 1, 1, 5, 1);
             o.getFleet().placeShip("Battleship", 4, 4, 7, 4);
             o.getFleet().placeShip("Cruiser", 7, 7, 7, 5);
             o.getFleet().placeShip("Submarine", 7, 0, 9, 0);
-            o.getFleet().placeShip("Destroyer", 7, 2, 8, 2);
+            o.getFleet().placeShip("Destroyer", 7, 2, 8, 2);*/
             //new BattleshipMain(); // Let the constructor do the job
             
          }
