@@ -57,10 +57,10 @@ public class OceanGUI extends JFrame {
     private int endCol;
 
     private enum ShipToPlace {
-        CARRIER, BATTLESHIP, CRUISER, SUBMARINE, DESTROYER
+        CARRIER, BATTLESHIP, CRUISER, SUBMARINE, DESTROYER, NULL
     }
 
-    private ShipToPlace currentShip = ShipToPlace.CARRIER;
+    private ShipToPlace currentShip = ShipToPlace.NULL; //add dialog for null
 
     private enum GameState {
         SETUP, PLAYING
@@ -161,13 +161,12 @@ public class OceanGUI extends JFrame {
         canvas.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (e.getButton() == 1)
-                {
-                mouseX = e.getX();
-                mouseY = e.getY();
+                if (e.getButton() == 1) {
+                    mouseX = e.getX();
+                    mouseY = e.getY();
 
-                startRow = mouseY / CELL_SIZE;
-                startCol = mouseX / CELL_SIZE;
+                    startRow = mouseY / CELL_SIZE;
+                    startCol = mouseX / CELL_SIZE;
                 }
                 if (testState == 0 && e.getButton() == 3) {
                     mouseX2 = e.getX();
@@ -178,7 +177,7 @@ public class OceanGUI extends JFrame {
 
                     //if (currentState == GameState.SETUP) {
                     if (startRow >= 0 && startRow < ROWS && startCol >= 0
-                            && startCol < COLS && board[startRow][startCol] 
+                            && startCol < COLS && board[startRow][startCol]
                             == Peg.EMPTY) {
                         setShip(currentShip, startRow, startCol, endRow, endCol);
                         canvas.repaint();
@@ -188,7 +187,7 @@ public class OceanGUI extends JFrame {
                 } else if (testState == 1) {
                     if (startRow >= 0 && startRow < ROWS && startCol >= 0
                             && startCol < COLS) {
-                        if (og.setPeg(startRow, startCol) == 1) {
+                        if (board[startRow][startCol] == Peg.SHIP) {
                             board[startRow][startCol] = Peg.HIT;
                         } else {
                             board[startRow][startCol] = Peg.MISS;
@@ -228,28 +227,32 @@ public class OceanGUI extends JFrame {
             int endY) {
         switch (ship) {
             case CARRIER:
-                og.getFleet().placeShip("Carrier", startX, startY, endX, endY);
                 if (startX == endX) {
                     if (startY < endY) {
+                        og.getFleet().placeShip("Carrier", startY, startX, startY + 4, endX);
                         for (int i = startY; i < startY + 5; i++) {
                             board[startX][i] = Peg.SHIP;
                         }
                     } else {
+                        og.getFleet().placeShip("Carrier", endY, startX, endY + 4, endX);
                         for (int i = endY; i < endY + 5; i++) {
                             board[startX][i] = Peg.SHIP;
                         }
                     }
                 } else {
+                    og.getFleet().placeShip("Carrier", startY, startX, endY, startX + 4);
                     if (startX < endX) {
                         for (int i = startX; i < startX + 5; i++) {
                             board[i][startY] = Peg.SHIP;
                         }
                     } else {
+                        og.getFleet().placeShip("Carrier", startY, endX, endY, endX + 4);
                         for (int i = endX; i < endX + 5; i++) {
                             board[i][startY] = Peg.SHIP;
                         }
                     }
                 }
+                currentShip = ShipToPlace.NULL;
                 ships++;
                 if (ships == 5) {
                     currentState = GameState.PLAYING;
@@ -257,28 +260,32 @@ public class OceanGUI extends JFrame {
                 }
                 break;
             case BATTLESHIP:
-                og.getFleet().placeShip("Battleship", startY, startX, endY, endX);
                 if (startX == endX) {
                     if (startY < endY) {
+                        og.getFleet().placeShip("Battleship", startY, startX, startY + 3, endX);
                         for (int i = startY; i < startY + 4; i++) {
                             board[startX][i] = Peg.SHIP;
                         }
                     } else {
+                        og.getFleet().placeShip("Battleship", endY, startX, endY + 3, endX);
                         for (int i = endY; i < endY + 4; i++) {
                             board[startX][i] = Peg.SHIP;
                         }
                     }
                 } else {
+                    og.getFleet().placeShip("Battleship", startY, startX, endY, startX + 3);
                     if (startX < endX) {
                         for (int i = startX; i < startX + 4; i++) {
                             board[i][startY] = Peg.SHIP;
                         }
                     } else {
+                        og.getFleet().placeShip("Battleship", startY, endX, endY, endX + 3);
                         for (int i = endX; i < endX + 4; i++) {
                             board[i][startY] = Peg.SHIP;
                         }
                     }
                 }
+                currentShip = ShipToPlace.NULL;
                 ships++;
                 if (ships == 5) {
                     currentState = GameState.PLAYING;
@@ -286,28 +293,32 @@ public class OceanGUI extends JFrame {
                 }
                 break;
             case CRUISER:
-                og.getFleet().placeShip("Cruiser", startY, startX, endY, endX);
                 if (startX == endX) {
                     if (startY < endY) {
+                        og.getFleet().placeShip("Cruiser", startY, startX, startY + 2, endX);
                         for (int i = startY; i < startY + 3; i++) {
                             board[startX][i] = Peg.SHIP;
                         }
                     } else {
+                        og.getFleet().placeShip("Cruiser", endY, startX, endY + 2, endX);
                         for (int i = endY; i < endY + 3; i++) {
                             board[startX][i] = Peg.SHIP;
                         }
                     }
                 } else {
+                    og.getFleet().placeShip("Cruiser", startY, startX, endY, startX + 2);
                     if (startX < endX) {
                         for (int i = startX; i < startX + 3; i++) {
                             board[i][startY] = Peg.SHIP;
                         }
                     } else {
+                        og.getFleet().placeShip("Cruiser", startY, endX, endY, endX + 2);
                         for (int i = endX; i < endX + 3; i++) {
                             board[i][startY] = Peg.SHIP;
                         }
                     }
                 }
+                currentShip = ShipToPlace.NULL;
                 ships++;
                 if (ships == 5) {
                     currentState = GameState.PLAYING;
@@ -315,28 +326,32 @@ public class OceanGUI extends JFrame {
                 }
                 break;
             case SUBMARINE:
-                og.getFleet().placeShip("Submarine", startY, startX, endY, endX);
                 if (startX == endX) {
                     if (startY < endY) {
+                        og.getFleet().placeShip("Submarine", startY, startX, startY + 2, endX);
                         for (int i = startY; i < startY + 3; i++) {
                             board[startX][i] = Peg.SHIP;
                         }
                     } else {
+                        og.getFleet().placeShip("Submarine", endY, startX, endY + 2, endX);
                         for (int i = endY; i < endY + 3; i++) {
                             board[startX][i] = Peg.SHIP;
                         }
                     }
                 } else {
+                    og.getFleet().placeShip("Submarine", startY, startX, endY, startX + 2);
                     if (startX < endX) {
                         for (int i = startX; i < startX + 3; i++) {
                             board[i][startY] = Peg.SHIP;
                         }
                     } else {
+                        og.getFleet().placeShip("Submarine", startY, endX, endY, endX + 2);
                         for (int i = endX; i < endX + 3; i++) {
                             board[i][startY] = Peg.SHIP;
                         }
                     }
                 }
+                currentShip = ShipToPlace.NULL;
                 ships++;
                 if (ships == 5) {
                     currentState = GameState.PLAYING;
@@ -344,28 +359,32 @@ public class OceanGUI extends JFrame {
                 }
                 break;
             case DESTROYER:
-                og.getFleet().placeShip("Destroyer", startY, startX, endY, endX);
                 if (startX == endX) {
                     if (startY < endY) {
+                        og.getFleet().placeShip("Destroyer", startY, startX, startY + 1, endX);
                         for (int i = startY; i < startY + 2; i++) {
                             board[startX][i] = Peg.SHIP;
                         }
                     } else {
+                        og.getFleet().placeShip("Destroyer", endY, startX, endY + 1, endX);
                         for (int i = endY; i < endY + 2; i++) {
                             board[startX][i] = Peg.SHIP;
                         }
                     }
                 } else {
+                    og.getFleet().placeShip("Destroyer", startY, startX, endY, startX + 1);
                     if (startX < endX) {
                         for (int i = startX; i < startX + 2; i++) {
                             board[i][startY] = Peg.SHIP;
                         }
                     } else {
+                        og.getFleet().placeShip("Destroyer", startY, endX, endY, endX + 1);
                         for (int i = endX; i < endX + 2; i++) {
                             board[i][startY] = Peg.SHIP;
                         }
                     }
                 }
+                currentShip = ShipToPlace.NULL;
                 ships++;
                 if (ships == 5) {
                     currentState = GameState.PLAYING;
