@@ -105,7 +105,6 @@ public class OceanGUI extends JFrame {
                 mouseX = e.getX();
                 mouseY = e.getY();
 
-                // Code above shows the row / colum selected  
                 int startRow = mouseY / CELL_SIZE;
                 int startCol = mouseX / CELL_SIZE;
                 if (testState == 0 && e.getButton() == 3) {
@@ -119,7 +118,7 @@ public class OceanGUI extends JFrame {
                     if (startRow >= 0 && startRow < ROWS && startCol >= 0
                             && startCol < COLS && board[startRow][startCol]
                             == Peg.EMPTY) {
-                        setShip(currentShip, startCol, startRow, endCol, endRow);
+                        setShip(currentShip, startRow, startCol, endRow, endCol);
                         canvas.repaint();
                     }
 
@@ -136,8 +135,6 @@ public class OceanGUI extends JFrame {
                         canvas.repaint();
                     }
                 }
-                // Refresh the drawing canvas
-                //repaint();  // Call-back paintComponent().
             }
         });
 
@@ -164,11 +161,10 @@ public class OceanGUI extends JFrame {
             }
         }
     }
-//
 
     private void setShip(ShipToPlace ship, int startX, int startY, int endX,
             int endY) {
-        switch (currentShip) {
+        switch (ship) {
             case CARRIER:
                 og.getFleet().placeShip("Carrier", startX, startY, endX, endY);
                 if(startX == endX)

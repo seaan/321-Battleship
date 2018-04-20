@@ -46,12 +46,6 @@ public class TargetGUI extends JFrame {
     public static final int CELL_PADDING = CELL_SIZE / 6;
     public static final int SYMBOL_SIZE = CELL_SIZE - CELL_PADDING * 4; // width/height
 
-    public enum GameState {
-        PLAYING, DRAW, HIT_WON, MISS_WON
-        // Represents the value of which player won / lost / drew
-    }
-    private GameState currentState;  // the current game state
-
     // Use an enumeration (inner class) to represent the seeds and cell contents
     public enum Peg {
         EMPTY, HIT, MISS
@@ -94,8 +88,6 @@ public class TargetGUI extends JFrame {
                 int row = mouseY / CELL_SIZE;
                 int col = mouseX / CELL_SIZE;
                 // Code above shows the row / colum selected            
-
-                if (currentState == GameState.PLAYING) {
                     if (row >= 0 && row < ROWS && col >= 0
                             && col < COLS && board[row][col] == Peg.EMPTY) {
                         if (e.getButton() == 1) {
@@ -107,9 +99,6 @@ public class TargetGUI extends JFrame {
                         }
                         //board[row][col] = Peg.HIT;  
                     }
-                } else {       // game over
-                    initGame(); // restarts the game
-                }
                 // Refresh the drawing canvas
                 canvas.repaint();  // Call-back paintComponent().
             }
@@ -122,17 +111,15 @@ public class TargetGUI extends JFrame {
         panel.setLayout(new BorderLayout());
         panel.add(canvas, BorderLayout.CENTER);
         panel.add(buttonPanel, BorderLayout.LINE_END);
-        
+
         /*Container cp = getContentPane();
         cp.setLayout(new BorderLayout());
         cp.add(canvas, BorderLayout.CENTER);
         cp.add(buttonPanel, BorderLayout.LINE_END);*/
-
         //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //pack();  // pack all the components in this JFrame
         //setTitle("Target Grid");
         //setVisible(true);  // show this JFrame
-
         board = new Peg[ROWS][COLS]; // allocate array
         initGame(); // initialize the game board contents and game variables
     }
@@ -146,8 +133,6 @@ public class TargetGUI extends JFrame {
                 board[row][col] = Peg.EMPTY; // all cells empty
             }
         }
-        currentState = GameState.PLAYING; // ready to play
-//      currentPlayer = Peg.HIT;       // cross plays first
     }
 
     /**
@@ -195,8 +180,4 @@ public class TargetGUI extends JFrame {
             }
         }
     }
-
-    /**
-     * The entry main() method
-     */
 }
