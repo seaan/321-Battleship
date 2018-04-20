@@ -12,6 +12,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
@@ -65,15 +66,25 @@ public class OceanGUI extends JFrame {
     /**
      * Constructor to setup the game and the GUI components
      */
-    public OceanGUI() {
+    public OceanGUI(JPanel panel) {
         canvas = new DrawCanvas();  // Construct a drawing canvas (a JPanel)
         canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
+        ships = 0;
+        
+        JPanel buttonPanel = new JPanel();
+        GridLayout buttonLayout = new GridLayout(5, 1);
         JButton carrier = new JButton("Carrier");
         JButton battleship = new JButton("Battleship");
         JButton cruiser = new JButton("Cruiser");
         JButton sub = new JButton("Submarine");
         JButton destroyer = new JButton("Destroyer");
-        ships = 0;
+
+        buttonPanel.add(carrier);
+        buttonPanel.add(battleship);
+        buttonPanel.add(cruiser);
+        buttonPanel.add(sub);
+        buttonPanel.add(destroyer);
+        buttonPanel.setLayout(buttonLayout);
 
         // Code used to create a mouse click so they can place a O or X in the square
         canvas.addMouseListener(new MouseAdapter() {
@@ -204,14 +215,14 @@ public class OceanGUI extends JFrame {
             }
         });
 
-        Container cp = getContentPane();
-        cp.setLayout(new BorderLayout());
-        cp.add(canvas, BorderLayout.CENTER);
+        panel.setLayout(new BorderLayout());
+        panel.add(canvas, BorderLayout.CENTER);
+        panel.add(buttonPanel, BorderLayout.LINE_START);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();  // pack all the components in this JFrame
         setTitle("Battleship Testing Grid");
-        setVisible(true);  // show this JFrame
+        //setVisible(true);  // show this JFrame
 
         board = new Peg[ROWS][COLS]; // allocate array
         initGame(); // initialize the game board contents and game variables
