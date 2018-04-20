@@ -85,11 +85,13 @@ public class BattleshipGUI {
         ruleFrame.setLayout(rules_layout);
         ruleFrame.add(textRules);
         ruleFrame.pack();
+        ruleFrame.setResizable(false);
         ruleFrame.setLocationRelativeTo(null);
 
         // put mainPanel inside respective frame
         mainFrame.add(mainPanel);
         mainFrame.pack();		// pack all components into minimum space
+        mainFrame.setResizable(false);
         mainFrame.setLocationRelativeTo(null);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   // default close behaviour
         mainFrame.setVisible(true);	// make window visible
@@ -98,7 +100,7 @@ public class BattleshipGUI {
     public void useNameWindow() {
         final JFrame nameFrame = new JFrame("Enter Name");     // window that asks for name
         final JPanel namePanel = new JPanel();
-        
+
         final JLabel prompt = new JLabel("Enter Name");
         final JTextField nameFld = new JTextField(20);
         final JButton submitBtn = new JButton("Submit");
@@ -110,9 +112,10 @@ public class BattleshipGUI {
         namePanel.add(nameFld);
         namePanel.add(submitBtn);
         namePanel.setPreferredSize(new Dimension(400, 200));
-        
+
         nameFrame.getContentPane().add(namePanel);
         nameFrame.pack();
+        nameFrame.setResizable(false);
         nameFrame.setLocationRelativeTo(null);
         nameFrame.setVisible(true);
 
@@ -131,16 +134,24 @@ public class BattleshipGUI {
     public void useMainWindow(String name) {
         final JFrame gameFrame = new JFrame("Greetings, Admiral " + name + "!");
         BorderLayout gameLayout = new BorderLayout();
+        GridLayout guideLayout = new GridLayout(10, 1);
+        for (int i = 0; i < 10; i++) {
+            JLabel label = new JLabel("test" + i);
+        }
         gameFrame.setLayout(gameLayout);
 
         JPanel oceanPanel = new JPanel();
         JPanel targetPanel = new JPanel();
+        JPanel guidePanel = new JPanel();
+        guidePanel.setLayout(guideLayout);
         OceanGUI ogui = new OceanGUI(oceanPanel);
         gameFrame.add(oceanPanel, BorderLayout.LINE_START);
         TargetGUI tgui = new TargetGUI(targetPanel);
         gameFrame.add(targetPanel, BorderLayout.LINE_END);
+        gameFrame.add(guidePanel, BorderLayout.CENTER);
 
         gameFrame.pack();
+        gameFrame.setResizable(false);
         gameFrame.setLocationRelativeTo(null);
         gameFrame.setVisible(true);
         gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   // default close behaviour
