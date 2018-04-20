@@ -20,6 +20,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 /**
  *
@@ -144,6 +145,7 @@ public class OceanGUI extends JFrame {
         panel.setLayout(new BorderLayout());
         panel.add(canvas, BorderLayout.CENTER);
         panel.add(buttonPanel, BorderLayout.LINE_START);
+        panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();  // pack all the components in this JFrame
