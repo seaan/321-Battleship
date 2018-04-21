@@ -206,13 +206,13 @@ public class OceanGUI extends JFrame {
         //setVisible(true);  // show this JFrame
 
         board = new Peg[ROWS][COLS]; // allocate array
-        initGame(); // initialize the game board contents and game variables
+        clearGrid(); // initialize the game board contents and game variables
     }
 
     /**
      * Initialize the game-board contents and the status
      */
-    public void initGame() {
+    public void clearGrid() {
         for (int row = 0; row < ROWS; row++) {
             for (int col = 0; col < COLS; col++) {
                 board[row][col] = Peg.EMPTY; // all cells empty

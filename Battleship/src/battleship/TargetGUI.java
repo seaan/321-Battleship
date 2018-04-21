@@ -67,68 +67,6 @@ public class TargetGUI extends JFrame {
         canvas = new DrawCanvas();  // Construct a drawing canvas (a JPanel)
         canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
 
-        JPanel buttonPanel = new JPanel();
-        GridLayout buttonLayout = new GridLayout(5, 1);
-        JButton carrier = new JButton("Carrier");
-        JButton battleship = new JButton("Battleship");
-        JButton cruiser = new JButton("Cruiser");
-        JButton sub = new JButton("Submarine");
-        JButton destroyer = new JButton("Destroyer");
-
-        buttonPanel.add(carrier);
-        buttonPanel.add(battleship);
-        buttonPanel.add(cruiser);
-        buttonPanel.add(sub);
-        buttonPanel.add(destroyer);
-        buttonPanel.setLayout(buttonLayout);
-
-        carrier.addActionListener(new // add actions for rules button
-                ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                if (carrier == (JButton) event.getSource()) {
-                    carrier.setEnabled(false);
-                    checkVictory();
-                }
-            }
-        });
-        battleship.addActionListener(new // add actions for rules button
-                ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                if (battleship == (JButton) event.getSource()) {
-                    battleship.setEnabled(false);
-                    checkVictory();
-                }
-            }
-        });
-        cruiser.addActionListener(new // add actions for rules button
-                ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                if (cruiser == (JButton) event.getSource()) {
-                    cruiser.setEnabled(false);
-                    checkVictory();
-
-                }
-            }
-        });
-        sub.addActionListener(new // add actions for rules button
-                ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                if (sub == (JButton) event.getSource()) {
-                    sub.setEnabled(false);
-                    checkVictory();
-                }
-            }
-        });
-        destroyer.addActionListener(new // add actions for rules button
-                ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                if (destroyer == (JButton) event.getSource()) {
-                    destroyer.setEnabled(false);
-                    checkVictory();
-                }
-            }
-        });
-
         // Code used to create a mouse click so they can place a O or X in the square
         canvas.addMouseListener(new MouseAdapter() {
             @Override
@@ -139,7 +77,7 @@ public class TargetGUI extends JFrame {
                 int row = mouseY / CELL_SIZE;
                 int col = mouseX / CELL_SIZE;
                 // Code above shows the row / colum selected            
-<<<<<<< HEAD
+
                 if (row >= 0 && row < ROWS && col >= 0
                         && col < COLS && board[row][col] == Peg.EMPTY) {
                     if (e.getButton() == 1) {
@@ -148,36 +86,40 @@ public class TargetGUI extends JFrame {
                     } else {
                         board[row][col] = Peg.HIT;
                         tg.setHit(row, col);
-=======
-                    if (row >= 0 && row < ROWS && col >= 0
-                            && col < COLS) {
-                        if (e.getButton() == 1) {
-                            board[row][col] = Peg.MISS;
-                            tg.setMiss(row, col);
-                        } else {
-                            board[row][col] = Peg.HIT;
-                            tg.setHit(row, col);
+
+                        if (row >= 0 && row < ROWS && col >= 0
+                                && col < COLS) {
+                            if (e.getButton() == 1) {
+                                board[row][col] = Peg.MISS;
+                                tg.setMiss(row, col);
+                            } else {
+                                board[row][col] = Peg.HIT;
+                                tg.setHit(row, col);
+                            }
+                            //board[row][col] = Peg.HIT;  
+
                         }
                         //board[row][col] = Peg.HIT;  
->>>>>>> 741c6771d4ccb77df2a02a9bfd469a75b67f382a
                     }
-                    //board[row][col] = Peg.HIT;  
+                    // Refresh the drawing canvas
+                    canvas.repaint();  // Call-back paintComponent().
                 }
-                // Refresh the drawing canvas
-                canvas.repaint();  // Call-back paintComponent().
             }
         });
-
         statusBar = new JLabel("  ");
-        statusBar.setFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 15));
+
+        statusBar.setFont(
+                new Font(Font.DIALOG_INPUT, Font.BOLD, 15));
         statusBar.setBorder(BorderFactory.createEmptyBorder(2, 5, 4, 5));
 
-        panel.setLayout(new BorderLayout());
-        panel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        panel.setLayout(
+                new BorderLayout());
+        panel.setBorder(
+                new EmptyBorder(10, 10, 10, 10));
         panel.add(canvas, BorderLayout.CENTER);
-        panel.add(buttonPanel, BorderLayout.LINE_END);
 
         board = new Peg[ROWS][COLS]; // allocate array
+
         clearGrid(); // initialize the game board contents and game variables
     }
 
@@ -190,6 +132,7 @@ public class TargetGUI extends JFrame {
                 board[row][col] = Peg.EMPTY; // all cells empty
             }
         }
+        //fix buttons
         canvas.repaint();
     }
 
@@ -236,48 +179,6 @@ public class TargetGUI extends JFrame {
                     }
                 }
             }
-        }
-    }
-
-    public void checkVictory() {
-        sunk++;
-        if (sunk == 5) {
-            JFrame winFrame = new JFrame("You win!");
-            JPanel winPanel = new JPanel();
-
-            JLabel winLabel = new JLabel("YOU WIN!");
-            winLabel.setFont(new Font("Sanserif", Font.PLAIN, 20));
-
-            JButton playBtn = new JButton("Play Again");
-            JButton exitBtn = new JButton("Exit Game");
-
-            winPanel.setLayout(new GridLayout(3, 1));
-            winPanel.add(winLabel);
-            winPanel.add(playBtn);
-            winPanel.add(exitBtn);
-            winPanel.setPreferredSize(new Dimension(400, 200));
-
-            winFrame.getContentPane().add(winPanel);
-            winFrame.pack();
-            winFrame.setResizable(false);
-            winFrame.setLocationRelativeTo(null);
-            winFrame.setVisible(true);
-
-            playBtn.addActionListener(new // add actions for rules button
-                    ActionListener() {
-                public void actionPerformed(ActionEvent event) {
-                    System.out.println("play again");
-                    winFrame.setVisible(false);
-                }
-            });
-
-            exitBtn.addActionListener(new // add actions for exit button
-                    ActionListener() {
-                public void actionPerformed(ActionEvent event) {
-                    System.out.println("exit");
-                    System.exit(0);
-                }
-            });
         }
     }
 }

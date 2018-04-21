@@ -29,6 +29,7 @@ public class BattleshipGUI {
      * @param args the command line arguments
      */
     Frame frame;    // Declare a Frame type variable
+    int sunk;
 
     BattleshipGUI() {
 
@@ -135,26 +136,99 @@ public class BattleshipGUI {
         final JFrame gameFrame = new JFrame("Greetings, Admiral " + name + "!");
         BorderLayout gameLayout = new BorderLayout();
         GridLayout guideLayout = new GridLayout(10, 1);
-        for (int i = 0; i < 10; i++) {
-            JLabel label = new JLabel("test" + i);
-        }
+        sunk = 0;
         gameFrame.setLayout(gameLayout);
 
         JPanel oceanPanel = new JPanel();
         JPanel targetPanel = new JPanel();
         JPanel guidePanel = new JPanel();
+        OceanGUI ocean = new OceanGUI(oceanPanel);
+        TargetGUI target = new TargetGUI(targetPanel);
+
+        // Start Grid Buttons
+        JPanel buttonPanel = new JPanel();
+        GridLayout buttonLayout = new GridLayout(5, 1);
+        JButton carrier = new JButton("Carrier");
+        JButton battleship = new JButton("Battleship");
+        JButton cruiser = new JButton("Cruiser");
+        JButton sub = new JButton("Submarine");
+        JButton destroyer = new JButton("Destroyer");
+
+        buttonPanel.add(carrier);
+        buttonPanel.add(battleship);
+        buttonPanel.add(cruiser);
+        buttonPanel.add(sub);
+        buttonPanel.add(destroyer);
+        buttonPanel.setLayout(buttonLayout);
+
+        carrier.addActionListener(new // add actions for rules button
+                ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                if (carrier == (JButton) event.getSource()) {
+                    carrier.setEnabled(false);
+                    if (checkVictory() == true) {
+                        useVicWindow(gameFrame, name);
+                    }
+                }
+            }
+        });
+        battleship.addActionListener(new // add actions for rules button
+                ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                if (battleship == (JButton) event.getSource()) {
+                    battleship.setEnabled(false);
+                    if (checkVictory() == true) {
+                        useVicWindow(gameFrame, name);
+                    }
+                }
+            }
+        });
+        cruiser.addActionListener(new // add actions for rules button
+                ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                if (cruiser == (JButton) event.getSource()) {
+                    cruiser.setEnabled(false);
+                    if (checkVictory() == true) {
+                        useVicWindow(gameFrame, name);
+                    }
+                }
+            }
+        });
+        sub.addActionListener(new // add actions for rules button
+                ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                if (sub == (JButton) event.getSource()) {
+                    sub.setEnabled(false);
+                    if (checkVictory() == true) {
+                        useVicWindow(gameFrame, name);
+                    }
+                }
+            }
+        });
+        destroyer.addActionListener(new // add actions for rules button
+                ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                if (destroyer == (JButton) event.getSource()) {
+                    destroyer.setEnabled(false);
+                    if (checkVictory() == true) {
+                        useVicWindow(gameFrame, name);
+                    }
+                }
+            }
+        });
+
+        // End Grid Buttons
         guidePanel.setLayout(guideLayout);
-        OceanGUI ogui = new OceanGUI(oceanPanel);
         gameFrame.add(oceanPanel, BorderLayout.LINE_START);
-        TargetGUI tgui = new TargetGUI(targetPanel);
-        gameFrame.add(targetPanel, BorderLayout.LINE_END);
-        gameFrame.add(guidePanel, BorderLayout.CENTER);
+        gameFrame.add(targetPanel, BorderLayout.CENTER);
+        gameFrame.add(buttonPanel, BorderLayout.LINE_END);
 
         gameFrame.pack();
         gameFrame.setResizable(false);
         gameFrame.setLocationRelativeTo(null);
         gameFrame.setVisible(true);
         gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   // default close behaviour
+
     }
 
     public static void readFile(JTextArea txtfld) {   // function to read file containing rules
@@ -169,5 +243,55 @@ public class BattleshipGUI {
         } catch (IOException ex) {
             System.out.println("Reader exception");
         }
+    }
+
+    public boolean checkVictory() {
+        sunk++;
+        if (sunk == 5) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void useVicWindow(JFrame frame, String name) {
+        JFrame winFrame = new JFrame("You win!");
+        JPanel winPanel = new JPanel();
+
+        JLabel winLabel = new JLabel("YOU WIN!");
+        winLabel.setFont(new Font("Sanserif", Font.PLAIN, 20));
+
+        JButton playBtn = new JButton("Play Again");
+        JButton exitBtn = new JButton("Exit Game");
+
+        winPanel.setLayout(new GridLayout(3, 1));
+        winPanel.add(winLabel);
+        winPanel.add(playBtn);
+        winPanel.add(exitBtn);
+        winPanel.setPreferredSize(new Dimension(400, 200));
+
+        winFrame.getContentPane().add(winPanel);
+        winFrame.pack();
+        winFrame.setResizable(false);
+        winFrame.setLocationRelativeTo(null);
+        winFrame.setVisible(true);
+
+        playBtn.addActionListener(new // add actions for rules button
+                ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                System.out.println("play again");
+                winFrame.setVisible(false);
+                frame.setVisible(false);
+                useMainWindow(name);
+            }
+        });
+
+        exitBtn.addActionListener(new // add actions for exit button
+                ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                System.out.println("exit");
+                System.exit(0);
+            }
+        });
     }
 }
