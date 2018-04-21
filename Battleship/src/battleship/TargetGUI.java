@@ -21,6 +21,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -108,15 +110,25 @@ public class TargetGUI extends JFrame {
         });
         statusBar = new JLabel("  ");
 
-        statusBar.setFont(
-                new Font(Font.DIALOG_INPUT, Font.BOLD, 15));
+        statusBar.setFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 15));
         statusBar.setBorder(BorderFactory.createEmptyBorder(2, 5, 4, 5));
 
-        panel.setLayout(
-                new BorderLayout());
-        panel.setBorder(
-                new EmptyBorder(10, 10, 10, 10));
+        //GridLayout guideLayout = new GridLayout(10,1);
+        JPanel guidePanel = new JPanel();
+        BoxLayout guideLayout = new BoxLayout(guidePanel, BoxLayout.PAGE_AXIS);
+        guidePanel.setLayout(guideLayout);
+        for (int i = 0; i < 10; i++) {
+            JLabel pos = new JLabel("" + i + "    ");
+            pos.setFont(new Font("Sanserif", Font.PLAIN, 25));
+            Box.createVerticalGlue();
+            guidePanel.add(pos);
+            guidePanel.add(Box.createVerticalGlue());
+        }
+
+        panel.setLayout(new BorderLayout());
+        panel.setBorder(new EmptyBorder(10, 10, 10, 10));
         panel.add(canvas, BorderLayout.CENTER);
+        panel.add(guidePanel, BorderLayout.LINE_START);
 
         board = new Peg[ROWS][COLS]; // allocate array
 

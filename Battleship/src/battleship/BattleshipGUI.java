@@ -94,7 +94,7 @@ public class BattleshipGUI {
     }
 
     /**
-     * Creates the primary window for playing the application
+     * Creates the window that asks for the user's name
      */
     public void useNameWindow() {
         final JFrame nameFrame = new JFrame("Enter Name");  // window asking for name
@@ -117,6 +117,7 @@ public class BattleshipGUI {
         nameFrame.setResizable(false);              // window size fixed
         nameFrame.setLocationRelativeTo(null);      // show window in center of screen
         nameFrame.setVisible(true);                 // show window
+        nameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   // default close behaviour
 
         submitBtn.addActionListener(new // add actions for exit button
                 ActionListener() {
@@ -125,15 +126,20 @@ public class BattleshipGUI {
                 nameFrame.setVisible(false);        // hide current window
             }
         });
-
-        nameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   // default close behaviour
     }
 
+    /**
+     * Creates the primary window for playing the application
+     */
     public void useMainWindow(String name) {
         final JFrame gameFrame = new JFrame("Greetings, Admiral " + name + "!");    //label addressing player
         BorderLayout gameLayout = new BorderLayout();       // create layout for content
         sunk = 0;                           // counter to hold number of enemy ships sunk
         gameFrame.setLayout(gameLayout);    // set layout for frame
+        
+        JLabel columnLabel = new JLabel("                      A       B       C       D       E       F      G       H        I       J"
+                + "                  A       B       C       D       E       F      G       H        I       J");
+        columnLabel.setFont(new Font("Sanserif", Font.PLAIN, 20));
 
         JPanel oceanPanel = new JPanel();   // create panels to hold ->
         JPanel targetPanel = new JPanel();  // -> target and ocean grids
@@ -215,15 +221,19 @@ public class BattleshipGUI {
         gameFrame.add(oceanPanel, BorderLayout.LINE_START);
         gameFrame.add(targetPanel, BorderLayout.CENTER);
         gameFrame.add(buttonPanel, BorderLayout.LINE_END);
+        gameFrame.add(columnLabel, BorderLayout.PAGE_START);
+        //gameFrame.add(rowLabel, BorderLayout.CENTER);
 
         gameFrame.pack();
         gameFrame.setResizable(false);
         gameFrame.setLocationRelativeTo(null);
         gameFrame.setVisible(true);
         gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   // default close behaviour
-
     }
 
+    /**
+     * Function that rads a file and passes the output to a given text field
+     */
     public static void readFile(JTextArea txtfld) {   // function to read file containing rules
         try {
             BufferedReader rules = new BufferedReader(new FileReader("rules.txt"));
@@ -238,6 +248,9 @@ public class BattleshipGUI {
         }
     }
 
+    /**
+     * Checks whether all of the enemy ships have been sunk
+     */
     public boolean checkVictory() {
         sunk++;
         if (sunk == 5) {
@@ -247,6 +260,9 @@ public class BattleshipGUI {
         }
     }
 
+    /**
+     * Creates the victory window
+     */
     public void useVicWindow(JFrame frame, String name) {
         JFrame winFrame = new JFrame("You win!");
         JPanel winPanel = new JPanel();
@@ -272,7 +288,6 @@ public class BattleshipGUI {
         playBtn.addActionListener(new // add actions for rules button
                 ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                System.out.println("play again");
                 winFrame.setVisible(false);
                 frame.setVisible(false);
                 useMainWindow(name);
@@ -282,7 +297,6 @@ public class BattleshipGUI {
         exitBtn.addActionListener(new // add actions for exit button
                 ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                System.out.println("exit");
                 System.exit(0);
             }
         });
