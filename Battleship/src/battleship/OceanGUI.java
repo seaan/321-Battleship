@@ -51,7 +51,7 @@ public class OceanGUI extends JFrame {
 
     private JFrame frame;
     
-    private ShipToPlace currentShip = ShipToPlace.NULL; //add dialog for null
+    private Fleet.GameShip currentShip = Fleet.GameShip.NULL; //add dialog for null
 
     private enum GameState {
         SETUP, PLAYING
@@ -109,7 +109,7 @@ public class OceanGUI extends JFrame {
         carrier.addActionListener(new // add actions for rules button
                 ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                currentShip = ShipToPlace.CARRIER;
+                currentShip = Fleet.GameShip.CARRIER;
                 if (carrier == (JButton) event.getSource()) {
                     carrier.setEnabled(false);
                 }
@@ -118,7 +118,7 @@ public class OceanGUI extends JFrame {
         battleship.addActionListener(new // add actions for rules button
                 ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                currentShip = ShipToPlace.BATTLESHIP;
+                currentShip = Fleet.GameShip.BATTLESHIP;
                 if (battleship == (JButton) event.getSource()) {
                     battleship.setEnabled(false);
                 }
@@ -127,7 +127,7 @@ public class OceanGUI extends JFrame {
         cruiser.addActionListener(new // add actions for rules button
                 ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                currentShip = ShipToPlace.CRUISER;
+                currentShip = Fleet.GameShip.CRUISER;
                 if (cruiser == (JButton) event.getSource()) {
                     cruiser.setEnabled(false);
                 }
@@ -136,7 +136,7 @@ public class OceanGUI extends JFrame {
         sub.addActionListener(new // add actions for rules button
                 ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                currentShip = ShipToPlace.SUBMARINE;
+                currentShip = Fleet.GameShip.SUBMARINE;
                 if (sub == (JButton) event.getSource()) {
                     sub.setEnabled(false);
                 }
@@ -145,7 +145,7 @@ public class OceanGUI extends JFrame {
         destroyer.addActionListener(new // add actions for rules button
                 ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                currentShip = ShipToPlace.DESTROYER;
+                currentShip = Fleet.GameShip.DESTROYER;
                 if (destroyer == (JButton) event.getSource()) {
                     destroyer.setEnabled(false);
                 }
@@ -237,7 +237,7 @@ public class OceanGUI extends JFrame {
         }
     }
 
-    private void setShip(ShipToPlace ship, Position startPosition, Position endPosition) {
+    private void setShip(Fleet.GameShip ship, Position startPosition, Position endPosition) {
         Position newPosition = new Position(0,0,Position.Status.MISS);
         switch (ship) {
             case NULL:
@@ -255,11 +255,11 @@ public class OceanGUI extends JFrame {
                             for (int i = startRow; i <= startRow + 4; i++) {
                                 board[i][startPosition.getCol()] = Peg.SHIP;
                             }
-                            currentShip = ShipToPlace.NULL;
+                            currentShip = Fleet.GameShip.NULL;
                             ships++;
                         } else {
                             showError("shipOutOfBounds");
-                            currentShip = ShipToPlace.CARRIER;
+                            currentShip = Fleet.GameShip.CARRIER;
                         }
 
                     } else {
@@ -269,11 +269,11 @@ public class OceanGUI extends JFrame {
                             for (int i = startRow; i >= startRow - 4; i--) {
                                 board[i][startPosition.getCol()] = Peg.SHIP;
                             }
-                            currentShip = ShipToPlace.NULL;
+                            currentShip = Fleet.GameShip.NULL;
                             ships++;
                         } else {
                             showError("shipOutOfBounds");
-                            currentShip = ShipToPlace.CARRIER;
+                            currentShip = Fleet.GameShip.CARRIER;
                         }
                     }
                 }
@@ -292,11 +292,11 @@ public class OceanGUI extends JFrame {
                             for (int i = startPosition.getCol(); i < startPosition.getCol() + 4; i++) {
                                 board[startRow][i] = Peg.SHIP;
                             }
-                            currentShip = ShipToPlace.NULL;
+                            currentShip = Fleet.GameShip.NULL;
                             ships++;
                         } else {
                             showError("shipOutOfBounds");
-                            currentShip = ShipToPlace.BATTLESHIP;
+                            currentShip = Fleet.GameShip.BATTLESHIP;
                         }
 
                     } else {
@@ -306,11 +306,11 @@ public class OceanGUI extends JFrame {
                             for (int i = startPosition.getCol(); i > startPosition.getCol() - 4; i--) {
                                 board[startRow][i] = Peg.SHIP;
                             }
-                            currentShip = ShipToPlace.NULL;
+                            currentShip = Fleet.GameShip.NULL;
                             ships++;
                         } else {
                             showError("shipOutOfBounds");
-                            currentShip = ShipToPlace.BATTLESHIP;
+                            currentShip = Fleet.GameShip.BATTLESHIP;
                         }
                     }
                 } else {
@@ -322,11 +322,11 @@ public class OceanGUI extends JFrame {
                             for (int i = startRow; i < startRow + 4; i++) {
                                 board[i][startPosition.getCol()] = Peg.SHIP;
                             }
-                            currentShip = ShipToPlace.NULL;
+                            currentShip = Fleet.GameShip.NULL;
                             ships++;
                         } else {
                             showError("shipOutOfBounds");
-                            currentShip = ShipToPlace.BATTLESHIP;
+                            currentShip = Fleet.GameShip.BATTLESHIP;
                         }
 
                     } else {
@@ -336,11 +336,11 @@ public class OceanGUI extends JFrame {
                             for (int i = startRow; i > startRow - 4; i--) {
                                 board[i][startPosition.getCol()] = Peg.SHIP;
                             }
-                            currentShip = ShipToPlace.NULL;
+                            currentShip = Fleet.GameShip.NULL;
                             ships++;
                         } else {
                             showError("shipOutOfBounds");
-                            currentShip = ShipToPlace.BATTLESHIP;
+                            currentShip = Fleet.GameShip.BATTLESHIP;
                         }
                     }
                 }
@@ -359,11 +359,11 @@ public class OceanGUI extends JFrame {
                             for (int i = startPosition.getCol(); i < startPosition.getCol() + 3; i++) {
                                 board[startRow][i] = Peg.SHIP;
                             }
-                            currentShip = ShipToPlace.NULL;
+                            currentShip = Fleet.GameShip.NULL;
                             ships++;
                         } else {
                             showError("shipOutOfBounds");
-                            currentShip = ShipToPlace.CRUISER;
+                            currentShip = Fleet.GameShip.CRUISER;
                         }
 
                     } else {
@@ -373,11 +373,11 @@ public class OceanGUI extends JFrame {
                             for (int i = startPosition.getCol(); i > startPosition.getCol() - 3; i--) {
                                 board[startRow][i] = Peg.SHIP;
                             }
-                            currentShip = ShipToPlace.NULL;
+                            currentShip = Fleet.GameShip.NULL;
                             ships++;
                         } else {
                             showError("shipOutOfBounds");
-                            currentShip = ShipToPlace.CRUISER;
+                            currentShip = Fleet.GameShip.CRUISER;
                         }
                     }
                 } else {
@@ -389,11 +389,11 @@ public class OceanGUI extends JFrame {
                             for (int i = startRow; i < startRow + 3; i++) {
                                 board[i][startPosition.getCol()] = Peg.SHIP;
                             }
-                            currentShip = ShipToPlace.NULL;
+                            currentShip = Fleet.GameShip.NULL;
                             ships++;
                         } else {
                             showError("shipOutOfBounds");
-                            currentShip = ShipToPlace.CRUISER;
+                            currentShip = Fleet.GameShip.CRUISER;
                         }
 
                     } else {
@@ -403,11 +403,11 @@ public class OceanGUI extends JFrame {
                             for (int i = startRow; i > startRow - 3; i--) {
                                 board[i][startPosition.getCol()] = Peg.SHIP;
                             }
-                            currentShip = ShipToPlace.NULL;
+                            currentShip = Fleet.GameShip.NULL;
                             ships++;
                         } else {
                             showError("shipOutOfBounds");
-                            currentShip = ShipToPlace.CRUISER;
+                            currentShip = Fleet.GameShip.CRUISER;
                         }
                     }
                 }
@@ -426,11 +426,11 @@ public class OceanGUI extends JFrame {
                             for (int i = startPosition.getCol(); i < startPosition.getCol() + 3; i++) {
                                 board[startRow][i] = Peg.SHIP;
                             }
-                            currentShip = ShipToPlace.NULL;
+                            currentShip = Fleet.GameShip.NULL;
                             ships++;
                         } else {
                             showError("shipOutOfBounds");
-                            currentShip = ShipToPlace.SUBMARINE;
+                            currentShip = Fleet.GameShip.SUBMARINE;
                         }
 
                     } else {
@@ -440,11 +440,11 @@ public class OceanGUI extends JFrame {
                             for (int i = startPosition.getCol(); i > startPosition.getCol() - 3; i--) {
                                 board[startRow][i] = Peg.SHIP;
                             }
-                            currentShip = ShipToPlace.NULL;
+                            currentShip = Fleet.GameShip.NULL;
                             ships++;
                         } else {
                             showError("shipOutOfBounds");
-                            currentShip = ShipToPlace.SUBMARINE;
+                            currentShip = Fleet.GameShip.SUBMARINE;
                         }
                     }
                 } else {
@@ -456,11 +456,11 @@ public class OceanGUI extends JFrame {
                             for (int i = startRow; i < startRow + 3; i++) {
                                 board[i][startPosition.getCol()] = Peg.SHIP;
                             }
-                            currentShip = ShipToPlace.NULL;
+                            currentShip = Fleet.GameShip.NULL;
                             ships++;
                         } else {
                             showError("shipOutOfBounds");
-                            currentShip = ShipToPlace.SUBMARINE;
+                            currentShip = Fleet.GameShip.SUBMARINE;
                         }
 
                     } else {
@@ -470,11 +470,11 @@ public class OceanGUI extends JFrame {
                             for (int i = startRow; i > startRow - 3; i--) {
                                 board[i][startPosition.getCol()] = Peg.SHIP;
                             }
-                            currentShip = ShipToPlace.NULL;
+                            currentShip = Fleet.GameShip.NULL;
                             ships++;
                         } else {
                             showError("shipOutOfBounds");
-                            currentShip = ShipToPlace.SUBMARINE;
+                            currentShip = Fleet.GameShip.SUBMARINE;
                         }
                     }
                 }
@@ -493,11 +493,11 @@ public class OceanGUI extends JFrame {
                             for (int i = startPosition.getCol(); i < startPosition.getCol() + 2; i++) {
                                 board[startRow][i] = Peg.SHIP;
                             }
-                            currentShip = ShipToPlace.NULL;
+                            currentShip = Fleet.GameShip.NULL;
                             ships++;
                         } else {
                             showError("shipOutOfBounds");
-                            currentShip = ShipToPlace.DESTROYER;
+                            currentShip = Fleet.GameShip.DESTROYER;
                         }
 
                     } else {
@@ -507,11 +507,11 @@ public class OceanGUI extends JFrame {
                             for (int i = startPosition.getCol(); i > startPosition.getCol() - 2; i--) {
                                 board[startRow][i] = Peg.SHIP;
                             }
-                            currentShip = ShipToPlace.NULL;
+                            currentShip = Fleet.GameShip.NULL;
                             ships++;
                         } else {
                             showError("shipOutOfBounds");
-                            currentShip = ShipToPlace.DESTROYER;
+                            currentShip = Fleet.GameShip.DESTROYER;
                         }
                     }
                 } else {
@@ -523,11 +523,11 @@ public class OceanGUI extends JFrame {
                             for (int i = startRow; i < startRow + 2; i++) {
                                 board[i][startPosition.getCol()] = Peg.SHIP;
                             }
-                            currentShip = ShipToPlace.NULL;
+                            currentShip = Fleet.GameShip.NULL;
                             ships++;
                         } else {
                             showError("shipOutOfBounds");
-                            currentShip = ShipToPlace.DESTROYER;
+                            currentShip = Fleet.GameShip.DESTROYER;
                         }
 
                     } else {
@@ -537,11 +537,11 @@ public class OceanGUI extends JFrame {
                             for (int i = startRow; i > startRow - 2; i--) {
                                 board[i][startPosition.getCol()] = Peg.SHIP;
                             }
-                            currentShip = ShipToPlace.NULL;
+                            currentShip = Fleet.GameShip.NULL;
                             ships++;
                         } else {
                             showError("shipOutOfBounds");
-                            currentShip = ShipToPlace.DESTROYER;
+                            currentShip = Fleet.GameShip.DESTROYER;
                         }
                     }
                 }
@@ -555,7 +555,7 @@ public class OceanGUI extends JFrame {
 
     }
 
-    private void checkShipPlacement(ShipToPlace ship, Position startPosition, Position endPosition) {
+    private void checkShipPlacement(Fleet.GameShip ship, Position startPosition, Position endPosition) {
         if (startPosition.getCol() < endPosition.getCol()) {
             if (startPosition.getCol() >= 0 && startPosition.getCol() < COLS && startPosition.getCol() + ship.size >= 0
                     && startPosition.getCol() + 4 < COLS) {
@@ -567,7 +567,7 @@ public class OceanGUI extends JFrame {
                 for (int i = startPosition.getCol(); i <= startPosition.getCol() + ship.size; i++) {
                     board[startRow][i] = Peg.SHIP;
                 }
-                currentShip = ShipToPlace.NULL;
+                currentShip = Fleet.GameShip.NULL;
                 ships++;
             } else {
                 showError("shipOutOfBounds");
@@ -580,7 +580,7 @@ public class OceanGUI extends JFrame {
                 for (int i = startPosition.getCol(); i >= startPosition.getCol() - ship.size; i--) {
                     board[startRow][i] = Peg.SHIP;
                 }
-                currentShip = ShipToPlace.NULL;
+                currentShip = Fleet.GameShip.NULL;
                 ships++;
             } else {
                 showError("shipOutOfBounds");
