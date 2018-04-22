@@ -22,7 +22,7 @@ public class TargetGUI extends JFrame {
     /* Number of Cols */
     public static final int COLS = 10;
     /* Size of each square */
-    public static final int CELL_SIZE = 55;
+    public static final int CELL_SIZE = 50;
     /* Width of the canvas */    
     public static final int CANVAS_WIDTH = CELL_SIZE * COLS;  
     /* Height of the canvas */

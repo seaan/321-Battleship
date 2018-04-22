@@ -18,7 +18,7 @@ public class OceanGUI extends JFrame {
     public static final int COLS = 10;
 
     // Constants for creating the board
-    public static final int CELL_SIZE = 55; // cell width and height (square)
+    public static final int CELL_SIZE = 50; // cell width and height (square)
     public static final int CANVAS_WIDTH = CELL_SIZE * COLS;  // Allows the canvas to be drawn
     public static final int CANVAS_HEIGHT = CELL_SIZE * ROWS;
     public static final int GRID_WIDTH = 1;

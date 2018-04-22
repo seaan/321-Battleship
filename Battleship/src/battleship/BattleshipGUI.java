@@ -140,8 +140,9 @@ public class BattleshipGUI {
         sunk = 0; // set counter to zero. this counter tracks enemy ships sunk
 
         /* Create label for columns in game display */
-        JLabel columnLabel = new JLabel("                      A       B       C       D       E       F      G       H        I       J"
-                + "                  A       B       C       D       E       F      G       H        I       J");
+        JLabel columnLabel = new JLabel(
+                "                     A       B      C      D      E      F      G      H       I       J"
+               +"                A       B      C      D      E      F      G      H       I       J");
         columnLabel.setFont(myFont);
 
         /* Create target and ocean panels, each containg
