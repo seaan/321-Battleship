@@ -27,7 +27,7 @@ import javax.swing.border.EmptyBorder;
 
 /**
  *
- * @author Kyle
+ * @author Kyle Daigle, Robert Womack
  */
 public class TargetGUI extends JFrame {
 
