@@ -174,6 +174,7 @@ public class OceanGUI extends JFrame {
                         startPosition.setStatus(Position.Status.SHIP);
                         endPosition.setStatus(Position.Status.SHIP);
                         setShip(currentShip, startPosition, endPosition);
+                        bsg.getOceanGrid().printGrid();
                         canvas.repaint();
                     }
                 } else if (testState == 1) {
@@ -264,7 +265,7 @@ public class OceanGUI extends JFrame {
 
                 startPosition.setPosition(startPosition.getCol(), startPosition.getRow());
                 endPosition.setPosition(startPosition.getCol() + type.size, endPosition.getRow());
-                //bsg.updateShip(startPosition, endPosition, type);
+                bsg.updateShip(startPosition, endPosition, type);
 
                 for (int i = startPosition.getCol(); i <= startPosition.getCol() + type.size; i++) {
                     board[startPosition.getRow()][i] = Peg.SHIP;
@@ -281,7 +282,7 @@ public class OceanGUI extends JFrame {
 
                 startPosition.setPosition(startPosition.getCol(), startPosition.getRow());
                 endPosition.setPosition(startPosition.getCol() - type.size, endPosition.getRow());
-                //bsg.updateShip(startPosition, endPosition, type);
+                bsg.updateShip(startPosition, endPosition, type);
 
                 for (int i = startPosition.getCol(); i >= startPosition.getCol() - type.size; i--) {
                     board[startPosition.getRow()][i] = Peg.SHIP;
@@ -312,7 +313,7 @@ public class OceanGUI extends JFrame {
 
                 startPosition.setPosition(startPosition.getCol(), startPosition.getRow());
                 endPosition.setPosition(startPosition.getCol(), startPosition.getRow() + type.size);
-                //bsg.updateShip(startPosition, endPosition, type);
+                bsg.updateShip(startPosition, endPosition, type);
 
                 for (int i = startPosition.getRow(); i <= startPosition.getRow() + type.size; i++) {
                     board[i][startPosition.getCol()] = Peg.SHIP;
@@ -329,7 +330,7 @@ public class OceanGUI extends JFrame {
 
                 startPosition.setPosition(startPosition.getCol(), startPosition.getRow());
                 endPosition.setPosition(startPosition.getCol(), startPosition.getRow() - type.size);
-                //bsg.updateShip(startPosition, endPosition, type);
+                bsg.updateShip(startPosition, endPosition, type);
 
                 for (int i = startPosition.getRow(); i >= startPosition.getRow() - type.size; i--) {
                     board[i][startPosition.getCol()] = Peg.SHIP;
