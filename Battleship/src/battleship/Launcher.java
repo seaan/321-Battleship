@@ -8,7 +8,6 @@ package battleship;
  */
 public class Launcher {
 //    protected GUI gui = new GUI();
-
     /**
      * Begins a game of Battleship.
      */

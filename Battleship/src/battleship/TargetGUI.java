@@ -6,30 +6,40 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-
+import javax.swing.border.EmptyBorder;
 /**
  *
  * @author Kyle
  */
 public class TargetGUI extends JFrame {
 
+    TargetGrid tg = TargetGrid.getInstance();
+    private int sunk;
     BattleshipGame bsg;
-
+  
     // Grid Layout
     public static final int ROWS = 10;
     public static final int COLS = 10;
 
     // Constants for creating the board
+    public static final int CELL_SIZE = 55; // cell width and height (square)
     public static final int CELL_SIZE = 25; // cell width and height (square)
     public static final int CANVAS_WIDTH = CELL_SIZE * COLS;  // Allows the canvas to be drawn
     public static final int CANVAS_HEIGHT = CELL_SIZE * ROWS;
@@ -57,49 +67,57 @@ public class TargetGUI extends JFrame {
     /**
      * Constructor to setup the game and the GUI components
      */
-    public TargetGUI() {
+    public TargetGUI(JPanel panel) {
+        canvas = new DrawCanvas();  // Construct a drawing canvas (a JPanel)
+        canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
+
         bsg = BattleshipGame.getInstance();
         Position position = new Position(0, 0, Position.Status.MISS);
 
         canvas = new DrawCanvas();  // Construct a drawing canvas (a JPanel)
         canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
 
-        // Code used to create a mouse click so they can place a O or X in the square
-        canvas.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                int mouseX = e.getX();
-                int mouseY = e.getY();
+                if (row >= 0 && row < ROWS && col >= 0
+                        && col < COLS) {
+                    if (e.getButton() == 1) {
+                        board[row][col] = Peg.MISS;
+                        tg.setMiss(row, col);
+                    } else {
+                        board[row][col] = Peg.HIT;
+                        tg.setHit(row, col);
 
-                int row = mouseY / CELL_SIZE;
-                int col = mouseX / CELL_SIZE;
-                // Code above shows the row / colum selected            
-
-                if (currentState == GameState.PLAYING) {
-                    if (row >= 0 && row < ROWS && col >= 0
-                            && col < COLS && board[row][col] == Peg.EMPTY) {
-                        if (e.getButton() == 1) {
-                            position.setPosition(row, col);
-                            position.setStatus(Position.Status.MISS);
-
-                            board[row][col] = Peg.MISS;
-                        } else {
-                            position.setPosition(row, col);
-                            position.setStatus(Position.Status.HIT);
-
-                            board[row][col] = Peg.HIT;
-                        }
-                        //board[row][col] = Peg.HIT;  
                     }
-                } else {       // game over
-                    initGame(); // restarts the game
+                    canvas.repaint();
                 }
-                // Refresh the drawing canvas
-                repaint();  // Call-back paintComponent().
             }
         });
 
         statusBar = new JLabel("  ");
+
+        statusBar.setFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 15));
+        statusBar.setBorder(BorderFactory.createEmptyBorder(2, 5, 4, 5));
+
+        //GridLayout guideLayout = new GridLayout(10,1);
+        JPanel guidePanel = new JPanel();
+        BoxLayout guideLayout = new BoxLayout(guidePanel, BoxLayout.PAGE_AXIS);
+        guidePanel.setLayout(guideLayout);
+        for (int i = 0; i < 10; i++) {
+            JLabel pos = new JLabel("" + i + "    ");
+            pos.setFont(new Font("Sanserif", Font.PLAIN, 25));
+            Box.createVerticalGlue();
+            guidePanel.add(pos);
+            guidePanel.add(Box.createVerticalGlue());
+        }
+
+        panel.setLayout(new BorderLayout());
+        panel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        panel.add(canvas, BorderLayout.CENTER);
+        panel.add(guidePanel, BorderLayout.LINE_START);
+
+        board = new Peg[ROWS][COLS]; // allocate array
+
+        clearGrid(); // initialize the game board contents and game variables
+=======
         statusBar.setFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 15));
         statusBar.setBorder(BorderFactory.createEmptyBorder(2, 5, 4, 5));
 
@@ -120,22 +138,22 @@ public class TargetGUI extends JFrame {
     /**
      * Initialize the game-board contents and the status
      */
-    public void initGame() {
+    protected void clearGrid() {
         for (int row = 0; row < ROWS; row++) {
             for (int col = 0; col < COLS; col++) {
                 board[row][col] = Peg.EMPTY; // all cells empty
             }
         }
-        currentState = GameState.PLAYING; // ready to play
-//      currentPlayer = Peg.HIT;       // cross plays first
+        //fix buttons
+        canvas.repaint();
     }
 
     /**
-     * Update the currentState after the player with "thePeg" has placed on
+     * Update the currentState after the player with the Peg has placed on
      * (rowSelected, colSelected).
      */
-    // Otherwise, no change to current state (still GameState.PLAYING).
-    /**
+
+     /**
      * Inner class DrawCanvas (extends JPanel) used for custom graphics drawing.
      */
     class DrawCanvas extends JPanel {
@@ -163,8 +181,8 @@ public class TargetGUI extends JFrame {
 
             for (int row = 0; row < ROWS; row++) {
                 for (int col = 0; col < COLS; col++) {
-                    int x1 = col * CELL_SIZE + CELL_PADDING + 4;
-                    int y1 = row * CELL_SIZE + CELL_PADDING + 4;
+                    int x1 = col * CELL_SIZE + CELL_PADDING + 5;
+                    int y1 = row * CELL_SIZE + CELL_PADDING + 5;
 
                     if (board[row][col] == Peg.HIT) {
                         g2d.setColor(Color.RED);
@@ -177,8 +195,4 @@ public class TargetGUI extends JFrame {
             }
         }
     }
-
-    /**
-     * The entry main() method
-     */
 }
