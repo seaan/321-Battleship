@@ -184,9 +184,11 @@ public class OceanGUI extends JFrame {
                 } else if (testState == 1) {
                     if (startRow >= 0 && startRow < ROWS && startCol >= 0
                             && startCol < COLS) {
-                        if (board[startRow][startCol] == Peg.SHIP || board[startRow][startCol] == Peg.MISS) {
+                        if (board[startRow][startCol] == Peg.SHIP
+                                || board[startRow][startCol] == Peg.MISS) {
                             board[startRow][startCol] = Peg.HIT;
-                        } else if (board[startRow][startCol] == Peg.EMPTY || board[startRow][startCol] == Peg.HIT) {
+                        } else if (board[startRow][startCol] == Peg.EMPTY
+                                || board[startRow][startCol] == Peg.HIT) {
                             board[startRow][startCol] = Peg.MISS;
                         }
                         canvas.repaint();
@@ -206,13 +208,13 @@ public class OceanGUI extends JFrame {
         //setVisible(true);  // show this JFrame
 
         board = new Peg[ROWS][COLS]; // allocate array
-        initGame(); // initialize the game board contents and game variables
+        clearGrid(); // initialize the game board contents and game variables
     }
 
     /**
      * Initialize the game-board contents and the status
      */
-    public void initGame() {
+    public void clearGrid() {
         for (int row = 0; row < ROWS; row++) {
             for (int col = 0; col < COLS; col++) {
                 board[row][col] = Peg.EMPTY; // all cells empty
@@ -233,185 +235,342 @@ public class OceanGUI extends JFrame {
         }
     }
 
-    private void setShip(ShipToPlace ship, int startX, int startY, int endX,
-            int endY) {
+    private void setShip(ShipToPlace ship, int startRow, int startCol, int endRow,
+            int endCol) {
         switch (ship) {
             case NULL:
                 showError("nullShipPlacement");
                 break;
             case CARRIER:
-                if (startX == endX) {
-                    if (startY < endY) {
-                        if (startY >= 0 && startY < COLS && startY + 4 >= 0
-                                && startY + 4 < COLS) {
+                if (startRow == endRow) {
+                    if (startCol < endCol) {
+                        if (startCol >= 0 && startCol < COLS && startCol + 4 >= 0
+                                && startCol + 4 < COLS) {
 
-                            og.getFleet().placeShip("Carrier", startY, startX, startY + 4, endX);
-                            for (int i = startY; i < startY + 5; i++) {
-                                board[startX][i] = Peg.SHIP;
+                            og.getFleet().placeShip("Carrier", startCol, startRow, startCol + 4, endRow);
+                            for (int i = startCol; i < startCol + 5; i++) {
+                                board[startRow][i] = Peg.SHIP;
                             }
+                            currentShip = ShipToPlace.NULL;
+                            ships++;
                         } else {
                             showError("shipOutOfBounds");
                             currentShip = ShipToPlace.CARRIER;
                         }
 
                     } else {
-                        if (endY >= 0 && endY < COLS && endY + 4 >= 0
-                                && startY + 4 < COLS) {
-                            og.getFleet().placeShip("Carrier", endY, startX, endY + 4, endX);
-                            for (int i = endY; i < endY + 5; i++) {
-                                board[startX][i] = Peg.SHIP;
+                        if (startCol >= 0 && startCol < COLS && startCol - 4 >= 0
+                                && startCol - 4 < COLS) {
+                            og.getFleet().placeShip("Carrier", startCol, startRow, startCol - 4, endRow);
+                            for (int i = startCol; i > startCol - 5; i--) {
+                                board[startRow][i] = Peg.SHIP;
                             }
+                            currentShip = ShipToPlace.NULL;
+                            ships++;
                         } else {
                             showError("shipOutOfBounds");
+                            currentShip = ShipToPlace.CARRIER;
                         }
                     }
                 } else {
-                    og.getFleet().placeShip("Carrier", startY, startX, endY, startX + 4);
-                    if (startX < endX) {
-                        for (int i = startX; i < startX + 5; i++) {
-                            board[i][startY] = Peg.SHIP;
+                    if (startRow < endRow) {
+
+                        if (startRow >= 0 && startRow < ROWS && startRow + 4 >= 0
+                                && startRow + 4 < ROWS) {
+                            og.getFleet().placeShip("Carrier", startCol, startRow, endCol, startRow + 4);
+                            for (int i = startRow; i < startRow + 5; i++) {
+                                board[i][startCol] = Peg.SHIP;
+                            }
+                            currentShip = ShipToPlace.NULL;
+                            ships++;
+                        } else {
+                            showError("shipOutOfBounds");
+                            currentShip = ShipToPlace.CARRIER;
                         }
+
                     } else {
-                        og.getFleet().placeShip("Carrier", startY, endX, endY, endX + 4);
-                        for (int i = endX; i < endX + 5; i++) {
-                            board[i][startY] = Peg.SHIP;
+                        if (startRow >= 0 && startRow < ROWS && startRow - 4 >= 0
+                                && startRow - 4 < ROWS) {
+                            og.getFleet().placeShip("Carrier", startCol, startRow, endCol, startRow - 4);
+                            for (int i = startRow; i > startRow - 5; i--) {
+                                board[i][startCol] = Peg.SHIP;
+                            }
+                            currentShip = ShipToPlace.NULL;
+                            ships++;
+                        } else {
+                            showError("shipOutOfBounds");
+                            currentShip = ShipToPlace.CARRIER;
                         }
                     }
                 }
-                currentShip = ShipToPlace.NULL;
-                ships++;
                 if (ships == 5) {
                     currentState = GameState.PLAYING;
                     testState = 1;
                 }
                 break;
             case BATTLESHIP:
-                if (startX == endX) {
-                    if (startY < endY) {
-                        og.getFleet().placeShip("Battleship", startY, startX, startY + 3, endX);
-                        for (int i = startY; i < startY + 4; i++) {
-                            board[startX][i] = Peg.SHIP;
+                if (startRow == endRow) {
+                    if (startCol < endCol) {
+                        if (startCol >= 0 && startCol < COLS && startCol + 3 >= 0
+                                && startCol + 3 < COLS) {
+
+                            og.getFleet().placeShip("Battleship", startCol, startRow, startCol + 3, endRow);
+                            for (int i = startCol; i < startCol + 4; i++) {
+                                board[startRow][i] = Peg.SHIP;
+                            }
+                            currentShip = ShipToPlace.NULL;
+                            ships++;
+                        } else {
+                            showError("shipOutOfBounds");
+                            currentShip = ShipToPlace.BATTLESHIP;
                         }
+
                     } else {
-                        og.getFleet().placeShip("Battleship", endY, startX, endY + 3, endX);
-                        for (int i = endY; i < endY + 4; i++) {
-                            board[startX][i] = Peg.SHIP;
+                        if (startCol >= 0 && startCol < COLS && startCol - 3 >= 0
+                                && startCol - 3 < COLS) {
+                            og.getFleet().placeShip("Battleship", startCol, startRow, startCol - 3, endRow);
+                            for (int i = startCol; i > startCol - 4; i--) {
+                                board[startRow][i] = Peg.SHIP;
+                            }
+                            currentShip = ShipToPlace.NULL;
+                            ships++;
+                        } else {
+                            showError("shipOutOfBounds");
+                            currentShip = ShipToPlace.BATTLESHIP;
                         }
                     }
                 } else {
-                    og.getFleet().placeShip("Battleship", startY, startX, endY, startX + 3);
-                    if (startX < endX) {
-                        for (int i = startX; i < startX + 4; i++) {
-                            board[i][startY] = Peg.SHIP;
+                    if (startRow < endRow) {
+
+                        if (startRow >= 0 && startRow < ROWS && startRow + 3 >= 0
+                                && startRow + 3 < ROWS) {
+                            og.getFleet().placeShip("Battleship", startCol, startRow, endCol, startRow + 3);
+                            for (int i = startRow; i < startRow + 4; i++) {
+                                board[i][startCol] = Peg.SHIP;
+                            }
+                            currentShip = ShipToPlace.NULL;
+                            ships++;
+                        } else {
+                            showError("shipOutOfBounds");
+                            currentShip = ShipToPlace.BATTLESHIP;
                         }
+
                     } else {
-                        og.getFleet().placeShip("Battleship", startY, endX, endY, endX + 3);
-                        for (int i = endX; i < endX + 4; i++) {
-                            board[i][startY] = Peg.SHIP;
+                        if (startRow >= 0 && startRow < ROWS && startRow - 3 >= 0
+                                && startRow - 3 < ROWS) {
+                            og.getFleet().placeShip("Battleship", startCol, startRow, endCol, startRow - 3);
+                            for (int i = startRow; i > startRow - 4; i--) {
+                                board[i][startCol] = Peg.SHIP;
+                            }
+                            currentShip = ShipToPlace.NULL;
+                            ships++;
+                        } else {
+                            showError("shipOutOfBounds");
+                            currentShip = ShipToPlace.BATTLESHIP;
                         }
                     }
                 }
-                currentShip = ShipToPlace.NULL;
-                ships++;
                 if (ships == 5) {
                     currentState = GameState.PLAYING;
                     testState = 1;
                 }
                 break;
             case CRUISER:
-                if (startX == endX) {
-                    if (startY < endY) {
-                        og.getFleet().placeShip("Cruiser", startY, startX, startY + 2, endX);
-                        for (int i = startY; i < startY + 3; i++) {
-                            board[startX][i] = Peg.SHIP;
+                if (startRow == endRow) {
+                    if (startCol < endCol) {
+                        if (startCol >= 0 && startCol < COLS && startCol + 2 >= 0
+                                && startCol + 2 < COLS) {
+
+                            og.getFleet().placeShip("Cruiser", startCol, startRow, startCol + 2, endRow);
+                            for (int i = startCol; i < startCol + 3; i++) {
+                                board[startRow][i] = Peg.SHIP;
+                            }
+                            currentShip = ShipToPlace.NULL;
+                            ships++;
+                        } else {
+                            showError("shipOutOfBounds");
+                            currentShip = ShipToPlace.CRUISER;
                         }
+
                     } else {
-                        og.getFleet().placeShip("Cruiser", endY, startX, endY + 2, endX);
-                        for (int i = endY; i < endY + 3; i++) {
-                            board[startX][i] = Peg.SHIP;
+                        if (startCol >= 0 && startCol < COLS && startCol - 2 >= 0
+                                && startCol - 2 < COLS) {
+                            og.getFleet().placeShip("Cruiser", startCol, startRow, startCol - 2, endRow);
+                            for (int i = startCol; i > startCol - 3; i--) {
+                                board[startRow][i] = Peg.SHIP;
+                            }
+                            currentShip = ShipToPlace.NULL;
+                            ships++;
+                        } else {
+                            showError("shipOutOfBounds");
+                            currentShip = ShipToPlace.CRUISER;
                         }
                     }
                 } else {
-                    og.getFleet().placeShip("Cruiser", startY, startX, endY, startX + 2);
-                    if (startX < endX) {
-                        for (int i = startX; i < startX + 3; i++) {
-                            board[i][startY] = Peg.SHIP;
+                    if (startRow < endRow) {
+
+                        if (startRow >= 0 && startRow < ROWS && startRow + 2 >= 0
+                                && startRow + 2 < ROWS) {
+                            og.getFleet().placeShip("Cruiser", startCol, startRow, endCol, startRow + 2);
+                            for (int i = startRow; i < startRow + 3; i++) {
+                                board[i][startCol] = Peg.SHIP;
+                            }
+                            currentShip = ShipToPlace.NULL;
+                            ships++;
+                        } else {
+                            showError("shipOutOfBounds");
+                            currentShip = ShipToPlace.CRUISER;
                         }
+
                     } else {
-                        og.getFleet().placeShip("Cruiser", startY, endX, endY, endX + 2);
-                        for (int i = endX; i < endX + 3; i++) {
-                            board[i][startY] = Peg.SHIP;
+                        if (startRow >= 0 && startRow < ROWS && startRow - 2 >= 0
+                                && startRow - 2 < ROWS) {
+                            og.getFleet().placeShip("Cruiser", startCol, startRow, endCol, startRow - 2);
+                            for (int i = startRow; i > startRow - 3; i--) {
+                                board[i][startCol] = Peg.SHIP;
+                            }
+                            currentShip = ShipToPlace.NULL;
+                            ships++;
+                        } else {
+                            showError("shipOutOfBounds");
+                            currentShip = ShipToPlace.CRUISER;
                         }
                     }
                 }
-                currentShip = ShipToPlace.NULL;
-                ships++;
                 if (ships == 5) {
                     currentState = GameState.PLAYING;
                     testState = 1;
                 }
                 break;
             case SUBMARINE:
-                if (startX == endX) {
-                    if (startY < endY) {
-                        og.getFleet().placeShip("Submarine", startY, startX, startY + 2, endX);
-                        for (int i = startY; i < startY + 3; i++) {
-                            board[startX][i] = Peg.SHIP;
+                if (startRow == endRow) {
+                    if (startCol < endCol) {
+                        if (startCol >= 0 && startCol < COLS && startCol + 2 >= 0
+                                && startCol + 2 < COLS) {
+
+                            og.getFleet().placeShip("Submarine", startCol, startRow, startCol + 2, endRow);
+                            for (int i = startCol; i < startCol + 3; i++) {
+                                board[startRow][i] = Peg.SHIP;
+                            }
+                            currentShip = ShipToPlace.NULL;
+                            ships++;
+                        } else {
+                            showError("shipOutOfBounds");
+                            currentShip = ShipToPlace.SUBMARINE;
                         }
+
                     } else {
-                        og.getFleet().placeShip("Submarine", endY, startX, endY + 2, endX);
-                        for (int i = endY; i < endY + 3; i++) {
-                            board[startX][i] = Peg.SHIP;
+                        if (startCol >= 0 && startCol < COLS && startCol - 2 >= 0
+                                && startCol - 2 < COLS) {
+                            og.getFleet().placeShip("Submarine", startCol, startRow, startCol - 2, endRow);
+                            for (int i = startCol; i > startCol - 3; i--) {
+                                board[startRow][i] = Peg.SHIP;
+                            }
+                            currentShip = ShipToPlace.NULL;
+                            ships++;
+                        } else {
+                            showError("shipOutOfBounds");
+                            currentShip = ShipToPlace.SUBMARINE;
                         }
                     }
                 } else {
-                    og.getFleet().placeShip("Submarine", startY, startX, endY, startX + 2);
-                    if (startX < endX) {
-                        for (int i = startX; i < startX + 3; i++) {
-                            board[i][startY] = Peg.SHIP;
+                    if (startRow < endRow) {
+
+                        if (startRow >= 0 && startRow < ROWS && startRow + 2 >= 0
+                                && startRow + 2 < ROWS) {
+                            og.getFleet().placeShip("Submarine", startCol, startRow, endCol, startRow + 2);
+                            for (int i = startRow; i < startRow + 3; i++) {
+                                board[i][startCol] = Peg.SHIP;
+                            }
+                            currentShip = ShipToPlace.NULL;
+                            ships++;
+                        } else {
+                            showError("shipOutOfBounds");
+                            currentShip = ShipToPlace.SUBMARINE;
                         }
+
                     } else {
-                        og.getFleet().placeShip("Submarine", startY, endX, endY, endX + 2);
-                        for (int i = endX; i < endX + 3; i++) {
-                            board[i][startY] = Peg.SHIP;
+                        if (startRow >= 0 && startRow < ROWS && startRow - 2 >= 0
+                                && startRow - 2 < ROWS) {
+                            og.getFleet().placeShip("Submarine", startCol, startRow, endCol, startRow - 2);
+                            for (int i = startRow; i > startRow - 3; i--) {
+                                board[i][startCol] = Peg.SHIP;
+                            }
+                            currentShip = ShipToPlace.NULL;
+                            ships++;
+                        } else {
+                            showError("shipOutOfBounds");
+                            currentShip = ShipToPlace.SUBMARINE;
                         }
                     }
                 }
-                currentShip = ShipToPlace.NULL;
-                ships++;
                 if (ships == 5) {
                     currentState = GameState.PLAYING;
                     testState = 1;
                 }
                 break;
             case DESTROYER:
-                if (startX == endX) {
-                    if (startY < endY) {
-                        og.getFleet().placeShip("Destroyer", startY, startX, startY + 1, endX);
-                        for (int i = startY; i < startY + 2; i++) {
-                            board[startX][i] = Peg.SHIP;
+                if (startRow == endRow) {
+                    if (startCol < endCol) {
+                        if (startCol >= 0 && startCol < COLS && startCol + 1 >= 0
+                                && startCol + 1 < COLS) {
+
+                            og.getFleet().placeShip("Destroyer", startCol, startRow, startCol + 1, endRow);
+                            for (int i = startCol; i < startCol + 2; i++) {
+                                board[startRow][i] = Peg.SHIP;
+                            }
+                            currentShip = ShipToPlace.NULL;
+                            ships++;
+                        } else {
+                            showError("shipOutOfBounds");
+                            currentShip = ShipToPlace.DESTROYER;
                         }
+
                     } else {
-                        og.getFleet().placeShip("Destroyer", endY, startX, endY + 1, endX);
-                        for (int i = endY; i < endY + 2; i++) {
-                            board[startX][i] = Peg.SHIP;
+                        if (startCol >= 0 && startCol < COLS && startCol - 1 >= 0
+                                && startCol - 1 < COLS) {
+                            og.getFleet().placeShip("Destroyer", startCol, startRow, startCol - 1, endRow);
+                            for (int i = startCol; i > startCol - 2; i--) {
+                                board[startRow][i] = Peg.SHIP;
+                            }
+                            currentShip = ShipToPlace.NULL;
+                            ships++;
+                        } else {
+                            showError("shipOutOfBounds");
+                            currentShip = ShipToPlace.DESTROYER;
                         }
                     }
                 } else {
-                    og.getFleet().placeShip("Destroyer", startY, startX, endY, startX + 1);
-                    if (startX < endX) {
-                        for (int i = startX; i < startX + 2; i++) {
-                            board[i][startY] = Peg.SHIP;
+                    if (startRow < endRow) {
+
+                        if (startRow >= 0 && startRow < ROWS && startRow + 1 >= 0
+                                && startRow + 1 < ROWS) {
+                            og.getFleet().placeShip("Destroyer", startCol, startRow, endCol, startRow + 1);
+                            for (int i = startRow; i < startRow + 2; i++) {
+                                board[i][startCol] = Peg.SHIP;
+                            }
+                            currentShip = ShipToPlace.NULL;
+                            ships++;
+                        } else {
+                            showError("shipOutOfBounds");
+                            currentShip = ShipToPlace.DESTROYER;
                         }
+
                     } else {
-                        og.getFleet().placeShip("Destroyer", startY, endX, endY, endX + 1);
-                        for (int i = endX; i < endX + 2; i++) {
-                            board[i][startY] = Peg.SHIP;
+                        if (startRow >= 0 && startRow < ROWS && startRow - 1 >= 0
+                                && startRow - 1 < ROWS) {
+                            og.getFleet().placeShip("Destroyer", startCol, startRow, endCol, startRow - 1);
+                            for (int i = startRow; i > startRow - 2; i--) {
+                                board[i][startCol] = Peg.SHIP;
+                            }
+                            currentShip = ShipToPlace.NULL;
+                            ships++;
+                        } else {
+                            showError("shipOutOfBounds");
+                            currentShip = ShipToPlace.DESTROYER;
                         }
                     }
                 }
-                currentShip = ShipToPlace.NULL;
-                ships++;
                 if (ships == 5) {
                     currentState = GameState.PLAYING;
                     testState = 1;
@@ -422,12 +581,7 @@ public class OceanGUI extends JFrame {
     }
 
     /**
-     * Update the currentState after the player with "thePeg" has placed on
-     * (rowSelected, colSelected).
-     */
-    // Otherwise, no change to current state (still GameState.PLAYING).
-    /**
-     * Inner class DrawCanvas (extends JPanel) used for custom graphics drawing.
+     * Inner class DrawCanvas (extends JPanel) used for grid drawing.
      */
     class DrawCanvas extends JPanel {
 
@@ -436,8 +590,7 @@ public class OceanGUI extends JFrame {
             super.paintComponent(g);    // fill background
             setBackground(Color.BLUE); // set its background color
 
-            // Draw the Pegs of all the cells if they are not empty
-            // Use Graphics2D which allows us to set the pen's stroke
+            // Draw the Pegs in all the cells if they are not empty
             Graphics2D g2d = (Graphics2D) g;
 
             for (int row = 0; row < ROWS; row++) {

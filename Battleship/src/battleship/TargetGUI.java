@@ -139,7 +139,6 @@ public class TargetGUI extends JFrame {
                 int row = mouseY / CELL_SIZE;
                 int col = mouseX / CELL_SIZE;
                 // Code above shows the row / colum selected            
-<<<<<<< HEAD
                 if (row >= 0 && row < ROWS && col >= 0
                         && col < COLS && board[row][col] == Peg.EMPTY) {
                     if (e.getButton() == 1) {
@@ -148,25 +147,23 @@ public class TargetGUI extends JFrame {
                     } else {
                         board[row][col] = Peg.HIT;
                         tg.setHit(row, col);
-=======
-                    if (row >= 0 && row < ROWS && col >= 0
-                            && col < COLS) {
-                        if (e.getButton() == 1) {
-                            board[row][col] = Peg.MISS;
-                            tg.setMiss(row, col);
-                        } else {
-                            board[row][col] = Peg.HIT;
-                            tg.setHit(row, col);
+                        if (row >= 0 && row < ROWS && col >= 0
+                                && col < COLS) {
+                            if (e.getButton() == 1) {
+                                board[row][col] = Peg.MISS;
+                                tg.setMiss(row, col);
+                            } else {
+                                board[row][col] = Peg.HIT;
+                                tg.setHit(row, col);
+                            }  
                         }
-                        //board[row][col] = Peg.HIT;  
->>>>>>> 741c6771d4ccb77df2a02a9bfd469a75b67f382a
                     }
-                    //board[row][col] = Peg.HIT;  
+                    // Refresh the drawing canvas
+                    canvas.repaint();  // Call-back paintComponent().
                 }
-                // Refresh the drawing canvas
-                canvas.repaint();  // Call-back paintComponent().
             }
         });
+        
 
         statusBar = new JLabel("  ");
         statusBar.setFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 15));

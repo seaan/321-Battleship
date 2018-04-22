@@ -68,7 +68,8 @@ public class OceanGrid {
             }
             System.out.println();
         }
-        fleet.printFleet();
+        System.out.println();
+        //fleet.printFleet();
     } 
     
     protected void incrementSunkCount() {
