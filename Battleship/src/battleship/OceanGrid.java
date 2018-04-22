@@ -54,10 +54,10 @@ public class OceanGrid {
     protected Position.Status setPeg(Position position) {
         if (fleet.checkShipLocation(position)) {
             fleet.hitLocation(position);
-            grid[position.getX()][position.getY()] = Position.Status.HIT;
+            grid[position.getCol()][position.getRow()] = Position.Status.HIT;
             return Position.Status.HIT;
         }
-        grid[position.getX()][position.getY()] = position.getStatus();
+        grid[position.getCol()][position.getRow()] = position.getStatus();
         return position.getStatus();
     }
 
@@ -68,7 +68,7 @@ public class OceanGrid {
      * @return The Status of the grid at position.
      */
     protected Position.Status getGridAt(Position position) {
-        return grid[position.getX()][position.getY()];
+        return grid[position.getCol()][position.getRow()];
     }
 
     /**

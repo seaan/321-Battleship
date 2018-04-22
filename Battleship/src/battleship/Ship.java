@@ -114,19 +114,19 @@ public class Ship {
         /* Create a reference to the OceanGrid singleton. */
         BattleshipGame bsg = BattleshipGame.getInstance();
         /* Create a position to be used when setPeg is called. */
-        Position newPosition = new Position(start.getX(), start.getY(), Position.Status.SHIP);
+        Position newPosition = new Position(start.getCol(), start.getRow(), Position.Status.SHIP);
 
         /* Copy the contents of the parameters to the Ship fields. */
-        startPosition.setPosition(start.getX(), start.getY());
+        startPosition.setPosition(start.getCol(), start.getRow());
         startPosition.setStatus(start.getStatus());
 
-        endPosition.setPosition(end.getX(), end.getY());
+        endPosition.setPosition(end.getCol(), end.getRow());
         endPosition.setStatus(end.getStatus());
 
         /* First set the orientation of the ship. */
-        if (startPosition.getX() == endPosition.getX()) {
+        if (startPosition.getCol() == endPosition.getCol()) {
             orientation = Orientation.VERTICAL;
-        } else if (startPosition.getY() == endPosition.getY()) {
+        } else if (startPosition.getRow() == endPosition.getRow()) {
             orientation = Orientation.HORIZONTAL;
         }
 
@@ -137,31 +137,31 @@ public class Ship {
         switch (orientation) {
             case VERTICAL:
                 /* Check to see which position is the top and which is the bottom. */
-                if (startPosition.getY() < endPosition.getY()) {
+                if (startPosition.getRow() < endPosition.getRow()) {
                     /* For the length of the ship, add ship pegs. */
-                    for (int i = startPosition.getY(); i <= endPosition.getY(); i++) {
-                        newPosition.setPosition(startPosition.getX(), i);
+                    for (int i = startPosition.getRow(); i <= endPosition.getRow(); i++) {
+                        newPosition.setPosition(startPosition.getCol(), i);
                         bsg.getOceanGrid().setPeg(newPosition);
                     }
                 } else {
-                    for (int i = endPosition.getY(); i <= startPosition.getY(); i++) {
+                    for (int i = endPosition.getRow(); i <= startPosition.getRow(); i++) {
                         /* For the length of the ship, add ship pegs. */
-                        newPosition.setPosition(startPosition.getX(), i);
+                        newPosition.setPosition(startPosition.getCol(), i);
                         bsg.getOceanGrid().setPeg(newPosition);
                     }
                 }
             case HORIZONTAL:
                 /* Check to see which position is the left and which is the right. */
-                if (startPosition.getX() < endPosition.getX()) {
-                    for (int i = startPosition.getX(); i <= endPosition.getX(); i++) {
+                if (startPosition.getCol() < endPosition.getCol()) {
+                    for (int i = startPosition.getCol(); i <= endPosition.getCol(); i++) {
                         /* For the length of the ship, add ship pegs. */
-                        newPosition.setPosition(i, startPosition.getY());
+                        newPosition.setPosition(i, startPosition.getRow());
                         bsg.getOceanGrid().setPeg(newPosition);
                     }
                 } else {
-                    for (int i = endPosition.getX(); i <= startPosition.getX(); i++) {
+                    for (int i = endPosition.getCol(); i <= startPosition.getCol(); i++) {
                         /* For the length of the ship, add ship pegs. */
-                        newPosition.setPosition(i, startPosition.getY());
+                        newPosition.setPosition(i, startPosition.getRow());
                         bsg.getOceanGrid().setPeg(newPosition);
                     }
                 }
@@ -178,11 +178,11 @@ public class Ship {
     protected boolean checkPosition(Position position) {
 
         /* Check to see if the position is within the range of the ship. */
-        if ((this.startPosition.getX() <= position.getX()) && (position.getX() <= endPosition.getX())
-                && ((startPosition.getY() <= position.getY() && position.getY() <= endPosition.getY()))) {
+        if ((this.startPosition.getCol() <= position.getCol()) && (position.getCol() <= endPosition.getCol())
+                && ((startPosition.getRow() <= position.getRow() && position.getRow() <= endPosition.getRow()))) {
             return true;
-        } else if ((startPosition.getX() >= position.getX() && position.getX() >= endPosition.getX())
-                && ((startPosition.getY() >= position.getY() && position.getY() >= endPosition.getY()))) {
+        } else if ((startPosition.getCol() >= position.getCol() && position.getCol() >= endPosition.getCol())
+                && ((startPosition.getRow() >= position.getRow() && position.getRow() >= endPosition.getRow()))) {
             return true;
         } else {
             return false;

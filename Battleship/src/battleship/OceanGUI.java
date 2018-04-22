@@ -44,8 +44,8 @@ public class OceanGUI extends JFrame {
     private int mouseY2;
     private int startRow;
     private int endRow;
-    private int startCol;
-    private int endCol;
+    private int startPosition.getCol();
+    private int endPosition.getCol();
 
     private JFrame frame;
 
@@ -172,35 +172,35 @@ public class OceanGUI extends JFrame {
                     mouseY = e.getY();
 
                     startRow = mouseY / CELL_SIZE;
-                    startCol = mouseX / CELL_SIZE;
+                    startPosition.getCol() = mouseX / CELL_SIZE;
                 }
                 if (testState == 0 && e.getButton() == 3) {
                     mouseX2 = e.getX();
                     mouseY2 = e.getY();
 
                     endRow = mouseY2 / CELL_SIZE;
-                    endCol = mouseX2 / CELL_SIZE;
+                    endPosition.getCol() = mouseX2 / CELL_SIZE;
 
-                    if (startRow >= 0 && startRow < ROWS && startCol >= 0
-                            && startCol < COLS && board[startRow][startCol]
+                    if (startRow >= 0 && startRow < ROWS && startPosition.getCol() >= 0
+                            && startPosition.getCol() < COLS && board[startRow][startPosition.getCol()]
                             == Peg.EMPTY) {
-                        setShip(currentShip, startRow, startCol, endRow, endCol);
+                        setShip(currentShip, startRow, startPosition.getCol(), endRow, endPosition.getCol());
                         canvas.repaint();
                     }
                 } else if (testState == 1) {
-                    if (startRow >= 0 && startRow < ROWS && startCol >= 0
-                            && startCol < COLS && (board[startRow][startCol]
-                            == Peg.EMPTY || board[startRow][startCol] == Peg.SHIP)) {
+                    if (startRow >= 0 && startRow < ROWS && startPosition.getCol() >= 0
+                            && startPosition.getCol() < COLS && (board[startRow][startPosition.getCol()]
+                            == Peg.EMPTY || board[startRow][startPosition.getCol()] == Peg.SHIP)) {
 
                         position.setPosition(ROWS, COLS);
 
                         if (bsg.updatePeg(position, 0) == Position.Status.HIT) {
-                            board[startRow][startCol] = Peg.HIT;
+                            board[startRow][startPosition.getCol()] = Peg.HIT;
                             if (bsg.checkGameStatus() == 2) {
                                 JOptionPane.showMessageDialog(frame, "YOU LOST!!");
                             }
                         } else {
-                            board[startRow][startCol] = Peg.MISS;
+                            board[startRow][startPosition.getCol()] = Peg.MISS;
                         }
                         canvas.repaint();
                     }
@@ -247,50 +247,22 @@ public class OceanGUI extends JFrame {
     }
 
     private void setShip(ShipToPlace ship, Position startPosition, Position endPosition) {
+        Position newPosition = new Position(0,0,Position.Status.MISS);
         switch (ship) {
             case NULL:
                 showError("nullShipPlacement");
                 break;
             case CARRIER:
-                if (startRow == endRow) {
+                if (startPosition.getRow() == endPosition.getRow()) {
                     checkShipPlacement(ship, startPosition, endPosition);
-                    /*if (startCol < endCol) {
-                        if (startCol >= 0 && startCol < COLS && startCol + 4 >= 0
-                                && startCol + 4 < COLS) {
-
-                            og.getFleet().placeShip("Carrier", startCol, startRow, startCol + 4, endRow);
-                            for (int i = startCol; i <= startCol + 4; i++) {
-                                board[startRow][i] = Peg.SHIP;
-                            }
-                            currentShip = ShipToPlace.NULL;
-                            ships++;
-                        } else {
-                            showError("shipOutOfBounds");
-                            currentShip = ShipToPlace.CARRIER;
-                        }
-
-                    } else {
-                        if (startCol >= 0 && startCol < COLS && startCol - 4 >= 0
-                                && startCol - 4 < COLS) {
-                            og.getFleet().placeShip("Carrier", startCol, startRow, startCol - 4, endRow);
-                            for (int i = startCol; i >= startCol - 4; i--) {
-                                board[startRow][i] = Peg.SHIP;
-                            }
-                            currentShip = ShipToPlace.NULL;
-                            ships++;
-                        } else {
-                            showError("shipOutOfBounds");
-                            currentShip = ShipToPlace.CARRIER;
-                        }
-                    }*/
                 } else {
                     if (startRow < endRow) {
 
                         if (startRow >= 0 && startRow < ROWS && startRow + 4 >= 0
                                 && startRow + 4 < ROWS) {
-                            og.getFleet().placeShip("Carrier", startCol, startRow, endCol, startRow + 4);
+                            og.getFleet().placeShip("Carrier", startPosition.getCol(), startRow, endPosition.getCol(), startRow + 4);
                             for (int i = startRow; i <= startRow + 4; i++) {
-                                board[i][startCol] = Peg.SHIP;
+                                board[i][startPosition.getCol()] = Peg.SHIP;
                             }
                             currentShip = ShipToPlace.NULL;
                             ships++;
@@ -302,9 +274,9 @@ public class OceanGUI extends JFrame {
                     } else {
                         if (startRow >= 0 && startRow < ROWS && startRow - 4 >= 0
                                 && startRow - 4 < ROWS) {
-                            og.getFleet().placeShip("Carrier", startCol, startRow, endCol, startRow - 4);
+                            og.getFleet().placeShip("Carrier", startPosition.getCol(), startRow, endPosition.getCol(), startRow - 4);
                             for (int i = startRow; i >= startRow - 4; i--) {
-                                board[i][startCol] = Peg.SHIP;
+                                board[i][startPosition.getCol()] = Peg.SHIP;
                             }
                             currentShip = ShipToPlace.NULL;
                             ships++;
@@ -321,12 +293,12 @@ public class OceanGUI extends JFrame {
                 break;
             case BATTLESHIP:
                 if (startRow == endRow) {
-                    if (startCol < endCol) {
-                        if (startCol >= 0 && startCol < COLS && startCol + 3 >= 0
-                                && startCol + 3 < COLS) {
+                    if (startPosition.getCol() < endPosition.getCol()) {
+                        if (startPosition.getCol() >= 0 && startPosition.getCol() < COLS && startPosition.getCol() + 3 >= 0
+                                && startPosition.getCol() + 3 < COLS) {
 
-                            og.getFleet().placeShip("Battleship", startCol, startRow, startCol + 3, endRow);
-                            for (int i = startCol; i < startCol + 4; i++) {
+                            og.getFleet().placeShip("Battleship", startPosition.getCol(), startRow, startPosition.getCol() + 3, endRow);
+                            for (int i = startPosition.getCol(); i < startPosition.getCol() + 4; i++) {
                                 board[startRow][i] = Peg.SHIP;
                             }
                             currentShip = ShipToPlace.NULL;
@@ -337,10 +309,10 @@ public class OceanGUI extends JFrame {
                         }
 
                     } else {
-                        if (startCol >= 0 && startCol < COLS && startCol - 3 >= 0
-                                && startCol - 3 < COLS) {
-                            og.getFleet().placeShip("Battleship", startCol, startRow, startCol - 3, endRow);
-                            for (int i = startCol; i > startCol - 4; i--) {
+                        if (startPosition.getCol() >= 0 && startPosition.getCol() < COLS && startPosition.getCol() - 3 >= 0
+                                && startPosition.getCol() - 3 < COLS) {
+                            og.getFleet().placeShip("Battleship", startPosition.getCol(), startRow, startPosition.getCol() - 3, endRow);
+                            for (int i = startPosition.getCol(); i > startPosition.getCol() - 4; i--) {
                                 board[startRow][i] = Peg.SHIP;
                             }
                             currentShip = ShipToPlace.NULL;
@@ -355,9 +327,9 @@ public class OceanGUI extends JFrame {
 
                         if (startRow >= 0 && startRow < ROWS && startRow + 3 >= 0
                                 && startRow + 3 < ROWS) {
-                            og.getFleet().placeShip("Battleship", startCol, startRow, endCol, startRow + 3);
+                            og.getFleet().placeShip("Battleship", startPosition.getCol(), startRow, endPosition.getCol(), startRow + 3);
                             for (int i = startRow; i < startRow + 4; i++) {
-                                board[i][startCol] = Peg.SHIP;
+                                board[i][startPosition.getCol()] = Peg.SHIP;
                             }
                             currentShip = ShipToPlace.NULL;
                             ships++;
@@ -369,9 +341,9 @@ public class OceanGUI extends JFrame {
                     } else {
                         if (startRow >= 0 && startRow < ROWS && startRow - 3 >= 0
                                 && startRow - 3 < ROWS) {
-                            og.getFleet().placeShip("Battleship", startCol, startRow, endCol, startRow - 3);
+                            og.getFleet().placeShip("Battleship", startPosition.getCol(), startRow, endPosition.getCol(), startRow - 3);
                             for (int i = startRow; i > startRow - 4; i--) {
-                                board[i][startCol] = Peg.SHIP;
+                                board[i][startPosition.getCol()] = Peg.SHIP;
                             }
                             currentShip = ShipToPlace.NULL;
                             ships++;
@@ -388,12 +360,12 @@ public class OceanGUI extends JFrame {
                 break;
             case CRUISER:
                 if (startRow == endRow) {
-                    if (startCol < endCol) {
-                        if (startCol >= 0 && startCol < COLS && startCol + 2 >= 0
-                                && startCol + 2 < COLS) {
+                    if (startPosition.getCol() < endPosition.getCol()) {
+                        if (startPosition.getCol() >= 0 && startPosition.getCol() < COLS && startPosition.getCol() + 2 >= 0
+                                && startPosition.getCol() + 2 < COLS) {
 
-                            og.getFleet().placeShip("Cruiser", startCol, startRow, startCol + 2, endRow);
-                            for (int i = startCol; i < startCol + 3; i++) {
+                            og.getFleet().placeShip("Cruiser", startPosition.getCol(), startRow, startPosition.getCol() + 2, endRow);
+                            for (int i = startPosition.getCol(); i < startPosition.getCol() + 3; i++) {
                                 board[startRow][i] = Peg.SHIP;
                             }
                             currentShip = ShipToPlace.NULL;
@@ -404,10 +376,10 @@ public class OceanGUI extends JFrame {
                         }
 
                     } else {
-                        if (startCol >= 0 && startCol < COLS && startCol - 2 >= 0
-                                && startCol - 2 < COLS) {
-                            og.getFleet().placeShip("Cruiser", startCol, startRow, startCol - 2, endRow);
-                            for (int i = startCol; i > startCol - 3; i--) {
+                        if (startPosition.getCol() >= 0 && startPosition.getCol() < COLS && startPosition.getCol() - 2 >= 0
+                                && startPosition.getCol() - 2 < COLS) {
+                            og.getFleet().placeShip("Cruiser", startPosition.getCol(), startRow, startPosition.getCol() - 2, endRow);
+                            for (int i = startPosition.getCol(); i > startPosition.getCol() - 3; i--) {
                                 board[startRow][i] = Peg.SHIP;
                             }
                             currentShip = ShipToPlace.NULL;
@@ -422,9 +394,9 @@ public class OceanGUI extends JFrame {
 
                         if (startRow >= 0 && startRow < ROWS && startRow + 2 >= 0
                                 && startRow + 2 < ROWS) {
-                            og.getFleet().placeShip("Cruiser", startCol, startRow, endCol, startRow + 2);
+                            og.getFleet().placeShip("Cruiser", startPosition.getCol(), startRow, endPosition.getCol(), startRow + 2);
                             for (int i = startRow; i < startRow + 3; i++) {
-                                board[i][startCol] = Peg.SHIP;
+                                board[i][startPosition.getCol()] = Peg.SHIP;
                             }
                             currentShip = ShipToPlace.NULL;
                             ships++;
@@ -436,9 +408,9 @@ public class OceanGUI extends JFrame {
                     } else {
                         if (startRow >= 0 && startRow < ROWS && startRow - 2 >= 0
                                 && startRow - 2 < ROWS) {
-                            og.getFleet().placeShip("Cruiser", startCol, startRow, endCol, startRow - 2);
+                            og.getFleet().placeShip("Cruiser", startPosition.getCol(), startRow, endPosition.getCol(), startRow - 2);
                             for (int i = startRow; i > startRow - 3; i--) {
-                                board[i][startCol] = Peg.SHIP;
+                                board[i][startPosition.getCol()] = Peg.SHIP;
                             }
                             currentShip = ShipToPlace.NULL;
                             ships++;
@@ -455,12 +427,12 @@ public class OceanGUI extends JFrame {
                 break;
             case SUBMARINE:
                 if (startRow == endRow) {
-                    if (startCol < endCol) {
-                        if (startCol >= 0 && startCol < COLS && startCol + 2 >= 0
-                                && startCol + 2 < COLS) {
+                    if (startPosition.getCol() < endPosition.getCol()) {
+                        if (startPosition.getCol() >= 0 && startPosition.getCol() < COLS && startPosition.getCol() + 2 >= 0
+                                && startPosition.getCol() + 2 < COLS) {
 
-                            og.getFleet().placeShip("Submarine", startCol, startRow, startCol + 2, endRow);
-                            for (int i = startCol; i < startCol + 3; i++) {
+                            og.getFleet().placeShip("Submarine", startPosition.getCol(), startRow, startPosition.getCol() + 2, endRow);
+                            for (int i = startPosition.getCol(); i < startPosition.getCol() + 3; i++) {
                                 board[startRow][i] = Peg.SHIP;
                             }
                             currentShip = ShipToPlace.NULL;
@@ -471,10 +443,10 @@ public class OceanGUI extends JFrame {
                         }
 
                     } else {
-                        if (startCol >= 0 && startCol < COLS && startCol - 2 >= 0
-                                && startCol - 2 < COLS) {
-                            og.getFleet().placeShip("Submarine", startCol, startRow, startCol - 2, endRow);
-                            for (int i = startCol; i > startCol - 3; i--) {
+                        if (startPosition.getCol() >= 0 && startPosition.getCol() < COLS && startPosition.getCol() - 2 >= 0
+                                && startPosition.getCol() - 2 < COLS) {
+                            og.getFleet().placeShip("Submarine", startPosition.getCol(), startRow, startPosition.getCol() - 2, endRow);
+                            for (int i = startPosition.getCol(); i > startPosition.getCol() - 3; i--) {
                                 board[startRow][i] = Peg.SHIP;
                             }
                             currentShip = ShipToPlace.NULL;
@@ -489,9 +461,9 @@ public class OceanGUI extends JFrame {
 
                         if (startRow >= 0 && startRow < ROWS && startRow + 2 >= 0
                                 && startRow + 2 < ROWS) {
-                            og.getFleet().placeShip("Submarine", startCol, startRow, endCol, startRow + 2);
+                            og.getFleet().placeShip("Submarine", startPosition.getCol(), startRow, endPosition.getCol(), startRow + 2);
                             for (int i = startRow; i < startRow + 3; i++) {
-                                board[i][startCol] = Peg.SHIP;
+                                board[i][startPosition.getCol()] = Peg.SHIP;
                             }
                             currentShip = ShipToPlace.NULL;
                             ships++;
@@ -503,9 +475,9 @@ public class OceanGUI extends JFrame {
                     } else {
                         if (startRow >= 0 && startRow < ROWS && startRow - 2 >= 0
                                 && startRow - 2 < ROWS) {
-                            og.getFleet().placeShip("Submarine", startCol, startRow, endCol, startRow - 2);
+                            og.getFleet().placeShip("Submarine", startPosition.getCol(), startRow, endPosition.getCol(), startRow - 2);
                             for (int i = startRow; i > startRow - 3; i--) {
-                                board[i][startCol] = Peg.SHIP;
+                                board[i][startPosition.getCol()] = Peg.SHIP;
                             }
                             currentShip = ShipToPlace.NULL;
                             ships++;
@@ -522,12 +494,12 @@ public class OceanGUI extends JFrame {
                 break;
             case DESTROYER:
                 if (startRow == endRow) {
-                    if (startCol < endCol) {
-                        if (startCol >= 0 && startCol < COLS && startCol + 1 >= 0
-                                && startCol + 1 < COLS) {
+                    if (startPosition.getCol() < endPosition.getCol()) {
+                        if (startPosition.getCol() >= 0 && startPosition.getCol() < COLS && startPosition.getCol() + 1 >= 0
+                                && startPosition.getCol() + 1 < COLS) {
 
-                            og.getFleet().placeShip("Destroyer", startCol, startRow, startCol + 1, endRow);
-                            for (int i = startCol; i < startCol + 2; i++) {
+                            og.getFleet().placeShip("Destroyer", startPosition.getCol(), startRow, startPosition.getCol() + 1, endRow);
+                            for (int i = startPosition.getCol(); i < startPosition.getCol() + 2; i++) {
                                 board[startRow][i] = Peg.SHIP;
                             }
                             currentShip = ShipToPlace.NULL;
@@ -538,10 +510,10 @@ public class OceanGUI extends JFrame {
                         }
 
                     } else {
-                        if (startCol >= 0 && startCol < COLS && startCol - 1 >= 0
-                                && startCol - 1 < COLS) {
-                            og.getFleet().placeShip("Destroyer", startCol, startRow, startCol - 1, endRow);
-                            for (int i = startCol; i > startCol - 2; i--) {
+                        if (startPosition.getCol() >= 0 && startPosition.getCol() < COLS && startPosition.getCol() - 1 >= 0
+                                && startPosition.getCol() - 1 < COLS) {
+                            og.getFleet().placeShip("Destroyer", startPosition.getCol(), startRow, startPosition.getCol() - 1, endRow);
+                            for (int i = startPosition.getCol(); i > startPosition.getCol() - 2; i--) {
                                 board[startRow][i] = Peg.SHIP;
                             }
                             currentShip = ShipToPlace.NULL;
@@ -556,9 +528,9 @@ public class OceanGUI extends JFrame {
 
                         if (startRow >= 0 && startRow < ROWS && startRow + 1 >= 0
                                 && startRow + 1 < ROWS) {
-                            og.getFleet().placeShip("Destroyer", startCol, startRow, endCol, startRow + 1);
+                            og.getFleet().placeShip("Destroyer", startPosition.getCol(), startRow, endPosition.getCol(), startRow + 1);
                             for (int i = startRow; i < startRow + 2; i++) {
-                                board[i][startCol] = Peg.SHIP;
+                                board[i][startPosition.getCol()] = Peg.SHIP;
                             }
                             currentShip = ShipToPlace.NULL;
                             ships++;
@@ -570,9 +542,9 @@ public class OceanGUI extends JFrame {
                     } else {
                         if (startRow >= 0 && startRow < ROWS && startRow - 1 >= 0
                                 && startRow - 1 < ROWS) {
-                            og.getFleet().placeShip("Destroyer", startCol, startRow, endCol, startRow - 1);
+                            og.getFleet().placeShip("Destroyer", startPosition.getCol(), startRow, endPosition.getCol(), startRow - 1);
                             for (int i = startRow; i > startRow - 2; i--) {
-                                board[i][startCol] = Peg.SHIP;
+                                board[i][startPosition.getCol()] = Peg.SHIP;
                             }
                             currentShip = ShipToPlace.NULL;
                             ships++;
@@ -593,12 +565,13 @@ public class OceanGUI extends JFrame {
     }
 
     private void checkShipPlacement(ShipToPlace ship, Position startPosition, Position endPosition) {
-        if (startCol < endCol) {
-            if (startCol >= 0 && startCol < COLS && startCol + ship.size >= 0
-                    && startCol + 4 < COLS) {
-
-                og.getFleet().placeShip("Carrier", startCol, startRow, startCol + ship.size, endRow);
-                for (int i = startCol; i <= startCol + ship.size; i++) {
+        if (startPosition.getCol() < endPosition.getCol()) {
+            if (startPosition.getCol() >= 0 && startPosition.getCol() < COLS && startPosition.getCol() + ship.size >= 0
+                    && startPosition.getCol() + 4 < COLS) {
+                
+                startPosition.setPosition(startPosition.getCol(), ROWS);
+                bsg.updateShip(startPosition, endPosition, "Carrier");("Carrier", startPosition.getCol(), startRow, startPosition.getCol() + ship.size, endRow);
+                for (int i = startPosition.getCol(); i <= startPosition.getCol() + ship.size; i++) {
                     board[startRow][i] = Peg.SHIP;
                 }
                 currentShip = ShipToPlace.NULL;
@@ -608,10 +581,10 @@ public class OceanGUI extends JFrame {
                 currentShip = ship;
             }
         } else {
-            if (startCol >= 0 && startCol < COLS && startCol - ship.size >= 0
-                    && startCol - 4 < COLS) {
-                og.getFleet().placeShip("Carrier", startCol, startRow, startCol - ship.size, endRow);
-                for (int i = startCol; i >= startCol - ship.size; i--) {
+            if (startPosition.getCol() >= 0 && startPosition.getCol() < COLS && startPosition.getCol() - ship.size >= 0
+                    && startPosition.getCol() - 4 < COLS) {
+                og.getFleet().placeShip("Carrier", startPosition.getCol(), startRow, startPosition.getCol() - ship.size, endRow);
+                for (int i = startPosition.getCol(); i >= startPosition.getCol() - ship.size; i--) {
                     board[startRow][i] = Peg.SHIP;
                 }
                 currentShip = ShipToPlace.NULL;

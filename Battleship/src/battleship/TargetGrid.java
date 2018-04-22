@@ -35,7 +35,7 @@ public class TargetGrid {
      * @param position The Position on which the peg to be set is.
      */
     protected Position.Status setPeg(Position position) {
-        grid[position.getX()][position.getY()] = position.getStatus();
+        grid[position.getCol()][position.getRow()] = position.getStatus();
         return position.getStatus();
     }
 
@@ -46,7 +46,7 @@ public class TargetGrid {
      * @return The Status of the grid at position.
      */
     protected Position.Status getGridAt(Position position) {
-        return grid[position.getX()][position.getY()];
+        return grid[position.getCol()][position.getRow()];
     }
     
     /**
