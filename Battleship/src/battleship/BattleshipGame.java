@@ -81,13 +81,17 @@ public class BattleshipGame {
     /**
      * Checks the number of friendly and enemy ships sunk.
      * If either are above 4, the game has ended.
+     * 1 = victory
+     * 2 = defeat
+     * 0 = no change
      */
-    protected void checkGameStatus() {
-        if (ocean.getFriendlyShipsSunk() > 4) {
-//                        gui.showDefeatMesssage();
-        }
-//        if(gui.getEnemyShipSunk() > 4)
-//            gui.showVictoryMessage();
+    protected int checkGameStatus() {
+        if (ocean.getFriendlyShipsSunk() > 4)
+            return 2;
+        else if(target.getEnemyShipsSunk() > 4)
+            return 1;
+        else
+            return 0;
     }
 
     /**

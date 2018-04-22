@@ -12,6 +12,8 @@ public class TargetGrid {
 
     /* A grid containing the Status of each location. */
     private static Position.Status[][] grid;
+    /* Counter to keep track of the number of friendly ships sunk. */
+    private static int shipsSunk;
 
     /**
      * Makes an instance of TargetGrid such that the resultant grid is empty.
@@ -45,5 +47,21 @@ public class TargetGrid {
      */
     protected Position.Status getGridAt(Position position) {
         return grid[position.getX()][position.getY()];
+    }
+    
+    /**
+     * Mutates the counter for the number of enemy ships sunk.
+     */
+    protected void incrementEnemyShipsSunk() {
+        shipsSunk++;
+    }
+    
+    /**
+     * Accessor for the counter for the number of enemy ships sunk.
+     *
+     * @return The number of enemy ships sunk.
+     */
+    protected int getEnemyShipsSunk() {
+        return shipsSunk;
     }
 }
