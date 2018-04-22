@@ -68,7 +68,7 @@ public class TargetGUI extends JFrame {
     public TargetGUI(JPanel panel) {
         canvas = new DrawCanvas();  // Construct a drawing canvas (a JPanel)
         canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
-
+        
         // Code used to create a mouse click so they can place a O or X in the square
         canvas.addMouseListener(new MouseAdapter() {
             @Override
@@ -96,17 +96,14 @@ public class TargetGUI extends JFrame {
 
         statusBar = new JLabel("  ");
 
-        statusBar.setFont(
-                new Font(Font.DIALOG_INPUT, Font.BOLD, 15));
+        statusBar.setFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 15));
         statusBar.setBorder(BorderFactory.createEmptyBorder(2, 5, 4, 5));
 
         //GridLayout guideLayout = new GridLayout(10,1);
         JPanel guidePanel = new JPanel();
         BoxLayout guideLayout = new BoxLayout(guidePanel, BoxLayout.PAGE_AXIS);
-
         guidePanel.setLayout(guideLayout);
-        for (int i = 0;
-                i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
             JLabel pos = new JLabel("" + i + "    ");
             pos.setFont(new Font("Sanserif", Font.PLAIN, 25));
             Box.createVerticalGlue();
@@ -114,12 +111,9 @@ public class TargetGUI extends JFrame {
             guidePanel.add(Box.createVerticalGlue());
         }
 
-        panel.setLayout(
-                new BorderLayout());
-        panel.setBorder(
-                new EmptyBorder(10, 10, 10, 10));
+        panel.setLayout(new BorderLayout());
+        panel.setBorder(new EmptyBorder(10, 10, 10, 10));
         panel.add(canvas, BorderLayout.CENTER);
-
         panel.add(guidePanel, BorderLayout.LINE_START);
 
         board = new Peg[ROWS][COLS]; // allocate array
@@ -138,10 +132,12 @@ public class TargetGUI extends JFrame {
         }
         //fix buttons
         canvas.repaint();
-
     }
 
-
+    /**
+     * Update the currentState after the player with the Peg has placed on
+     * (rowSelected, colSelected).
+     */
     /**
      * Inner class DrawCanvas (extends JPanel) used for custom graphics drawing.
      */
@@ -164,7 +160,7 @@ public class TargetGUI extends JFrame {
                         GRID_WIDTH, CANVAS_HEIGHT - 1, GRID_WIDTH, GRID_WIDTH);
             }
 
-            // Draw the Pegs in all the cells if they are not empty
+            // Draw the Pegs of all the cells if they are not empty
             Graphics2D g2d = (Graphics2D) g;
 
             for (int row = 0; row < ROWS; row++) {
