@@ -59,23 +59,7 @@ public class BattleshipGame {
      * Carrier, Battleship, Cruiser, Submarine, Destroyer
      */
     protected void updateShip(Position start, Position end, Fleet.GameShip type) {
-        switch (type) {
-            case CARRIER:
-                fleet.getCarrier().setPosition(start, end);
-                break;
-            case BATTLESHIP:
-                fleet.getBattleship().setPosition(start, end);
-                break;
-            case CRUISER:
-                fleet.getCruiser().setPosition(start, end);
-                break;
-            case SUBMARINE:
-                fleet.getSubmarine().setPosition(start, end);
-                break;
-            case DESTROYER:
-                fleet.getDestroyer().setPosition(start, end);
-                break;
-        }
+        fleet.placeShip(type, start, end);
     }
 
     /**
