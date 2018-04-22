@@ -15,39 +15,31 @@ public class OceanGrid {
     private static Fleet fleet;
     /* Counter to keep track of the number of friendly ships sunk. */
     private static int shipsSunk;
-    private static int[][] grid;                //peg enum wouldn't work. 
-    //use 0 for empty, 1 for hit,
-    //2 for miss, 3 for ship.
-
-    private OceanGrid() {
-        /* A grid containing information about the Status of each location. */
+    /* A grid containing information about the Status of each location. */
     private static Position.Status[][] grid;
 
     /**
      * Makes an instance of OceanGrid such that the resultant grid is empty.
      */
-    grid  = new Position.Status[10][10];
-    fleet  = new Fleet();
-    shipsSunk  = 0;
+    protected OceanGrid() {
+        grid = new Position.Status[10][10];
+        fleet = new Fleet();
+        shipsSunk = 0;
 
-    for (int i = 0;
-    i< 10; i
-
-    
-        ++) {
+        for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-            grid[i][j] = Position.Status.EMPTY;
+                grid[i][j] = Position.Status.EMPTY;
+            }
         }
+
     }
 
-}
-
-/**
- * Accesses the instance of Fleet in OceanGrid.
- *
- * @return A fleet instance.
- */
-public static Fleet getFleet() {
+    /**
+     * Accesses the instance of Fleet in OceanGrid.
+     *
+     * @return A fleet instance.
+     */
+    public static Fleet getFleet() {
         return fleet;
     }
 
@@ -78,6 +70,7 @@ public static Fleet getFleet() {
     protected Position.Status getGridAt(Position position) {
         return grid[position.getX()][position.getY()];
     }
+
     /**
      * Mutates the counter for the number of friendly ships sunk.
      */
