@@ -295,7 +295,7 @@ public class OceanGUI extends JFrame {
                 currentShip = type;
             }
         }
-        if (ships == 1) {
+        if (ships == 5) {
             currentState = GameState.PLAYING;
             testState = 1;
         }
@@ -343,7 +343,7 @@ public class OceanGUI extends JFrame {
                 currentShip = type;
             }
         }
-        if (ships == 1) {
+        if (ships == 5) {
             currentState = GameState.PLAYING;
             testState = 1;
         }
