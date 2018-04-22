@@ -31,18 +31,20 @@ import javax.swing.border.EmptyBorder;
  */
 public class TargetGUI extends JFrame {
 
-    //  private int sunk;
+    
     BattleshipGame bsg;
 
-    // Grid Layout
+    /* Number of Rows */
     public static final int ROWS = 10;
+    /* Number of Cols */
     public static final int COLS = 10;
-
-    // Constants for creating the board
-    public static final int CELL_SIZE = 55; // cell width and height (square)
-    //public static final int CELL_SIZE = 25; // cell width and height (square)
-    public static final int CANVAS_WIDTH = CELL_SIZE * COLS;  // Allows the canvas to be drawn
+    /* Size of each square */
+    public static final int CELL_SIZE = 55;
+    /* Width of the canvas */    
+    public static final int CANVAS_WIDTH = CELL_SIZE * COLS;  
+    /* Height of the canvas */
     public static final int CANVAS_HEIGHT = CELL_SIZE * ROWS;
+    /* Width of the grid lines */
     public static final int GRID_WIDTH = 1;
 
     public static final int CELL_PADDING = CELL_SIZE / 6;
@@ -53,13 +55,9 @@ public class TargetGUI extends JFrame {
     int mouseX;
     int mouseY;
 
-    public enum GameState {
-        PLAYING, DRAW, HIT_WON, MISS_WON
-        // Represents the value of which player won / lost / drew
-    }
-    private GameState currentState;  // the current game state
-
-    // Use an enumeration (inner class) to represent the seeds and cell contents
+    /**
+     * Enumerated data type for each peg type. This is used to paint the canvas 
+     */
     public enum Peg {
         EMPTY, HIT, MISS
     }
@@ -69,9 +67,12 @@ public class TargetGUI extends JFrame {
     private JLabel statusBar;  // Status Bar
 
     /**
-     * Constructor to setup the game and the GUI components
+     * Constructor to setup the game and the GUI components.
+     * It controls the entire Target GUI and handles actions involving it.
+     * @Param JPanal grid will be contained in.
      */
     public TargetGUI(JPanel panel) {
+        
         canvas = new DrawCanvas();  // Construct a drawing canvas (a JPanel)
         canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
 
@@ -113,10 +114,10 @@ public class TargetGUI extends JFrame {
         statusBar.setFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 15));
         statusBar.setBorder(BorderFactory.createEmptyBorder(2, 5, 4, 5));
 
-        //GridLayout guideLayout = new GridLayout(10,1);
         JPanel guidePanel = new JPanel();
         BoxLayout guideLayout = new BoxLayout(guidePanel, BoxLayout.PAGE_AXIS);
         guidePanel.setLayout(guideLayout);
+        
         for (int i = 0; i < 10; i++) {
             JLabel pos = new JLabel("" + i + "    ");
             pos.setFont(new Font("Sanserif", Font.PLAIN, 25));
@@ -132,11 +133,11 @@ public class TargetGUI extends JFrame {
 
         board = new Peg[ROWS][COLS]; // allocate array
 
-        clearGrid(); // initialize the game board contents and game variables
+        clearGrid(); 
     }
 
     /**
-     * Initialize the game-board contents and the status
+     * Clears grid for new game.
      */
     protected void clearGrid() {
         for (int row = 0; row < ROWS; row++) {
@@ -144,24 +145,19 @@ public class TargetGUI extends JFrame {
                 board[row][col] = Peg.EMPTY; // all cells empty
             }
         }
-        //fix buttons
         canvas.repaint();
-
     }
 
     /**
-     * Update the currentState after the player with the Peg has placed on
-     * (rowSelected, colSelected).
-     */
-    /**
      * Inner class DrawCanvas (extends JPanel) used for custom graphics drawing.
+     * Canvas can be redrawn with repaint()     
      */
     class DrawCanvas extends JPanel {
 
         @Override
-        public void paintComponent(Graphics g) {  // invoke via repaint()
-            super.paintComponent(g);    // fill background
-            setBackground(Color.BLUE); // set its background color
+        public void paintComponent(Graphics g) {    //invoke via repaint()
+            super.paintComponent(g);                //fill background
+            setBackground(Color.BLUE);              //set its background color
 
             // Draw the grid-lines
             g.setColor(Color.BLACK);
@@ -175,21 +171,18 @@ public class TargetGUI extends JFrame {
                         GRID_WIDTH, CANVAS_HEIGHT - 1, GRID_WIDTH, GRID_WIDTH);
             }
 
-            // Draw the Pegs of all the cells if they are not empty
-            // Use Graphics2D which allows us to set the pen's stroke
-            Graphics2D g2d = (Graphics2D) g;
-
+            //Draw the Pegs in all the cells if they are not empty
             for (int row = 0; row < ROWS; row++) {
                 for (int col = 0; col < COLS; col++) {
                     int x1 = col * CELL_SIZE + CELL_PADDING + 5;
                     int y1 = row * CELL_SIZE + CELL_PADDING + 5;
 
                     if (board[row][col] == Peg.HIT) {
-                        g2d.setColor(Color.RED);
-                        g2d.fillOval(x1, y1, SYMBOL_SIZE, SYMBOL_SIZE);
+                        g.setColor(Color.RED);
+                        g.fillOval(x1, y1, SYMBOL_SIZE, SYMBOL_SIZE);
                     } else if (board[row][col] == Peg.MISS) {
-                        g2d.setColor(Color.WHITE);
-                        g2d.fillOval(x1, y1, SYMBOL_SIZE, SYMBOL_SIZE);
+                        g.setColor(Color.WHITE);
+                        g.fillOval(x1, y1, SYMBOL_SIZE, SYMBOL_SIZE);
                     }
                 }
             }
