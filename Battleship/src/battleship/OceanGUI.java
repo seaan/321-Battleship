@@ -22,6 +22,7 @@ import javax.swing.border.EmptyBorder;
  * @author Kyle
  */
 public class OceanGUI extends JFrame {
+
     BattleshipGame bsg;
     // Grid Layout
     public static final int ROWS = 10;
@@ -71,6 +72,7 @@ public class OceanGUI extends JFrame {
     private Peg[][] board; // Game board of ROWS-by-COLS cells
     private DrawCanvas canvas; // Drawing canvas (JPanel) for the game board
     private int ships;
+
     /**
      * Constructor to setup the game and the GUI components
      */
@@ -152,7 +154,7 @@ public class OceanGUI extends JFrame {
                 }
             }
         });
-  
+
         // Code used to create a mouse click so they can place a O or X in the square
         canvas.addMouseListener(new MouseAdapter() {
             @Override

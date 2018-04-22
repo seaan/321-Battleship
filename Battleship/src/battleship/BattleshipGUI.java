@@ -82,7 +82,6 @@ public class BattleshipGUI {
             }
         });
 
-        
         ruleFrame.add(rulePanel);               // put rulePanel inside respective frame
         ruleFrame.pack();
         ruleFrame.setLocationRelativeTo(null);
