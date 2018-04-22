@@ -176,16 +176,26 @@ public class Ship {
      * @return True indicates the ship is present, false indicates it is not.
      */
     protected boolean checkPosition(Position position) {
-
         /* Check to see if the position is within the range of the ship. */
-        if ((this.startPosition.getCol() <= position.getCol()) && (position.getCol() <= endPosition.getCol())
-                && ((startPosition.getRow() <= position.getRow() && position.getRow() <= endPosition.getRow()))) {
-            return true;
-        } else if ((startPosition.getCol() >= position.getCol() && position.getCol() >= endPosition.getCol())
-                && ((startPosition.getRow() >= position.getRow() && position.getRow() >= endPosition.getRow()))) {
-            return true;
-        } else {
-            return false;
+        switch(orientation){
+            case HORIZONTAL:
+                if(position.getRow() == startPosition.getRow()){
+                    if((position.getCol() >= startPosition.getCol()) && (position.getCol() <= endPosition.getCol()))
+                        return true;
+                    else if((position.getCol() <= startPosition.getCol()) && (position.getCol() >= endPosition.getCol()))
+                        return true;
+                }
+                return false;
+                
+            case VERTICAL:
+                if(position.getCol() == startPosition.getCol()){
+                    if((position.getRow() >= startPosition.getRow()) && (position.getRow() <= endPosition.getRow()))
+                        return true;
+                    else if((position.getRow() <= startPosition.getRow()) && (position.getRow() >= endPosition.getRow()))
+                        return true;
+                }
+                return false;
         }
+        return false;
     }
 }
