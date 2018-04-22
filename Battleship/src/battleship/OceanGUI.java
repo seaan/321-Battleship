@@ -238,6 +238,9 @@ public class OceanGUI extends JFrame {
     }
 
     private void setShip(Fleet.GameShip ship, Position startPosition, Position endPosition) {
+        if(ship == Fleet.GameShip.NULL)
+            showError("nullShipPlacement");
+        
         Position newPosition = new Position(0, 0, Position.Status.MISS);
         if (startPosition.getRow() == endPosition.getRow()) {
             CheckShipPlacementCol(ship, startPosition, endPosition);
