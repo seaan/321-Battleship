@@ -21,11 +21,11 @@ public class Fleet {
      * 
      */
     protected enum GameShip {
-        CARRIER(5),
-        BATTLESHIP(4),
-        CRUISER(3),
-        SUBMARINE(3),
-        DESTROYER(2),
+        CARRIER(4),
+        BATTLESHIP(3),
+        CRUISER(2),
+        SUBMARINE(2),
+        DESTROYER(1),
         NULL(0);
         protected final int size;
 
