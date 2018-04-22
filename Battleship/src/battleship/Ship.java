@@ -125,16 +125,16 @@ public class Ship {
 
         /* First set the orientation of the ship. */
         if (startPosition.getCol() == endPosition.getCol()) {
-            this.orientation = Orientation.VERTICAL;
+            orientation = Orientation.VERTICAL;
         } else if (startPosition.getRow() == endPosition.getRow()) {
-            this.orientation = Orientation.HORIZONTAL;
+            orientation = Orientation.HORIZONTAL;
         }
 
         /*
                  * Based on the orientation of the ship, we'll need to fill 
                  * in the rest of the positions.
          */
-        switch (this.orientation) {
+        switch (orientation) {
             case VERTICAL:
                 /* Check to see which position is the top and which is the bottom. */
                 if (startPosition.getRow() < endPosition.getRow()) {
@@ -177,7 +177,7 @@ public class Ship {
      */
     protected boolean checkPosition(Position position) {
         /* Check to see if the position is within the range of the ship. */
-        switch(this.orientation){
+        switch(orientation){
             case HORIZONTAL:
                 if(position.getRow() == startPosition.getRow()){
                     if((position.getCol() >= startPosition.getCol()) && (position.getCol() <= endPosition.getCol()))

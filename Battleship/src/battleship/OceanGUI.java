@@ -182,8 +182,8 @@ public class OceanGUI extends JFrame {
                             && startCol < COLS && (board[startRow][startCol]
                             == Peg.EMPTY || board[startRow][startCol] == Peg.SHIP)) {
                        
-                        position.setPosition(startRow, startCol);
-                        if (bsg.updatePeg(position, 0) == Position.Status.HIT) {
+                        startPosition.setPosition(startRow, startCol);
+                        if (bsg.updatePeg(startPosition, 0) == Position.Status.HIT) {
                             board[startRow][startCol] = Peg.HIT;
                             startPosition.setStatus(Position.Status.HIT);
                             if (bsg.checkGameStatus() == 2) {
