@@ -17,7 +17,7 @@ public class Ship {
     /* The field for type of ship is held by a string. This can include:
      * Carrier, Battleship, Cruiser, Submarine, Destroyer.
      */
-    private final String shipType;
+    private final Fleet.GameShip shipType;
     /* The number of grid squares that the ship takes up. */
     private final int shipLength;
     /* The number of hits the ship has sustained. */
@@ -26,9 +26,9 @@ public class Ship {
     private boolean isSunk;
 
     /* Holds the "start" position of the ship, typically the front. */
-    private static Position startPosition;
+    private Position startPosition;
     /* Holds the "end" position of the ship, typically the back. */
-    private static Position endPosition;
+    private Position endPosition;
 
     private static Orientation orientation;
 
@@ -49,7 +49,7 @@ public class Ship {
      * @param length Appropriate lengths given below:
      * Carrier = 5, Battleship = 4, Cruiser = 3, Submarine = 2, Destroyer = 2
      */
-    protected Ship(String type, int length) {
+    protected Ship(Fleet.GameShip type, int length) {
         shipType = type;
         shipLength = length;
         hitCount = 0;
@@ -67,7 +67,7 @@ public class Ship {
      * @return The type of ship as a string, examples:
      * "Carrier", "Battleship", "Cruiser", "Submarine", "Destroyer"
      */
-    protected String getType() {
+    protected Fleet.GameShip getType() {
         return shipType;
     }
 

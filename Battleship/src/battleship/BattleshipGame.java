@@ -13,13 +13,11 @@ public class BattleshipGame {
 
     /* Field to hold the player's name, which will be used in initalizeGame */
     private String playerName;
-
-    /* An instance of Fleet is needed to hold the appropriate ships. */
-    Fleet fleet;
-
+    
+    
     /* An instance of both TargetGrid and OceanGrid are needed. */
-    TargetGrid target;
-    OceanGrid ocean;
+    static TargetGrid target = new TargetGrid();
+    static OceanGrid ocean = new OceanGrid();
 
     /**
      * A private constructor, so that BattleshipGame is a singleton. The
@@ -28,13 +26,7 @@ public class BattleshipGame {
      * object of this class exists.
      */
     private BattleshipGame() {
-//        playerName = gui.promptPlayerName();
-//        gui.greetPlayer(playerName);
-
-        ocean = new OceanGrid();
-        target = new TargetGrid();
-
-        fleet = new Fleet();
+        
     }
 
     /**
@@ -59,7 +51,7 @@ public class BattleshipGame {
      * Carrier, Battleship, Cruiser, Submarine, Destroyer
      */
     protected void updateShip(Position start, Position end, Fleet.GameShip type) {
-        fleet.placeShip(type, start, end);
+        ocean.getFleet().placeShip(type, start, end);
     }
 
     /**
