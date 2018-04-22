@@ -8,7 +8,7 @@ import javax.swing.border.EmptyBorder;
 
 /**
  *
- * @author Kyle
+ * @author Kyle Daigle, Sean Widmier, Robert Womack
  */
 public class OceanGUI extends JFrame {
 
@@ -42,13 +42,19 @@ public class OceanGUI extends JFrame {
 
     private Fleet.GameShip currentShip = Fleet.GameShip.NULL; //add dialog for null
 
+    /**
+     * private enumerated data type to keep track of what state the game is in.
+     * During setup, ship placement is possible. After setup, only ships can be 
+     * placed.
+     */
     private enum GameState {
         SETUP, PLAYING
-        // Represents the value of which player won / lost / drew
     }
-    private GameState currentState;
+    private GameState currentState = GameState.SETUP;
 
-    // Use an enumeration (inner class) to represent the seeds and cell contents
+    /**
+     * Enumerated data type to specify what type of peg is in that space
+     */
     public enum Peg {
         EMPTY, HIT, MISS, SHIP
     }
@@ -60,7 +66,8 @@ public class OceanGUI extends JFrame {
     private int ships;
 
     /**
-     * Constructor to setup the game and the GUI components
+     * Constructor creates the grid and handles all events inside the grid.
+     * @param panel JPanel grid is placed in 
      */
     public OceanGUI(JPanel panel) {
         bsg = BattleshipGame.getInstance();
@@ -203,7 +210,7 @@ public class OceanGUI extends JFrame {
     }
 
     /**
-     * Initialize the game-board contents and the status
+     * Clears grid to empty spaces and repaints for a new game.
      */
     public void clearGrid() {
         for (int row = 0; row < ROWS; row++) {
@@ -213,7 +220,11 @@ public class OceanGUI extends JFrame {
         }
         canvas.repaint();
     }
-
+    
+    /**
+     * Function to display a dialog box with an error for different events.
+     * @param error - string to denote which error message to be displayed
+     */
     private void showError(String error) {
         if (error == "shipOutOfBounds") {
             JOptionPane.showMessageDialog(frame, "ERROR: Ship placement out of"
