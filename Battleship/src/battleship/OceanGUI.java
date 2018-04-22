@@ -178,11 +178,12 @@ public class OceanGUI extends JFrame {
                         canvas.repaint();
                     }
                 } else if (testState == 1) {
+                    startPosition.setStatus(Position.Status.MISS);
                     if (startRow >= 0 && startRow < ROWS && startCol >= 0
                             && startCol < COLS && (board[startRow][startCol]
                             == Peg.EMPTY || board[startRow][startCol] == Peg.SHIP)) {
                        
-                        startPosition.setPosition(startRow, startCol);
+                        startPosition.setPosition(startCol, startRow);
                         if (bsg.updatePeg(startPosition, 0) == Position.Status.HIT) {
                             board[startRow][startCol] = Peg.HIT;
                             startPosition.setStatus(Position.Status.HIT);

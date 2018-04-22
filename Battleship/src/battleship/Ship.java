@@ -26,18 +26,18 @@ public class Ship {
     private boolean isSunk;
 
     /* Holds the "start" position of the ship, typically the front. */
-    private Position startPosition;
+    private static Position startPosition;
     /* Holds the "end" position of the ship, typically the back. */
-    private Position endPosition;
+    private static Position endPosition;
 
-    Orientation orientation;
+    private static Orientation orientation;
 
     /**
      * The orientation of the ship, either horizontal (x locations are the same)
      * or vertical (y locations are the same), to be used in setPosition().
      */
     private enum Orientation {
-        HORIZONTAL, VERTICAL;
+        HORIZONTAL, VERTICAL, NULL;
     }
 
     /**
@@ -57,6 +57,8 @@ public class Ship {
 
         startPosition = new Position(0, 0, Position.Status.EMPTY);
         endPosition = new Position(0, 0, Position.Status.EMPTY);
+        
+        orientation = Orientation.NULL;
     }
 
     /**
