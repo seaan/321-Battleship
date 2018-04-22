@@ -58,21 +58,21 @@ public class BattleshipGame {
      * @param type The type of ship to be moved, includes:
      * Carrier, Battleship, Cruiser, Submarine, Destroyer
      */
-    protected void updateShip(Position start, Position end, String type) {
+    protected void updateShip(Position start, Position end, Fleet.GameShip type) {
         switch (type) {
-            case "Carrier":
+            case CARRIER:
                 fleet.getCarrier().setPosition(start, end);
                 break;
-            case "Battleship":
+            case BATTLESHIP:
                 fleet.getBattleship().setPosition(start, end);
                 break;
-            case "Cruiser":
+            case CRUISER:
                 fleet.getCruiser().setPosition(start, end);
                 break;
-            case "Submarine":
+            case SUBMARINE:
                 fleet.getSubmarine().setPosition(start, end);
                 break;
-            case "Destroyer":
+            case DESTROYER:
                 fleet.getDestroyer().setPosition(start, end);
                 break;
         }

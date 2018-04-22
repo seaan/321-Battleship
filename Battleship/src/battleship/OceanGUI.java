@@ -48,20 +48,7 @@ public class OceanGUI extends JFrame {
     private int endPosition.getCol();
 
     private JFrame frame;
-
-    private enum ShipToPlace {
-        CARRIER(5),
-        BATTLESHIP(4),
-        CRUISER(3),
-        SUBMARINE(3),
-        DESTROYER(2),
-        NULL(0);
-        private final int size;
-
-        ShipToPlace(int newSize) {
-            this.size = newSize;
-        }
-    }
+    
     private ShipToPlace currentShip = ShipToPlace.NULL; //add dialog for null
 
     private enum GameState {
@@ -569,8 +556,10 @@ public class OceanGUI extends JFrame {
             if (startPosition.getCol() >= 0 && startPosition.getCol() < COLS && startPosition.getCol() + ship.size >= 0
                     && startPosition.getCol() + 4 < COLS) {
                 
-                startPosition.setPosition(startPosition.getCol(), ROWS);
-                bsg.updateShip(startPosition, endPosition, "Carrier");("Carrier", startPosition.getCol(), startRow, startPosition.getCol() + ship.size, endRow);
+                startPosition.setPosition(startPosition.getCol(), startPosition.getRow());
+                endPosition.setPosition(startPosition.getCol() + ship.size, startPosition.getRow());
+                
+                bsg.updateShip(startPosition, endPosition, "Carrier");
                 for (int i = startPosition.getCol(); i <= startPosition.getCol() + ship.size; i++) {
                     board[startRow][i] = Peg.SHIP;
                 }

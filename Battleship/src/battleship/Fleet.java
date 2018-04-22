@@ -16,6 +16,23 @@ public class Fleet {
     private final Ship Cruiser;
     private final Ship Submarine;
     private final Ship Destroyer;
+    
+    /**
+     * 
+     */
+    protected enum GameShip {
+        CARRIER(5),
+        BATTLESHIP(4),
+        CRUISER(3),
+        SUBMARINE(3),
+        DESTROYER(2),
+        NULL(0);
+        protected final int size;
+
+        GameShip(int newSize) {
+            this.size = newSize;
+        }
+    }
 
     /**
      * Constructor for fleet, will create instances of each ship needed for a
@@ -126,21 +143,21 @@ public class Fleet {
      * @param start The "start" position of the ship, typically the front.
      * @param end The "end" position of the ship, typically the back.
      */
-    protected void placeShip(String type, Position start, Position end) {
+    protected void placeShip(GameShip type, Position start, Position end) {
         switch (type) {
-            case "Carrier":
+            case CARRIER:
                 Carrier.setPosition(start, end);
                 break;
-            case "Battleship":
+            case BATTLESHIP:
                 Battleship.setPosition(start, end);
                 break;
-            case "Cruiser":
+            case CRUISER:
                 Cruiser.setPosition(start, end);
                 break;
-            case "Submarine":
+            case SUBMARINE:
                 Submarine.setPosition(start, end);
                 break;
-            case "Destroyer":
+            case DESTROYER:
                 Destroyer.setPosition(start, end);
                 break;
         }
