@@ -35,8 +35,8 @@ public class OceanGUI extends JFrame {
     private int endRow;
     private int startCol;
     private int endCol;
-    private Position startPosition;
-    private Position endPosition;
+    private Position startPosition = new Position(0, 0, Position.Status.EMPTY);
+    private Position endPosition = new Position(0, 0, Position.Status.EMPTY);
 
     private JFrame frame;
 
@@ -171,6 +171,8 @@ public class OceanGUI extends JFrame {
                     if (startRow >= 0 && startRow < ROWS && startCol >= 0
                             && startCol < COLS && board[startRow][startCol]
                             == Peg.EMPTY) {
+                        startPosition.setStatus(Position.Status.SHIP);
+                        endPosition.setStatus(Position.Status.SHIP);
                         setShip(currentShip, startPosition, endPosition);
                         canvas.repaint();
                     }
@@ -178,16 +180,17 @@ public class OceanGUI extends JFrame {
                     if (startRow >= 0 && startRow < ROWS && startCol >= 0
                             && startCol < COLS && (board[startRow][startCol]
                             == Peg.EMPTY || board[startRow][startCol] == Peg.SHIP)) {
-
+                       
                         position.setPosition(ROWS, COLS);
-
-                        if (bsg.updatePeg(position, 0) == Position.Status.HIT) {
+                        if (bsg.updatePeg(startPosition, 0) == Position.Status.HIT) {
                             board[startRow][startCol] = Peg.HIT;
+                            startPosition.setStatus(Position.Status.HIT);
                             if (bsg.checkGameStatus() == 2) {
                                 JOptionPane.showMessageDialog(frame, "YOU LOST!!");
                             }
                         } else {
                             board[startRow][startCol] = Peg.MISS;
+                            startPosition.setStatus(Position.Status.MISS);
                         }
                         canvas.repaint();
                     }
