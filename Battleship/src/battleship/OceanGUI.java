@@ -183,12 +183,14 @@ public class OceanGUI extends JFrame {
                     }
                 } else if (testState == 1) {
                     if (startRow >= 0 && startRow < ROWS && startCol >= 0
-                            && startCol < COLS) {
-                        if (board[startRow][startCol] == Peg.SHIP
-                                || board[startRow][startCol] == Peg.MISS) {
+                            && startCol < COLS && (board[startRow][startCol]
+                            == Peg.EMPTY || board[startRow][startCol] == Peg.SHIP)) {
+                        if (og.setPeg(startCol, startRow) == 1) {
                             board[startRow][startCol] = Peg.HIT;
-                        } else if (board[startRow][startCol] == Peg.EMPTY
-                                || board[startRow][startCol] == Peg.HIT) {
+                            if (og.getFriendlyShipsSunk() == 5) {
+                                JOptionPane.showMessageDialog(frame, "YOU LOST!!");
+                            }
+                        } else {
                             board[startRow][startCol] = Peg.MISS;
                         }
                         canvas.repaint();
