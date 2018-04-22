@@ -44,8 +44,10 @@ public class OceanGUI extends JFrame {
     private int mouseY2;
     private int startRow;
     private int endRow;
-    private int startPosition.getCol();
-    private int endPosition.getCol();
+    private int startCol;
+    private int endCol;
+    private Position startPosition;
+    private Position endPosition;
 
     private JFrame frame;
 
@@ -172,35 +174,37 @@ public class OceanGUI extends JFrame {
                     mouseY = e.getY();
 
                     startRow = mouseY / CELL_SIZE;
-                    startPosition.getCol() = mouseX / CELL_SIZE;
+                    startCol = mouseX / CELL_SIZE;
+                    startPosition.setPosition(startCol, startRow);
                 }
                 if (testState == 0 && e.getButton() == 3) {
                     mouseX2 = e.getX();
                     mouseY2 = e.getY();
 
                     endRow = mouseY2 / CELL_SIZE;
-                    endPosition.getCol() = mouseX2 / CELL_SIZE;
+                    endCol = mouseX2 / CELL_SIZE;
+                    endPosition.setPosition(endCol, endRow);
 
-                    if (startRow >= 0 && startRow < ROWS && startPosition.getCol() >= 0
-                            && startPosition.getCol() < COLS && board[startRow][startPosition.getCol()]
+                    if (startRow >= 0 && startRow < ROWS && startCol >= 0
+                            && startCol < COLS && board[startRow][startCol]
                             == Peg.EMPTY) {
-                        setShip(currentShip, startRow, startPosition.getCol(), endRow, endPosition.getCol());
+                        setShip(currentShip, startPosition, endPosition);
                         canvas.repaint();
                     }
                 } else if (testState == 1) {
-                    if (startRow >= 0 && startRow < ROWS && startPosition.getCol() >= 0
-                            && startPosition.getCol() < COLS && (board[startRow][startPosition.getCol()]
-                            == Peg.EMPTY || board[startRow][startPosition.getCol()] == Peg.SHIP)) {
+                    if (startRow >= 0 && startRow < ROWS && startCol >= 0
+                            && startCol < COLS && (board[startRow][startCol]
+                            == Peg.EMPTY || board[startRow][startCol] == Peg.SHIP)) {
 
                         position.setPosition(ROWS, COLS);
 
                         if (bsg.updatePeg(position, 0) == Position.Status.HIT) {
-                            board[startRow][startPosition.getCol()] = Peg.HIT;
+                            board[startRow][startCol] = Peg.HIT;
                             if (bsg.checkGameStatus() == 2) {
                                 JOptionPane.showMessageDialog(frame, "YOU LOST!!");
                             }
                         } else {
-                            board[startRow][startPosition.getCol()] = Peg.MISS;
+                            board[startRow][startCol] = Peg.MISS;
                         }
                         canvas.repaint();
                     }
