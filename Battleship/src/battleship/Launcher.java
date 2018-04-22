@@ -1,19 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package battleship;
 
 /**
+ * Contains an instance of GUI to run the program from. Also has a method to
+ * begin the game.
  *
- * @author Sean Widmier, Kyle Daigle, Kelly Manley, Robert Womack 
+ * @author Sean Widmier, Kyle Daigle
  */
 public class Launcher {
-   // protected GUI gui = new GUI();
-    
-    protected void runSim(){
-       // gui.start();
-        
+//    protected GUI gui = new GUI();
+    /**
+     * Begins a game of Battleship.
+     */
+    protected void runGame() {
+//        gui.start();
     }
 }

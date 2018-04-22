@@ -13,8 +13,9 @@ import java.awt.event.*;
 import javax.swing.*;
 
 /**
+ * Contains the main method for the program.
  *
- * @author Sean Widmier, Kyle Daigle, Kelly Manley, Robert Womack 
+ * @author Sean Widmier, Kyle Daigle, Kelly Manley, Robert Womack
  */
 import javax.swing.SwingUtilities;
 
@@ -38,5 +39,3 @@ class BattleshipMain{
          }
       });
    }
-}
-

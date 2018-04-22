@@ -3,17 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/Kyle/Documents/CS/CS321/321-Battleship/Battleship/src/battleship/TargetGrid.java</file>
-            <file>file:/C:/Users/Kyle/Documents/CS/CS321/321-Battleship/Battleship/src/battleship/BattleshipMain.java</file>
-            <file>file:/C:/Users/Kyle/Documents/CS/CS321/321-Battleship/Battleship/src/battleship/Fleet.java</file>
-            <file>file:/C:/Users/Kyle/Documents/CS/CS321/321-Battleship/Battleship/src/battleship/OceanGrid.java</file>
-            <file>file:/C:/Users/Kyle/Documents/CS/CS321/321-Battleship/Battleship/src/battleship/OceanGUI.java</file>
-=======
-            <file>file:/C:/Users/Robert%20Womack/Documents/GitHub/321-Battleship/Battleship/src/battleship/OceanGUI.java</file>
-            <file>file:/C:/Users/Robert%20Womack/Documents/GitHub/321-Battleship/Battleship/src/battleship/TargetGUI.java</file>
-            <file>file:/C:/Users/Robert%20Womack/Documents/GitHub/321-Battleship/Battleship/src/battleship/BattleshipGUI.java</file>
->>>>>>> 29089a9fd95879ea7c936d31816ad5ad599d2f3d
+            <file>file:/C:/Users/Sean/Documents/GitHub/321-Battleship/Battleship/src/battleship/Ship.java</file>
+            <file>file:/C:/Users/Sean/Documents/GitHub/321-Battleship/Battleship/src/battleship/Fleet.java</file>
+            <file>file:/C:/Users/Sean/Documents/GitHub/321-Battleship/Battleship/src/battleship/BattleshipGame.java</file>
+            <file>file:/C:/Users/Sean/Documents/GitHub/321-Battleship/Battleship/src/battleship/Position.java</file>
         </group>
     </open-files>
 </project-private>

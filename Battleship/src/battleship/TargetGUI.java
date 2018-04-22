@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package battleship;
 
 import battleship.TargetGrid;
@@ -29,7 +24,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
-
 /**
  *
  * @author Kyle
@@ -38,13 +32,15 @@ public class TargetGUI extends JFrame {
 
     TargetGrid tg = TargetGrid.getInstance();
     private int sunk;
-
+    BattleshipGame bsg;
+  
     // Grid Layout
     public static final int ROWS = 10;
     public static final int COLS = 10;
 
     // Constants for creating the board
     public static final int CELL_SIZE = 55; // cell width and height (square)
+    public static final int CELL_SIZE = 25; // cell width and height (square)
     public static final int CANVAS_WIDTH = CELL_SIZE * COLS;  // Allows the canvas to be drawn
     public static final int CANVAS_HEIGHT = CELL_SIZE * ROWS;
     public static final int GRID_WIDTH = 1;
@@ -52,6 +48,12 @@ public class TargetGUI extends JFrame {
 
     public static final int CELL_PADDING = CELL_SIZE / 6;
     public static final int SYMBOL_SIZE = CELL_SIZE - CELL_PADDING * 4; // width/height
+
+    public enum GameState {
+        PLAYING, DRAW, HIT_WON, MISS_WON
+        // Represents the value of which player won / lost / drew
+    }
+    private GameState currentState;  // the current game state
 
     // Use an enumeration (inner class) to represent the seeds and cell contents
     public enum Peg {
@@ -68,17 +70,13 @@ public class TargetGUI extends JFrame {
     public TargetGUI(JPanel panel) {
         canvas = new DrawCanvas();  // Construct a drawing canvas (a JPanel)
         canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
-        
-        // Code used to create a mouse click so they can place a O or X in the square
-        canvas.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                int mouseX = e.getX();
-                int mouseY = e.getY();
 
-                int row = mouseY / CELL_SIZE;
-                int col = mouseX / CELL_SIZE;
-                // Code above shows the row / colum selected            
+        bsg = BattleshipGame.getInstance();
+        Position position = new Position(0, 0, Position.Status.MISS);
+
+        canvas = new DrawCanvas();  // Construct a drawing canvas (a JPanel)
+        canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
+
                 if (row >= 0 && row < ROWS && col >= 0
                         && col < COLS) {
                     if (e.getButton() == 1) {
@@ -119,6 +117,22 @@ public class TargetGUI extends JFrame {
         board = new Peg[ROWS][COLS]; // allocate array
 
         clearGrid(); // initialize the game board contents and game variables
+=======
+        statusBar.setFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 15));
+        statusBar.setBorder(BorderFactory.createEmptyBorder(2, 5, 4, 5));
+
+        Container cp = getContentPane();
+        cp.setLayout(new BorderLayout());
+        cp.add(canvas, BorderLayout.CENTER);
+        cp.add(statusBar, BorderLayout.PAGE_END);
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pack();  // pack all the components in this JFrame
+        setTitle("Battleship Testing Grid");
+        setVisible(true);  // show this JFrame
+
+        board = new Peg[ROWS][COLS]; // allocate array
+        initGame(); // initialize the game board contents and game variables
     }
 
     /**
@@ -138,7 +152,8 @@ public class TargetGUI extends JFrame {
      * Update the currentState after the player with the Peg has placed on
      * (rowSelected, colSelected).
      */
-    /**
+
+     /**
      * Inner class DrawCanvas (extends JPanel) used for custom graphics drawing.
      */
     class DrawCanvas extends JPanel {
@@ -161,6 +176,7 @@ public class TargetGUI extends JFrame {
             }
 
             // Draw the Pegs of all the cells if they are not empty
+            // Use Graphics2D which allows us to set the pen's stroke
             Graphics2D g2d = (Graphics2D) g;
 
             for (int row = 0; row < ROWS; row++) {

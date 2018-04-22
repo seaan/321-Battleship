@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package battleship;
 
 import java.awt.BorderLayout;
@@ -27,15 +22,14 @@ import javax.swing.border.EmptyBorder;
  * @author Kyle
  */
 public class OceanGUI extends JFrame {
-
-    OceanGrid og = OceanGrid.getInstance();
-
+    BattleshipGame bsg;
     // Grid Layout
     public static final int ROWS = 10;
     public static final int COLS = 10;
 
     // Constants for creating the board
     public static final int CELL_SIZE = 55; // cell width and height (square)
+    public static final int CELL_SIZE = 25; // cell width and height (square)
     public static final int CANVAS_WIDTH = CELL_SIZE * COLS;  // Allows the canvas to be drawn
     public static final int CANVAS_HEIGHT = CELL_SIZE * ROWS;
     public static final int GRID_WIDTH = 1;
@@ -77,11 +71,13 @@ public class OceanGUI extends JFrame {
     private Peg[][] board; // Game board of ROWS-by-COLS cells
     private DrawCanvas canvas; // Drawing canvas (JPanel) for the game board
     private int ships;
-
     /**
      * Constructor to setup the game and the GUI components
      */
     public OceanGUI(JPanel panel) {
+        bsg = BattleshipGame.getInstance();
+        Position position = new Position(0, 0, Position.Status.MISS);
+
         canvas = new DrawCanvas();  // Construct a drawing canvas (a JPanel)
         canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
         ships = 0;
@@ -156,7 +152,7 @@ public class OceanGUI extends JFrame {
                 }
             }
         });
-
+  
         // Code used to create a mouse click so they can place a O or X in the square
         canvas.addMouseListener(new MouseAdapter() {
             @Override
@@ -601,7 +597,6 @@ public class OceanGUI extends JFrame {
                     int y1 = row * CELL_SIZE + CELL_PADDING + 4;
                     int x2 = col * CELL_SIZE;
                     int y2 = row * CELL_SIZE;
-
                     if (board[row][col] == Peg.HIT) {
                         g2d.setColor(Color.RED);
                         g2d.fillOval(x1, y1, SYMBOL_SIZE, SYMBOL_SIZE);
