@@ -261,7 +261,7 @@ public class OceanGUI extends JFrame {
      */
     private void CheckShipPlacementCol(Fleet.GameShip type, Position startPosition, Position endPosition) {
         if (startPosition.getCol() < endPosition.getCol()) {
-            if (startPosition.getCol() >= 0 && startPosition.getCol() < COLS && startPosition.getCol() + type.size >= 0
+            if (startPosition.getCol() >= 0 && startPosition.getCol() < COLS && startPosition.getCol() + type.size - 1 >= 0
                     && startPosition.getCol() + type.size < COLS) {
 
                 startPosition.setPosition(startPosition.getCol(), startPosition.getRow());
@@ -278,7 +278,7 @@ public class OceanGUI extends JFrame {
                 currentShip = type;
             }
         } else {
-            if (startPosition.getCol() >= 0 && startPosition.getCol() < COLS && startPosition.getCol() - type.size >= 0
+            if (startPosition.getCol() >= 0 && startPosition.getCol() < COLS && startPosition.getCol() - type.size - 1 >= 0
                     && startPosition.getCol() - type.size < COLS) {
 
                 startPosition.setPosition(startPosition.getCol(), startPosition.getRow());
@@ -309,14 +309,14 @@ public class OceanGUI extends JFrame {
      */
     private void CheckShipPlacementRow(Fleet.GameShip type, Position startPosition, Position endPosition) {
         if (startPosition.getRow() < endPosition.getRow()) {
-            if (startPosition.getRow() >= 0 && startPosition.getRow() < ROWS && startPosition.getRow() + type.size >= 0
+            if (startPosition.getRow() >= 0 && startPosition.getRow() < ROWS && startPosition.getRow() + (type.size - 1) >= 0
                     && startPosition.getRow() + 4 < ROWS) {
 
                 startPosition.setPosition(startPosition.getCol(), startPosition.getRow());
-                endPosition.setPosition(startPosition.getCol(), endPosition.getRow() + type.size);
+                endPosition.setPosition(startPosition.getCol(), startPosition.getRow() + (type.size - 1));
                 bsg.updateShip(startPosition, endPosition, type);
 
-                for (int i = startPosition.getCol(); i <= startPosition.getCol() + type.size; i++) {
+                for (int i = startPosition.getCol(); i <= startPosition.getCol() + (type.size - 1); i++) {
                     board[startRow][i] = Peg.SHIP;
                 }
                 currentShip = Fleet.GameShip.NULL;
@@ -326,14 +326,14 @@ public class OceanGUI extends JFrame {
                 currentShip = type;
             }
         } else {
-            if (startPosition.getCol() >= 0 && startPosition.getCol() < COLS && startPosition.getCol() - type.size >= 0
+            if (startPosition.getCol() >= 0 && startPosition.getCol() < COLS && startPosition.getCol() - (type.size - 1) >= 0
                     && startPosition.getCol() - 4 < COLS) {
 
                 startPosition.setPosition(startPosition.getCol(), startPosition.getRow());
-                endPosition.setPosition(startPosition.getCol(), endPosition.getRow() - type.size);
+                endPosition.setPosition(startPosition.getCol(), endPosition.getRow() - (type.size - 1));
                 bsg.updateShip(startPosition, endPosition, type);
 
-                for (int i = startPosition.getCol(); i >= startPosition.getCol() - type.size; i--) {
+                for (int i = startPosition.getCol(); i >= startPosition.getCol() - (type.size - 1); i--) {
                     board[startRow][i] = Peg.SHIP;
                 }
                 currentShip = Fleet.GameShip.NULL;
