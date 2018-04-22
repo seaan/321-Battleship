@@ -6,26 +6,21 @@
 package battleship;
 
 // import all neccessary packages
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.BorderLayout;
-import java.awt.Button;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Frame;
-import java.awt.event.*;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
 /**
+ * Constructs the primary GUI that the player will interact with. This includes:
+ * Main menu, rules display, game display, and victory/loss windows.
  *
  * @author Robert Womack
  */
 public class BattleshipGUI {
 
-    Frame frame;    // Declare a Frame type variable
     int sunk;       // counter for enemy ships sunk
     Font myFont = new Font("Sanserif", Font.PLAIN, 20);
 
@@ -34,89 +29,99 @@ public class BattleshipGUI {
      */
     BattleshipGUI() {
 
-        final JPanel mainPanel = new JPanel();              // content for main menu
-        final JPanel rulePanel = new JPanel();
-        final JFrame mainFrame = new JFrame("Main Menu");   // frame to hold content   
-        final JFrame ruleFrame = new JFrame("Game Rules");  // frame to contain rules
+        /* Create and set size of the main menu */
+        final JPanel mainPanel = new JPanel();
+        final JFrame mainFrame = new JFrame("Main Menu");
+        mainPanel.setPreferredSize(new Dimension(400, 200));
 
-        GridLayout mainLayout = new GridLayout(3, 1);   // has 3 rows and one column
+        /* Create buttons for main menu */
+        JButton startBtn = new JButton("Play Game");
+        JButton rulesBtn = new JButton("View Rules");
+        JButton exitBtn = new JButton("Exit Game");
 
-        mainPanel.setPreferredSize(new Dimension(400, 200));    // set display size   
-        rulePanel.setPreferredSize(new Dimension(1450, 900));    // set display size
-        mainFrame.getContentPane().add(mainPanel);              // add content to frame
-
-        JTextArea textRules = new JTextArea();      // txt area to hold rules
-        textRules.setFont(myFont);// adjust font (easier to read)
-        rulePanel.add(textRules);
-
-        JButton startBtn = new JButton("Play Game");    // button to start game
-        JButton rulesBtn = new JButton("View Rules");   // button to view rules
-        JButton exitBtn = new JButton("Exit Game");     // button to leave game
-
-        // add buttons to mainPanel
+        /* Set Layout for main menu so buttons show properly */
+        GridLayout mainLayout = new GridLayout(3, 1);
         mainPanel.setLayout(mainLayout);
+
+        /* Add buttons and apply standard behaviour to main menu */
         mainPanel.add(startBtn, BorderLayout.CENTER);
         mainPanel.add(rulesBtn, BorderLayout.CENTER);
         mainPanel.add(exitBtn, BorderLayout.CENTER);
+        mainFrame.add(mainPanel);
+        standardizeGUI(mainFrame);
 
-        startBtn.addActionListener(new // add actions for start button
-                ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                mainFrame.setVisible(false);    // hide window
-                useNameWindow();                // call window to get player name
-            }
-        });
+        /* Create and set size of the rules window */
+        final JFrame ruleFrame = new JFrame("Game Rules");
+        final JPanel rulePanel = new JPanel();
+        rulePanel.setPreferredSize(new Dimension(1450, 900));
 
-        rulesBtn.addActionListener(new // add actions for rules button
-                ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                ruleFrame.setVisible(true);	// show window
-                readFile(textRules);            // read text file to show rules
-            }
-        });
+        /* create text field and set text size */
+        JTextArea textRules = new JTextArea();
+        textRules.setFont(myFont);
 
-        exitBtn.addActionListener(new // add actions for exit button
-                ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                System.exit(0); // quit app
-            }
-        });
-
-        ruleFrame.add(rulePanel);               // put rulePanel inside respective frame
+        /* Add text field and apply desired behaviour to main menu */
+        rulePanel.add(textRules);
+        ruleFrame.add(rulePanel);
         ruleFrame.pack();
         ruleFrame.setLocationRelativeTo(null);
 
-        mainFrame.add(mainPanel);               // put mainPanel inside respective frame
-        finishGUI(mainFrame);
+        /* Add actions for start button */
+        startBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                mainFrame.setVisible(false);
+                useNameWindow();
+            }
+        });
+
+        /* Add actions for start button */
+        rulesBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                ruleFrame.setVisible(true);
+                readFile(textRules);
+            }
+        });
+
+        /* Add actions for start button */
+        exitBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                System.exit(0);
+            }
+        });
     }
 
     /**
-     * Creates the window that asks for the user's name
+     * Create the window that asks for the user's name
      */
     public void useNameWindow() {
-        final JFrame nameFrame = new JFrame("Enter Name");  // window asking for name
-        final JPanel namePanel = new JPanel();              // content panel
 
-        final JLabel prompt = new JLabel("Enter Name");     // user prompt
-        final JTextField nameFld = new JTextField(20);      // txt field to enter name
-        final JButton submitBtn = new JButton("Submit");        // button to submit name
-        prompt.setFont(myFont);   // set font for prompt
-        nameFld.setFont(myFont);  // set font for txt field
+        /* Create and set size of the name window */
+        final JFrame nameFrame = new JFrame("Enter Name");
+        final JPanel namePanel = new JPanel();
+        namePanel.setPreferredSize(new Dimension(400, 200));
 
-        namePanel.setLayout(new GridLayout(3, 1));  // create and set layout for content panel
-        namePanel.add(prompt);      // add content to panel
-        namePanel.add(nameFld);     // add txt field
-        namePanel.add(submitBtn);   // add button
+        /* Create the content for the name window:
+           prompt, text field, and submit button. */
+        final JLabel prompt = new JLabel("Enter Name");
+        final JTextField nameFld = new JTextField(20);
+        final JButton submitBtn = new JButton("Submit");
 
-        namePanel.setPreferredSize(new Dimension(400, 200));    // set window size
-        nameFrame.getContentPane().add(namePanel);  // and panel to respective frame
-        finishGUI(nameFrame);
+        /* Set the font of the prompt and text field */
+        prompt.setFont(myFont);
+        nameFld.setFont(myFont);
 
-        submitBtn.addActionListener(new // add actions for exit button
-                ActionListener() {
+        /* Set Layout for window and add content. Apply standard behavior. */
+        namePanel.setLayout(new GridLayout(3, 1));
+        namePanel.add(prompt);
+        namePanel.add(nameFld);
+        namePanel.add(submitBtn);
+        nameFrame.add(namePanel);
+        standardizeGUI(nameFrame);
+
+        /* Add actions for submit button */
+        submitBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                useMainWindow(nameFld.getText());   // call main game window
-                nameFrame.setVisible(false);        // hide current window
+                useMainWindow(nameFld.getText());
+                nameFrame.setVisible(false);
             }
         });
     }
@@ -125,38 +130,46 @@ public class BattleshipGUI {
      * Creates the primary window for playing the application
      */
     public void useMainWindow(String name) {
-        final JFrame gameFrame = new JFrame("Greetings, Admiral " + name + "!");    //label addressing player
-        BorderLayout gameLayout = new BorderLayout();       // create layout for content
-        sunk = 0;                           // counter to hold number of enemy ships sunk
-        gameFrame.setLayout(gameLayout);    // set layout for frame
+        
+        /* Create main frame to hold all succeeding
+           panels and labels. Apply layout to this frame */
+        final JFrame gameFrame = new JFrame("Greetings, Admiral " + name + "!");
+        BorderLayout gameLayout = new BorderLayout();
+        gameFrame.setLayout(gameLayout);
+        
+        sunk = 0; // set counter to zero. this counter tracks enemy ships sunk
 
+        /* Create label for columns in game display */
         JLabel columnLabel = new JLabel("                      A       B       C       D       E       F      G       H        I       J"
                 + "                  A       B       C       D       E       F      G       H        I       J");
         columnLabel.setFont(myFont);
 
-        JPanel oceanPanel = new JPanel();   // create panels to hold ->
-        JPanel targetPanel = new JPanel();  // -> target and ocean grids
-        OceanGUI ocean = new OceanGUI(oceanPanel);      // create instances of ->
-        TargetGUI target = new TargetGUI(targetPanel);  // -> target and ocean grids
+        /* Create target and ocean panels, each containg
+           an instance of their respective GUIs */
+        JPanel oceanPanel = new JPanel();
+        JPanel targetPanel = new JPanel();
+        OceanGUI ocean = new OceanGUI(oceanPanel);
+        TargetGUI target = new TargetGUI(targetPanel);
 
-        JPanel buttonPanel = new JPanel();              // create panel to hold buttons             
-        GridLayout buttonLayout = new GridLayout(5, 1); // create panel layout
-
-        // create buttons to mark enemy ships sunk
+        /* Create buttons to mark enemy ships sunk */
         JButton carrier = new JButton("Carrier");
         JButton battleship = new JButton("Battleship");
         JButton cruiser = new JButton("Cruiser");
         JButton sub = new JButton("Submarine");
         JButton destroyer = new JButton("Destroyer");
 
-        buttonPanel.add(carrier);       // add buttons to panel
+        /* Set layout of and add buttons to newly created Panel */
+        JPanel buttonPanel = new JPanel();             
+        GridLayout buttonLayout = new GridLayout(5, 1);
+        buttonPanel.setLayout(buttonLayout);
+        buttonPanel.add(carrier);
         buttonPanel.add(battleship);
         buttonPanel.add(cruiser);
         buttonPanel.add(sub);
         buttonPanel.add(destroyer);
-        buttonPanel.setLayout(buttonLayout);    // set panel layout
 
-        carrier.addActionListener(new // add actions for rules button
+        /* Add actions for all respective ship buttons */
+        carrier.addActionListener(new
                 ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 if (carrier == (JButton) event.getSource()) {
@@ -167,7 +180,7 @@ public class BattleshipGUI {
                 }
             }
         });
-        battleship.addActionListener(new // add actions for rules button
+        battleship.addActionListener(new
                 ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 if (battleship == (JButton) event.getSource()) {
@@ -178,7 +191,7 @@ public class BattleshipGUI {
                 }
             }
         });
-        cruiser.addActionListener(new // add actions for rules button
+        cruiser.addActionListener(new
                 ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 if (cruiser == (JButton) event.getSource()) {
@@ -189,7 +202,7 @@ public class BattleshipGUI {
                 }
             }
         });
-        sub.addActionListener(new // add actions for rules button
+        sub.addActionListener(new
                 ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 if (sub == (JButton) event.getSource()) {
@@ -200,7 +213,7 @@ public class BattleshipGUI {
                 }
             }
         });
-        destroyer.addActionListener(new // add actions for rules button
+        destroyer.addActionListener(new
                 ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 if (destroyer == (JButton) event.getSource()) {
@@ -212,16 +225,19 @@ public class BattleshipGUI {
             }
         });
 
-        // End Grid Buttons
+        /* add all panels to the game frame,
+           and apply standard behaviour to the frame */
         gameFrame.add(oceanPanel, BorderLayout.LINE_START);
         gameFrame.add(targetPanel, BorderLayout.CENTER);
         gameFrame.add(buttonPanel, BorderLayout.LINE_END);
         gameFrame.add(columnLabel, BorderLayout.PAGE_START);
-        finishGUI(gameFrame);
+        standardizeGUI(gameFrame);
     }
 
     /**
-     * Function that rads a file and passes the output to a given text field
+     * Function to be used by the rules display. Reads a locally stored
+     * text file and prints the output to a given text field.
+     * @param txtfld : a given text field to print the output on
      */
     public static void readFile(JTextArea txtfld) {   // function to read file containing rules
         try {
@@ -238,7 +254,7 @@ public class BattleshipGUI {
     }
 
     /**
-     * Checks whether all of the enemy ships have been sunk
+     * will be replaced by checkGameStatus
      */
     public boolean checkVictory() {
         sunk++;
@@ -250,7 +266,11 @@ public class BattleshipGUI {
     }
 
     /**
-     * Creates the victory window
+     * Creates and shows the window for when the user is victorious
+     * Contains buttons to start a new game or leave the application.
+     * @param frame: a given frame (should be the current gameFrame)
+     * @param name: a string to greet the Admiral (should be the same string
+     *              currently used by the gameFrame)
      */
     public void useVicWindow(JFrame frame, String name) {
         JFrame winFrame = new JFrame("You win!");
@@ -269,7 +289,7 @@ public class BattleshipGUI {
         winPanel.setPreferredSize(new Dimension(400, 200));
 
         winFrame.getContentPane().add(winPanel);
-        finishGUI(winFrame);
+        standardizeGUI(winFrame);
 
         playBtn.addActionListener(new // add actions for rules button
                 ActionListener() {
@@ -289,9 +309,13 @@ public class BattleshipGUI {
     }
 
     /**
-     * Applies a standard behavior to a given frame, then shows it
+     * Applies a standard behavior to a given frame, then shows it.
+     * This includes packing the content of a window, making it a
+     * fixed size, rendering the window in the center of the display,
+     * and making the application close when the user chooses to exit.
+     * @param frame: The frame to apply the behavior to
      */
-    public void finishGUI(JFrame frame) {
+    public void standardizeGUI(JFrame frame) {
         frame.pack();
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
