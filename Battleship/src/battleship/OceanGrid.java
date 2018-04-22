@@ -52,13 +52,19 @@ public class OceanGrid {
      * @return The Status of the peg set.
      */
     protected Position.Status setPeg(Position position) {
-        if (fleet.checkShipLocation(position)) {
+        if(position.getStatus() == Position.Status.SHIP){
+            grid[position.getCol()][position.getRow()] = position.getStatus();
+            return Position.Status.SHIP;
+        }
+        else if (fleet.checkShipLocation(position)) {
             fleet.hitLocation(position);
             grid[position.getCol()][position.getRow()] = Position.Status.HIT;
             return Position.Status.HIT;
         }
-        grid[position.getCol()][position.getRow()] = position.getStatus();
-        return position.getStatus();
+        else{
+            grid[position.getCol()][position.getRow()] = position.getStatus();
+            return position.getStatus();
+        }        
     }
 
     /**
