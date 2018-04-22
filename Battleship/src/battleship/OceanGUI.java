@@ -174,6 +174,7 @@ public class OceanGUI extends JFrame {
                         startPosition.setStatus(Position.Status.SHIP);
                         endPosition.setStatus(Position.Status.SHIP);
                         setShip(currentShip, startPosition, endPosition);
+                        bsg.getOceanGrid().printGrid();
                         canvas.repaint();
                     }
                 } else if (testState == 1) {
