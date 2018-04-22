@@ -27,7 +27,7 @@ public class Position {
     /**
      * Constructor for Position, will set inputs to fields.
      *
-     * @param col The horizontal acolis location on the appropriate grid.
+     * @param col The horizontal axis location on the appropriate grid.
      * @param row The vertical acolis location on the appropriate grid.
      * @param status The status (EMPTY, HIT, MISS, SHIP) of the Position.
      */
