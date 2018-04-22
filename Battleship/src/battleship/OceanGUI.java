@@ -182,7 +182,7 @@ public class OceanGUI extends JFrame {
                             && startCol < COLS && (board[startRow][startCol]
                             == Peg.EMPTY || board[startRow][startCol] == Peg.SHIP)) {
                        
-                        position.setPosition(ROWS, COLS);
+                        position.setPosition(startRow, startCol);
                         if (bsg.updatePeg(position, 0) == Position.Status.HIT) {
                             board[startRow][startCol] = Peg.HIT;
                             startPosition.setStatus(Position.Status.HIT);
@@ -294,7 +294,7 @@ public class OceanGUI extends JFrame {
                 currentShip = type;
             }
         }
-        if (ships == 5) {
+        if (ships == 1) {
             currentState = GameState.PLAYING;
             testState = 1;
         }
@@ -342,7 +342,7 @@ public class OceanGUI extends JFrame {
                 currentShip = type;
             }
         }
-        if (ships == 5) {
+        if (ships == 1) {
             currentState = GameState.PLAYING;
             testState = 1;
         }
