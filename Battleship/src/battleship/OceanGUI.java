@@ -22,7 +22,6 @@ import javax.swing.border.EmptyBorder;
  * @author Kyle
  */
 public class OceanGUI extends JFrame {
-
     BattleshipGame bsg;
     // Grid Layout
     public static final int ROWS = 10;
@@ -30,7 +29,6 @@ public class OceanGUI extends JFrame {
 
     // Constants for creating the board
     public static final int CELL_SIZE = 55; // cell width and height (square)
-    public static final int CELL_SIZE = 25; // cell width and height (square)
     public static final int CANVAS_WIDTH = CELL_SIZE * COLS;  // Allows the canvas to be drawn
     public static final int CANVAS_HEIGHT = CELL_SIZE * ROWS;
     public static final int GRID_WIDTH = 1;
@@ -53,7 +51,6 @@ public class OceanGUI extends JFrame {
     private enum ShipToPlace {
         CARRIER, BATTLESHIP, CRUISER, SUBMARINE, DESTROYER, NULL
     }
-
     private ShipToPlace currentShip = ShipToPlace.NULL; //add dialog for null
 
     private enum GameState {
@@ -183,9 +180,12 @@ public class OceanGUI extends JFrame {
                     if (startRow >= 0 && startRow < ROWS && startCol >= 0
                             && startCol < COLS && (board[startRow][startCol]
                             == Peg.EMPTY || board[startRow][startCol] == Peg.SHIP)) {
-                        if (og.setPeg(startCol, startRow) == 1) {
+                        
+                        position.setPosition(ROWS, COLS);
+                        
+                        if (bsg.updatePeg(position, 0) == Position.Status.HIT) {
                             board[startRow][startCol] = Peg.HIT;
-                            if (og.getFriendlyShipsSunk() == 5) {
+                            if (bsg.checkGameStatus() == 2) {
                                 JOptionPane.showMessageDialog(frame, "YOU LOST!!");
                             }
                         } else {
