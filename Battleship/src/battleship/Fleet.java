@@ -11,11 +11,28 @@ package battleship;
 public class Fleet {
 
     /* Instances of each ship needed for a game of Battleship */
-    private final Ship Carrier;
-    private final Ship Battleship;
-    private final Ship Cruiser;
-    private final Ship Submarine;
-    private final Ship Destroyer;
+    private Ship Carrier;
+    private Ship Battleship;
+    private Ship Cruiser;
+    private Ship Submarine;
+    private Ship Destroyer;
+    
+    /**
+     * 
+     */
+    protected enum GameShip {
+        CARRIER(4),
+        BATTLESHIP(3),
+        CRUISER(2),
+        SUBMARINE(2),
+        DESTROYER(1),
+        NULL(0);
+        protected final int size;
+
+        GameShip(int newSize) {
+            this.size = newSize;
+        }
+    }
 
     /**
      * Constructor for fleet, will create instances of each ship needed for a
@@ -23,11 +40,11 @@ public class Fleet {
      * and Destroyer.
      */
     protected Fleet() {
-        Carrier = new Ship("Carrier", 5);
-        Battleship = new Ship("Battleship", 4);
-        Cruiser = new Ship("Cruiser", 3);
-        Submarine = new Ship("Submarine", 3);
-        Destroyer = new Ship("Destroyer", 2);
+        Carrier = new Ship(Fleet.GameShip.CARRIER, 5);
+        Battleship = new Ship(Fleet.GameShip.BATTLESHIP, 4);
+        Cruiser = new Ship(Fleet.GameShip.CRUISER, 3);
+        Submarine = new Ship(Fleet.GameShip.SUBMARINE, 3);
+        Destroyer = new Ship(Fleet.GameShip.DESTROYER, 2);
     }
 
     /**
@@ -126,23 +143,34 @@ public class Fleet {
      * @param start The "start" position of the ship, typically the front.
      * @param end The "end" position of the ship, typically the back.
      */
-    protected void placeShip(String type, Position start, Position end) {
+    protected void placeShip(GameShip type, Position start, Position end) {
         switch (type) {
-            case "Carrier":
+            case CARRIER:
                 Carrier.setPosition(start, end);
                 break;
-            case "Battleship":
+            case BATTLESHIP:
                 Battleship.setPosition(start, end);
                 break;
-            case "Cruiser":
+            case CRUISER:
                 Cruiser.setPosition(start, end);
                 break;
-            case "Submarine":
+            case SUBMARINE:
                 Submarine.setPosition(start, end);
                 break;
-            case "Destroyer":
+            case DESTROYER:
                 Destroyer.setPosition(start, end);
                 break;
         }
+    }
+    
+    /**
+     *  Calls reset ship on each member ship of the Fleet class.
+     */
+    protected void resetFleet() {
+        Carrier.resetShip();
+        Battleship.resetShip();
+        Cruiser.resetShip();
+        Submarine.resetShip();
+        Destroyer.resetShip();
     }
 }

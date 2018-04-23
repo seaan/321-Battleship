@@ -52,14 +52,19 @@ public class OceanGrid {
      * @return The Status of the peg set.
      */
     protected Position.Status setPeg(Position position) {
-        if (fleet.checkShipLocation(position)) {
+        if(position.getStatus() == Position.Status.SHIP){
+            grid[position.getCol()][position.getRow()] = position.getStatus();
+            return Position.Status.SHIP;
+        }
+        else if (fleet.checkShipLocation(position)) {
             fleet.hitLocation(position);
-            grid[position.getX()][position.getY()] = Position.Status.HIT;
+            grid[position.getCol()][position.getRow()] = Position.Status.HIT;
             return Position.Status.HIT;
         }
-
-        grid[position.getX()][position.getY()] = position.getStatus();
-        return position.getStatus();
+        else{
+            grid[position.getCol()][position.getRow()] = position.getStatus();
+            return position.getStatus();
+        }        
     }
 
     /**
@@ -69,7 +74,7 @@ public class OceanGrid {
      * @return The Status of the grid at position.
      */
     protected Position.Status getGridAt(Position position) {
-        return grid[position.getX()][position.getY()];
+        return grid[position.getCol()][position.getRow()];
     }
 
     /**
@@ -86,5 +91,29 @@ public class OceanGrid {
      */
     protected int getFriendlyShipsSunk() {
         return shipsSunk;
+    }
+    
+    protected void printGrid() {
+        for(int i = 0; i < 10; i++) {
+            for(int j = 0; j < 10; j++)
+            {
+                System.out.print(grid[i][j] + "\t");
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+    
+    /**
+     * Resets the grid such that each position is empty.
+     */
+    protected void resetGrid() {
+        for(int i = 0; i < 10; i++) {
+            for(int j = 0; j < 10; j++)
+            {
+                grid[i][j] = Position.Status.EMPTY;
+            }
+        }
+        shipsSunk = 0;
     }
 }

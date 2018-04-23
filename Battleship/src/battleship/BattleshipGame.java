@@ -13,13 +13,11 @@ public class BattleshipGame {
 
     /* Field to hold the player's name, which will be used in initalizeGame */
     private String playerName;
-
-    /* An instance of Fleet is needed to hold the appropriate ships. */
-    Fleet fleet;
-
+    
+    
     /* An instance of both TargetGrid and OceanGrid are needed. */
-    TargetGrid target;
-    OceanGrid ocean;
+    static TargetGrid target = new TargetGrid();
+    static OceanGrid ocean = new OceanGrid();
 
     /**
      * A private constructor, so that BattleshipGame is a singleton. The
@@ -28,13 +26,7 @@ public class BattleshipGame {
      * object of this class exists.
      */
     private BattleshipGame() {
-//        playerName = gui.promptPlayerName();
-//        gui.greetPlayer(playerName);
-
-        ocean = new OceanGrid();
-        target = new TargetGrid();
-
-        fleet = new Fleet();
+       
     }
 
     /**
@@ -58,36 +50,33 @@ public class BattleshipGame {
      * @param type The type of ship to be moved, includes:
      * Carrier, Battleship, Cruiser, Submarine, Destroyer
      */
-    protected void updateShip(Position start, Position end, String type) {
-        switch (type) {
-            case "Carrier":
-                fleet.getCarrier().setPosition(start, end);
-                break;
-            case "Battleship":
-                fleet.getBattleship().setPosition(start, end);
-                break;
-            case "Cruiser":
-                fleet.getCruiser().setPosition(start, end);
-                break;
-            case "Submarine":
-                fleet.getSubmarine().setPosition(start, end);
-                break;
-            case "Destroyer":
-                fleet.getDestroyer().setPosition(start, end);
-                break;
-        }
+    protected void updateShip(Position start, Position end, Fleet.GameShip type) {
+        ocean.getFleet().placeShip(type, start, end);
     }
 
     /**
      * Checks the number of friendly and enemy ships sunk.
      * If either are above 4, the game has ended.
+     * 1 = victory
+     * 2 = defeat
+     * 0 = no change
      */
-    protected void checkGameStatus() {
-        if (ocean.getFriendlyShipsSunk() > 4) {
-//                        gui.showDefeatMesssage();
-        }
-//        if(gui.getEnemyShipSunk() > 4)
-//            gui.showVictoryMessage();
+    protected int checkGameStatus() {
+        if (ocean.getFriendlyShipsSunk() == 5)
+            return 2;
+        else if(target.getEnemyShipsSunk() == 5)
+            return 1;
+        else
+            return 0;
+    }
+    
+    /**
+     * Resets each member of BattleshipGame such that it will be a new game.
+     */
+    protected void resetGame() {
+        ocean.resetGrid();
+        target.resetGrid();
+        ocean.getFleet().resetFleet();
     }
 
     /**
