@@ -33,6 +33,7 @@ public class TargetGrid {
      * position.
      *
      * @param position The Position on which the peg to be set is.
+     * @return The status of the peg at position.
      */
     protected Position.Status setPeg(Position position) {
         grid[position.getCol()][position.getRow()] = position.getStatus();
@@ -48,14 +49,14 @@ public class TargetGrid {
     protected Position.Status getGridAt(Position position) {
         return grid[position.getCol()][position.getRow()];
     }
-    
+
     /**
      * Mutates the counter for the number of enemy ships sunk.
      */
     protected void incrementEnemyShipsSunk() {
         shipsSunk++;
     }
-    
+
     /**
      * Accessor for the counter for the number of enemy ships sunk.
      *
@@ -64,14 +65,13 @@ public class TargetGrid {
     protected int getEnemyShipsSunk() {
         return shipsSunk;
     }
-    
+
     /**
      * Resets each position such that it is empty.
      */
     protected void resetGrid() {
-        for(int i = 0; i < 10; i++) {
-            for(int j = 0; j < 10; j++)
-            {
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
                 grid[i][j] = Position.Status.EMPTY;
             }
         }

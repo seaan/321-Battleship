@@ -134,7 +134,9 @@ public class BattleshipGUI {
     }
 
     /**
-     * Creates the primary window for playing the application
+     * Creates the primary window for playing the application.
+     *
+     * @param name The name of the player.
      */
     public void useMainWindow(String name) {
 

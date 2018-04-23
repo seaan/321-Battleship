@@ -16,9 +16,6 @@ public class BattleshipGame {
     /* Singleton instance of object */
     private static BattleshipGame instance = null;
 
-    /* Field to hold the player's name, which will be used in initalizeGame */
-    private String playerName;
-
     /* An instance of both TargetGrid and OceanGrid are needed. */
     static TargetGrid target = new TargetGrid();
     static OceanGrid ocean = new OceanGrid();
@@ -61,9 +58,8 @@ public class BattleshipGame {
     /**
      * Checks the number of friendly and enemy ships sunk.
      * If either are above 4, the game has ended.
-     * 1 = victory
-     * 2 = defeat
-     * 0 = no change
+     *
+     * @return 1 = victory, 2 = defeat, 0 = no change
      */
     protected int checkGameStatus() {
         if (ocean.getFriendlyShipsSunk() == 5) {
