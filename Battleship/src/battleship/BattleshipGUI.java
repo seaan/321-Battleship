@@ -25,7 +25,6 @@ public class BattleshipGUI {
     OceanGUI ocean;
     TargetGUI target;
 
-    //int sunk;       // counter for enemy ships sunk
     Font myFont = new Font("Sanserif", Font.PLAIN, 14);
     Font labelFont = new Font("Sanserif", Font.PLAIN, 20);
 
@@ -81,7 +80,7 @@ public class BattleshipGUI {
             }
         });
 
-        /* Add actions for start button */
+        /* Add actions for rules button */
         rulesBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 ruleFrame.setVisible(true);
@@ -89,7 +88,7 @@ public class BattleshipGUI {
             }
         });
 
-        /* Add actions for start button */
+        /* Add actions for exit button */
         exitBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 System.exit(0);
@@ -146,8 +145,6 @@ public class BattleshipGUI {
         final JFrame gameFrame = new JFrame("Greetings, Admiral " + name + "!");
         BorderLayout gameLayout = new BorderLayout();
         gameFrame.setLayout(gameLayout);
-
-        //sunk = 0; // set counter to zero. this counter tracks enemy ships sunk
 
         /* Create label for columns in game display */
         JLabel columnLabel = new JLabel(
