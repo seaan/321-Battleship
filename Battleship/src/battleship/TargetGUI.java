@@ -16,7 +16,6 @@ import javax.swing.border.EmptyBorder;
  */
 public class TargetGUI extends JFrame {
 
-    
     BattleshipGame bsg;
 
     /* Number of Rows */
@@ -25,8 +24,8 @@ public class TargetGUI extends JFrame {
     public static final int COLS = 10;
     /* Size of each square */
     public static final int CELL_SIZE = 50;
-    /* Width of the canvas */    
-    public static final int CANVAS_WIDTH = CELL_SIZE * COLS;  
+    /* Width of the canvas */
+    public static final int CANVAS_WIDTH = CELL_SIZE * COLS;
     /* Height of the canvas */
     public static final int CANVAS_HEIGHT = CELL_SIZE * ROWS;
     /* Width of the grid lines */
@@ -40,8 +39,16 @@ public class TargetGUI extends JFrame {
     int mouseX;
     int mouseY;
 
+    JFrame frame = new JFrame();
+    
+    JButton carrier = new JButton("Carrier");
+    JButton battleship = new JButton("Battleship");
+    JButton cruiser = new JButton("Cruiser");
+    JButton sub = new JButton("Submarine");
+    JButton destroyer = new JButton("Destroyer");
+
     /**
-     * Enumerated data type for each peg type. This is used to paint the canvas 
+     * Enumerated data type for each peg type. This is used to paint the canvas
      */
     public enum Peg {
         EMPTY, HIT, MISS
@@ -52,12 +59,13 @@ public class TargetGUI extends JFrame {
     private JLabel statusBar;  // Status Bar
 
     /**
-     * Constructor to setup the game and the GUI components.
-     * It controls the entire Target GUI and handles actions involving it.
+     * Constructor to setup the game and the GUI components. It controls the
+     * entire Target GUI and handles actions involving it.
+     *
      * @Param JPanal grid will be contained in.
      */
     public TargetGUI(JPanel panel) {
-        
+
         canvas = new DrawCanvas();  // Construct a drawing canvas (a JPanel)
         canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
 
@@ -66,33 +74,29 @@ public class TargetGUI extends JFrame {
 
         canvas = new DrawCanvas();  // Construct a drawing canvas (a JPanel)
         canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
-        
+
         JPanel buttonPanel = new JPanel();
         GridLayout buttonLayout = new GridLayout(5, 1);
-        JButton carrier = new JButton("Carrier");
-        JButton battleship = new JButton("Battleship");
-        JButton cruiser = new JButton("Cruiser");
-        JButton sub = new JButton("Submarine");
-        JButton destroyer = new JButton("Destroyer");
         
+
         carrier.setPreferredSize(new Dimension(100, 40));
         battleship.setPreferredSize(new Dimension(100, 40));
         cruiser.setPreferredSize(new Dimension(100, 40));
         sub.setPreferredSize(new Dimension(100, 40));
         destroyer.setPreferredSize(new Dimension(100, 40));
-        
+
         buttonPanel.add(carrier);
         buttonPanel.add(battleship);
         buttonPanel.add(cruiser);
         buttonPanel.add(sub);
         buttonPanel.add(destroyer);
         buttonPanel.setLayout(buttonLayout);
-        
+
         carrier.addActionListener(new // add actions for rules button
                 ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                 bsg.getTargetGrid().incrementEnemyShipsSunk();
-                 checkWin();
+                bsg.getTargetGrid().incrementEnemyShipsSunk();
+                checkWin();
                 if (carrier == (JButton) event.getSource()) {
                     carrier.setEnabled(false);
                 }
@@ -101,8 +105,8 @@ public class TargetGUI extends JFrame {
         battleship.addActionListener(new // add actions for rules button
                 ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                 bsg.getTargetGrid().incrementEnemyShipsSunk();
-                 checkWin();
+                bsg.getTargetGrid().incrementEnemyShipsSunk();
+                checkWin();
                 if (battleship == (JButton) event.getSource()) {
                     battleship.setEnabled(false);
                 }
@@ -121,8 +125,8 @@ public class TargetGUI extends JFrame {
         sub.addActionListener(new // add actions for rules button
                 ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                 bsg.getTargetGrid().incrementEnemyShipsSunk();
-                 checkWin();
+                bsg.getTargetGrid().incrementEnemyShipsSunk();
+                checkWin();
                 if (sub == (JButton) event.getSource()) {
                     sub.setEnabled(false);
                 }
@@ -174,7 +178,7 @@ public class TargetGUI extends JFrame {
         JPanel guidePanel = new JPanel();
         BoxLayout guideLayout = new BoxLayout(guidePanel, BoxLayout.PAGE_AXIS);
         guidePanel.setLayout(guideLayout);
-        
+
         for (int i = 0; i < 10; i++) {
             JLabel pos = new JLabel("" + i + "    ");
             pos.setFont(new Font("Sanserif", Font.PLAIN, 25));
@@ -191,12 +195,13 @@ public class TargetGUI extends JFrame {
 
         board = new Peg[ROWS][COLS]; // allocate array
 
-        clearGrid(); 
+        clearGrid();
     }
-    
-    private void checkWin()
-    {
-        
+
+    private void checkWin() {
+        if (bsg.checkGameStatus() == 1) {
+            JOptionPane.showMessageDialog(frame, "You Won!");
+        }
     }
 
     /**
@@ -208,12 +213,17 @@ public class TargetGUI extends JFrame {
                 board[row][col] = Peg.EMPTY; // all cells empty
             }
         }
+        carrier.setEnabled(true);
+        battleship.setEnabled(true);
+        cruiser.setEnabled(true);
+        sub.setEnabled(true);
+        destroyer.setEnabled(true);
         canvas.repaint();
     }
 
     /**
      * Inner class DrawCanvas (extends JPanel) used for custom graphics drawing.
-     * Canvas can be redrawn with repaint()     
+     * Canvas can be redrawn with repaint()
      */
     class DrawCanvas extends JPanel {
 

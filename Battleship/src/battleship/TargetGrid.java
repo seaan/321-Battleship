@@ -75,5 +75,6 @@ public class TargetGrid {
                 grid[i][j] = Position.Status.EMPTY;
             }
         }
+        shipsSunk = 0;
     }
 }

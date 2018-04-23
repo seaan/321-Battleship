@@ -22,9 +22,17 @@ import java.io.IOException;
 public class BattleshipGUI {
     
     BattleshipGame bsg;
+    OceanGUI ocean;
+    TargetGUI target;
 
     int sunk;       // counter for enemy ships sunk
-    Font myFont = new Font("Sanserif", Font.PLAIN, 20);
+    Font myFont = new Font("Sanserif", Font.PLAIN, 14);
+    
+    /* Create buttons for main menu */
+    JButton startBtn = new JButton("Play Game");
+    JButton rulesBtn = new JButton("View Rules");
+    JButton exitBtn = new JButton("Exit Game");
+    JButton newGameButton = new JButton("New Game");
 
     /**
      * Constructor that sets up the main menu and rules display
@@ -38,10 +46,7 @@ public class BattleshipGUI {
         final JFrame mainFrame = new JFrame("Main Menu");
         mainPanel.setPreferredSize(new Dimension(400, 200));
 
-        /* Create buttons for main menu */
-        JButton startBtn = new JButton("Play Game");
-        JButton rulesBtn = new JButton("View Rules");
-        JButton exitBtn = new JButton("Exit Game");
+        
 
         /* Set Layout for main menu so buttons show properly */
         GridLayout mainLayout = new GridLayout(3, 1);
@@ -57,15 +62,17 @@ public class BattleshipGUI {
         /* Create and set size of the rules window */
         final JFrame ruleFrame = new JFrame("Game Rules");
         final JPanel rulePanel = new JPanel();
-        rulePanel.setPreferredSize(new Dimension(1450, 900));
+        rulePanel.setPreferredSize(new Dimension(900, 675));
 
         /* create text field and set text size */
         JTextArea textRules = new JTextArea();
         textRules.setFont(myFont);
+        
+        
 
         /* Add text field and apply desired behaviour to main menu */
-        rulePanel.add(textRules);
-        ruleFrame.add(rulePanel);
+        rulePanel.add(textRules); //wrap in scroll bar 
+        ruleFrame.add(rulePanel, BorderLayout.CENTER);
         ruleFrame.pack();
         ruleFrame.setLocationRelativeTo(null);
 
@@ -153,53 +160,29 @@ public class BattleshipGUI {
            an instance of their respective GUIs */
         JPanel oceanPanel = new JPanel();
         JPanel targetPanel = new JPanel();
-        OceanGUI ocean = new OceanGUI(oceanPanel);
-        TargetGUI target = new TargetGUI(targetPanel);
+        ocean = new OceanGUI(oceanPanel);
+        target = new TargetGUI(targetPanel);
         
-        oceanPanel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if(bsg.checkGameStatus() == 2)
-                    useDefeatWindow(gameFrame, name);
-                else if(bsg.checkGameStatus() == 1)
-                   useVicWindow(gameFrame, name);
-            }
-        });
+        GridLayout optionsLayout = new GridLayout(1, 3);
+        JPanel optionsPanel = new JPanel();
+        optionsPanel.setLayout(optionsLayout);
+        optionsPanel.add(newGameButton);
+        optionsPanel.add(rulesBtn);
+        optionsPanel.add(exitBtn);
         
-        targetPanel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if(bsg.checkGameStatus() == 2)
-                    useDefeatWindow(gameFrame, name);
-                else if(bsg.checkGameStatus() == 1)
-                   useVicWindow(gameFrame, name);
+        newGameButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                useNewGameWindow();
             }
-        });
-
-        /* Create buttons to mark enemy ships sunk */
-        JButton carrier = new JButton("Carrier");
-        JButton battleship = new JButton("Battleship");
-        JButton cruiser = new JButton("Cruiser");
-        JButton sub = new JButton("Submarine");
-        JButton destroyer = new JButton("Destroyer");
+        });        
         
-        gameFrame.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if(bsg.checkGameStatus() == 2)
-                    useDefeatWindow(gameFrame, name);
-                else if(bsg.checkGameStatus() == 1)
-                   useVicWindow(gameFrame, name);
-            }
-        });
-
-
         /* add all panels to the game frame,
            and apply standard behaviour to the frame */
         gameFrame.add(oceanPanel, BorderLayout.LINE_START);
         gameFrame.add(targetPanel, BorderLayout.CENTER);
         //gameFrame.add(buttonPanel, BorderLayout.LINE_END);
         gameFrame.add(columnLabel, BorderLayout.PAGE_START);
+        gameFrame.add(optionsPanel, BorderLayout.SOUTH);
         standardizeGUI(gameFrame);
     }
 
@@ -221,91 +204,39 @@ public class BattleshipGUI {
             System.out.println("Reader exception");
         }
     }
-
-    /**
-     * will be replaced by checkGameStatus
-     */
-    public boolean checkVictory() {
-        sunk++;
-        if (sunk == 5) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Creates and shows the window for when the user is victorious
-     * Contains buttons to start a new game or leave the application.
-     * @param frame: a given frame (should be the current gameFrame)
-     * @param name: a string to greet the Admiral (should be the same string
-     *              currently used by the gameFrame)
-     */
-    public void useVicWindow(JFrame frame, String name) {
-        JFrame winFrame = new JFrame("You win!");
-        JPanel winPanel = new JPanel();
-
-        JLabel winLabel = new JLabel("You win!");
-        winLabel.setFont(myFont);
-
-        JButton playBtn = new JButton("Play Again");
-        JButton exitBtn = new JButton("Exit Game");
-
-        winPanel.setLayout(new GridLayout(3, 1));
-        winPanel.add(winLabel);
-        winPanel.add(playBtn);
-        winPanel.add(exitBtn);
-        winPanel.setPreferredSize(new Dimension(400, 200));
-
-        winFrame.getContentPane().add(winPanel);
-        standardizeGUI(winFrame);
-
-        playBtn.addActionListener(new // add actions for rules button
-                ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                winFrame.setVisible(false);
-                frame.setVisible(false);
-                useMainWindow(name);
-            }
-        });
-
-        exitBtn.addActionListener(new // add actions for exit button
-                ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                System.exit(0);
-            }
-        });
-    }
     
-    public void useDefeatWindow(JFrame frame, String name) {
-        JFrame loseFrame = new JFrame("You lose!");
+    public void useNewGameWindow() {
+        JFrame loseFrame = new JFrame("New Game");
         JPanel losePanel = new JPanel();
 
-        JLabel loseLabel = new JLabel("You lose!");
+        JLabel loseLabel = new JLabel("Are you sure you want to start a new game");
         loseLabel.setFont(myFont);
 
-        JButton playBtn = new JButton("Play Again");
-        JButton exitBtn = new JButton("Exit Game");
+        JButton yesBtn = new JButton("Yes");
+        JButton noBtn = new JButton("No");
 
         losePanel.setLayout(new GridLayout(3, 1));
         losePanel.add(loseLabel);
-        losePanel.add(playBtn);
-        losePanel.add(exitBtn);
+        losePanel.add(yesBtn);
+        losePanel.add(noBtn);
         losePanel.setPreferredSize(new Dimension(400, 200));
 
         loseFrame.getContentPane().add(losePanel);
         standardizeGUI(loseFrame);
 
-        playBtn.addActionListener(new // add actions for rules button
+        yesBtn.addActionListener(new // add actions for rules button
                 ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 loseFrame.setVisible(false);
-                frame.setVisible(false);
-                useMainWindow(name);
+                //frame.setVisible(false);
+                ocean.clearGrid();
+                target.clearGrid();
+                bsg.resetGame();
+                //useMainWindow(name);
             }
         });
 
-        exitBtn.addActionListener(new // add actions for exit button
+        noBtn.addActionListener(new // add actions for exit button
                 ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 System.exit(0);

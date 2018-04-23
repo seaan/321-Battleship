@@ -1,6 +1,5 @@
 package battleship;
 
-
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
@@ -38,13 +37,19 @@ public class OceanGUI extends JFrame {
     private Position startPosition = new Position(0, 0, Position.Status.EMPTY);
     private Position endPosition = new Position(0, 0, Position.Status.EMPTY);
 
+    private JButton carrier = new JButton("Carrier");
+    private JButton battleship = new JButton("Battleship");
+    private JButton cruiser = new JButton("Cruiser");
+    private JButton sub = new JButton("Submarine");
+    private JButton destroyer = new JButton("Destroyer");
+
     private JFrame frame;
 
     private Fleet.GameShip currentShip = Fleet.GameShip.NULL; //add dialog for null
 
     /**
      * private enumerated data type to keep track of what state the game is in.
-     * During setup, ship placement is possible. After setup, only ships can be 
+     * During setup, ship placement is possible. After setup, only ships can be
      * placed.
      */
     private enum GameState {
@@ -67,7 +72,8 @@ public class OceanGUI extends JFrame {
 
     /**
      * Constructor creates the grid and handles all events inside the grid.
-     * @param panel JPanel grid is placed in 
+     *
+     * @param panel JPanel grid is placed in
      */
     public OceanGUI(JPanel panel) {
         bsg = BattleshipGame.getInstance();
@@ -80,11 +86,6 @@ public class OceanGUI extends JFrame {
 
         JPanel buttonPanel = new JPanel();
         GridLayout buttonLayout = new GridLayout(5, 1);
-        JButton carrier = new JButton("Carrier");
-        JButton battleship = new JButton("Battleship");
-        JButton cruiser = new JButton("Cruiser");
-        JButton sub = new JButton("Submarine");
-        JButton destroyer = new JButton("Destroyer");
         frame = new JFrame();
 
         carrier.setPreferredSize(new Dimension(100, 40));
@@ -161,7 +162,7 @@ public class OceanGUI extends JFrame {
                     startCol = mouseX / CELL_SIZE;
                     startPosition.setPosition(startCol, startRow);
                 }
-                if (testState == 0 && e.getButton() == 3) {
+                if (currentState == GameState.SETUP && e.getButton() == 3) {
                     mouseX2 = e.getX();
                     mouseY2 = e.getY();
 
@@ -169,20 +170,20 @@ public class OceanGUI extends JFrame {
                     endCol = mouseX2 / CELL_SIZE;
                     endPosition.setPosition(endCol, endRow);
 
-                    if (isInRowRange(startRow) && isInColRange(startCol) && 
-                            board[startRow][startCol] == Peg.EMPTY) {
+                    if (isInRowRange(startRow) && isInColRange(startCol)
+                            && board[startRow][startCol] == Peg.EMPTY) {
                         startPosition.setStatus(Position.Status.SHIP);
                         endPosition.setStatus(Position.Status.SHIP);
                         setShip(currentShip, startPosition, endPosition);
                         bsg.getOceanGrid().printGrid();
                         canvas.repaint();
                     }
-                } else if (testState == 1) {
+                } else if (currentState == GameState.PLAYING) {
                     startPosition.setStatus(Position.Status.MISS);
-                    if (isInRowRange(startRow) && isInColRange(startCol) && 
-                            (board[startRow][startCol]  == Peg.EMPTY || 
-                             board[startRow][startCol] == Peg.SHIP)) {
-                       
+                    if (isInRowRange(startRow) && isInColRange(startCol)
+                            && (board[startRow][startCol] == Peg.EMPTY
+                            || board[startRow][startCol] == Peg.SHIP)) {
+
                         startPosition.setPosition(startCol, startRow);
                         if (bsg.updatePeg(startPosition, 0) == Position.Status.HIT) {
                             board[startRow][startCol] = Peg.HIT;
@@ -194,6 +195,7 @@ public class OceanGUI extends JFrame {
                             board[startRow][startCol] = Peg.MISS;
                             startPosition.setStatus(Position.Status.MISS);
                         }
+                        checkDefeat();
                         canvas.repaint();
                     }
                 }
@@ -223,35 +225,41 @@ public class OceanGUI extends JFrame {
                 board[row][col] = Peg.EMPTY; // all cells empty
             }
         }
+        ships = 0;
+        currentState = GameState.SETUP;
+        carrier.setEnabled(true);
+        battleship.setEnabled(true);
+        cruiser.setEnabled(true);
+        sub.setEnabled(true);
+        destroyer.setEnabled(true);
         canvas.repaint();
     }
-    
-    private boolean isOnGrid(int num)
-    {
-        if (isInRowRange(num) && isInColRange(num))
-            return true;
-        else
-            return false;
+
+    private void checkDefeat() {
+        if (bsg.checkGameStatus() == 2) {
+            JOptionPane.showMessageDialog(frame, "YOU LOST!!");
+        }
     }
-    
-    private boolean isInRowRange(int num)
-    {
-        if(num >= 0 && num < ROWS)
+
+    private boolean isInRowRange(int num) {
+        if (num >= 0 && num < ROWS) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
-    
-    private boolean isInColRange(int num)
-    {
-        if(num >= 0 && num < COLS)
+
+    private boolean isInColRange(int num) {
+        if (num >= 0 && num < COLS) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
-    
+
     /**
      * Function to display a dialog box with an error for different events.
+     *
      * @param error - string to denote which error message to be displayed
      */
     private void showError(String error) {
@@ -267,9 +275,9 @@ public class OceanGUI extends JFrame {
     }
 
     private void setShip(Fleet.GameShip ship, Position startPosition, Position endPosition) {
-        if(ship == Fleet.GameShip.NULL)
+        if (ship == Fleet.GameShip.NULL) {
             showError("nullShipPlacement");
-        else if (startPosition.getRow() == endPosition.getRow()) {
+        } else if (startPosition.getRow() == endPosition.getRow()) {
             CheckShipPlacementCol(ship, startPosition, endPosition);
         } else {
             CheckShipPlacementRow(ship, startPosition, endPosition);
@@ -321,7 +329,7 @@ public class OceanGUI extends JFrame {
         }
         if (ships == 5) {
             currentState = GameState.PLAYING;
-            testState = 1;
+            //testState = 1;
         }
     }
 
@@ -369,7 +377,7 @@ public class OceanGUI extends JFrame {
         }
         if (ships == 5) {
             currentState = GameState.PLAYING;
-            testState = 1;
+           //testState = 1;
         }
     }
 
