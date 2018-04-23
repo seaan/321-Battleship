@@ -1,3 +1,8 @@
+/* 
+ * CREATED IN NETBEANS IDE 8.2
+ * CS-321-01 Final Project: Battleship
+ * Kyle Daigle, Sean Widmier, Robert Womack, Kelly Manley
+ */
 package battleship;
 
 /**
