@@ -70,6 +70,9 @@ public class BattleshipGame {
             return 0;
     }
     
+    /**
+     * Resets each member of BattleshipGame such that it will be a new game.
+     */
     protected void resetGame() {
         ocean.resetGrid();
         target.resetGrid();

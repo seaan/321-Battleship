@@ -104,6 +104,9 @@ public class OceanGrid {
         System.out.println();
     }
     
+    /**
+     * Resets the grid such that each position is empty.
+     */
     protected void resetGrid() {
         for(int i = 0; i < 10; i++) {
             for(int j = 0; j < 10; j++)
