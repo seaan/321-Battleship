@@ -246,11 +246,7 @@ public class OceanGUI extends JFrame {
      * @return true or false
      */
     private boolean isInRowRange(int num) {
-        if (num >= 0 && num < ROWS) {
-            return true;
-        } else {
-            return false;
-        }
+        return (num >= 0 && num < ROWS);
     }
 
     /**
@@ -260,11 +256,7 @@ public class OceanGUI extends JFrame {
      * @return True or false
      */
     private boolean isInColRange(int num) {
-        if (num >= 0 && num < COLS) {
-            return true;
-        } else {
-            return false;
-        }
+        return (num >= 0 && num < COLS);
     }
 
     /**

@@ -23,7 +23,8 @@ public class Fleet {
     private Ship Destroyer;
 
     /**
-     *
+     * An enum detailing all of the legal ships for a normal game of Battleship,
+     * along with their lengths.
      */
     protected enum GameShip {
         CARRIER(4),
