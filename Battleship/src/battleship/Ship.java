@@ -30,7 +30,7 @@ public class Ship {
     /* Holds the "end" position of the ship, typically the back. */
     private Position endPosition;
 
-    private static Orientation orientation;
+    private Orientation orientation;
 
     /**
      * The orientation of the ship, either horizontal (x locations are the same)
