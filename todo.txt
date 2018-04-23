@@ -1,7 +1,7 @@
 FRONTEND:
-[] - getPlayerName()
-[] - displayPlayerName()
-[] - showVictory()
+[X] - getPlayerName()
+[X] - displayPlayerName()
+[X] - showVictory()
 [] - showDefeat()
 
 BACKEND:
@@ -11,4 +11,5 @@ BACKEND:
 [X] - checkShips for fleet
 [X] - checkGameStatus()
 [X] - check # ships sunk, if needed endGame()
-[] - Finish Javadoc for OceanGrid and TargetGrid
+[X] - Finish Javadoc for OceanGrid and TargetGrid
+[] - reset game
