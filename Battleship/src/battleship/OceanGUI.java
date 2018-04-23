@@ -42,6 +42,7 @@ public class OceanGUI extends JFrame {
     private Position startPosition = new Position(0, 0, Position.Status.EMPTY);
     private Position endPosition = new Position(0, 0, Position.Status.EMPTY);
 
+    // Buttons to place ships
     private JButton carrier = new JButton("Carrier");
     private JButton battleship = new JButton("Battleship");
     private JButton cruiser = new JButton("Cruiser");
@@ -68,8 +69,6 @@ public class OceanGUI extends JFrame {
     public enum Peg {
         EMPTY, HIT, MISS, SHIP
     }
-
-    private int testState;
 
     private Peg[][] board; // Game board of ROWS-by-COLS cells
     private DrawCanvas canvas; // Drawing canvas (JPanel) for the game board
@@ -106,10 +105,9 @@ public class OceanGUI extends JFrame {
         buttonPanel.add(destroyer);
         buttonPanel.setLayout(buttonLayout);
         ships = 0;
-        testState = 0;
-        //currentState = GameState.PLAYING;
 
-        carrier.addActionListener(new // add actions for rules button
+        /* Add actions to each button to place ships */
+        carrier.addActionListener(new
                 ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 currentShip = Fleet.GameShip.CARRIER;
@@ -118,7 +116,7 @@ public class OceanGUI extends JFrame {
                 }
             }
         });
-        battleship.addActionListener(new // add actions for rules button
+        battleship.addActionListener(new
                 ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 currentShip = Fleet.GameShip.BATTLESHIP;
@@ -127,7 +125,7 @@ public class OceanGUI extends JFrame {
                 }
             }
         });
-        cruiser.addActionListener(new // add actions for rules button
+        cruiser.addActionListener(new
                 ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 currentShip = Fleet.GameShip.CRUISER;
@@ -136,7 +134,7 @@ public class OceanGUI extends JFrame {
                 }
             }
         });
-        sub.addActionListener(new // add actions for rules button
+        sub.addActionListener(new
                 ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 currentShip = Fleet.GameShip.SUBMARINE;
@@ -145,7 +143,7 @@ public class OceanGUI extends JFrame {
                 }
             }
         });
-        destroyer.addActionListener(new // add actions for rules button
+        destroyer.addActionListener(new
                 ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 currentShip = Fleet.GameShip.DESTROYER;
@@ -215,7 +213,6 @@ public class OceanGUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();  // pack all the components in this JFrame
         setTitle("Battleship Testing Grid");
-        //setVisible(true);  // show this JFrame
 
         board = new Peg[ROWS][COLS]; // allocate array
         clearGrid(); // initialize the game board contents and game variables

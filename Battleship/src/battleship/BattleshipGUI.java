@@ -25,7 +25,7 @@ public class BattleshipGUI {
     OceanGUI ocean;
     TargetGUI target;
 
-    int sunk;       // counter for enemy ships sunk
+    //int sunk;       // counter for enemy ships sunk
     Font myFont = new Font("Sanserif", Font.PLAIN, 14);
     Font labelFont = new Font("Sanserif", Font.PLAIN, 20);
 
@@ -147,12 +147,13 @@ public class BattleshipGUI {
         BorderLayout gameLayout = new BorderLayout();
         gameFrame.setLayout(gameLayout);
 
-        sunk = 0; // set counter to zero. this counter tracks enemy ships sunk
+        //sunk = 0; // set counter to zero. this counter tracks enemy ships sunk
 
         /* Create label for columns in game display */
         JLabel columnLabel = new JLabel(
-                "                     A       B      C      D      E      F      G      H       I       J"
-                + "                A       B      C      D      E      F      G      H       I       J");
+                "     Player       A      B      C      D      E      F      G      H       I       J"
+                + "                 A      B      C      D      E      F      G      H       I       J"
+                + "          Enemy");
         columnLabel.setFont(labelFont);
 
         /* Create target and ocean panels, each containg
@@ -205,6 +206,10 @@ public class BattleshipGUI {
         }
     }
 
+    /**
+     * Create the window used to confirm whether the user whether he/she 
+     * desires to play a new game
+     */
     public void useNewGameWindow() {
         JFrame newGameFrame = new JFrame("New Game");
         JPanel newGamePanel = new JPanel();
@@ -224,19 +229,17 @@ public class BattleshipGUI {
         newGameFrame.getContentPane().add(newGamePanel);
         standardizeGUI(newGameFrame);
 
-        yesBtn.addActionListener(new // add actions for rules button
+        yesBtn.addActionListener(new // add actions for yes button
                 ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 newGameFrame.setVisible(false);
-                //frame.setVisible(false);
                 ocean.clearGrid();
                 target.clearGrid();
                 bsg.resetGame();
-                //useMainWindow(name);
             }
         });
 
-        noBtn.addActionListener(new // add actions for exit button
+        noBtn.addActionListener(new // add actions for no button
                 ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 newGameFrame.setVisible(false);
@@ -256,7 +259,7 @@ public class BattleshipGUI {
         frame.pack();
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   // default close behaviour
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
 }
