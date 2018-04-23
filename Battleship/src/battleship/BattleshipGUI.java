@@ -206,28 +206,28 @@ public class BattleshipGUI {
     }
     
     public void useNewGameWindow() {
-        JFrame loseFrame = new JFrame("New Game");
-        JPanel losePanel = new JPanel();
+        JFrame newGameFrame = new JFrame("New Game");
+        JPanel newGamePanel = new JPanel();
 
-        JLabel loseLabel = new JLabel("Are you sure you want to start a new game");
-        loseLabel.setFont(myFont);
+        JLabel newGameLabel = new JLabel("Are you sure you want to start a new game");
+        newGameLabel.setFont(myFont);
 
         JButton yesBtn = new JButton("Yes");
         JButton noBtn = new JButton("No");
 
-        losePanel.setLayout(new GridLayout(3, 1));
-        losePanel.add(loseLabel);
-        losePanel.add(yesBtn);
-        losePanel.add(noBtn);
-        losePanel.setPreferredSize(new Dimension(400, 200));
+        newGamePanel.setLayout(new GridLayout(3, 1));
+        newGamePanel.add(newGameLabel);
+        newGamePanel.add(yesBtn);
+        newGamePanel.add(noBtn);
+        newGamePanel.setPreferredSize(new Dimension(400, 200));
 
-        loseFrame.getContentPane().add(losePanel);
-        standardizeGUI(loseFrame);
+        newGameFrame.getContentPane().add(newGamePanel);
+        standardizeGUI(newGameFrame);
 
         yesBtn.addActionListener(new // add actions for rules button
                 ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                loseFrame.setVisible(false);
+                newGameFrame.setVisible(false);
                 //frame.setVisible(false);
                 ocean.clearGrid();
                 target.clearGrid();
@@ -239,7 +239,7 @@ public class BattleshipGUI {
         noBtn.addActionListener(new // add actions for exit button
                 ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                System.exit(0);
+                newGameFrame.setVisible(false);
             }
         });
     }
