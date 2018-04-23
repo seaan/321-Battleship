@@ -27,6 +27,7 @@ public class BattleshipGUI {
 
     int sunk;       // counter for enemy ships sunk
     Font myFont = new Font("Sanserif", Font.PLAIN, 14);
+    Font labelFont = new Font("Sanserif", Font.PLAIN, 20);
 
     /* Create buttons for main menu */
     JButton startBtn = new JButton("Play Game");
@@ -152,7 +153,7 @@ public class BattleshipGUI {
         JLabel columnLabel = new JLabel(
                 "                     A       B      C      D      E      F      G      H       I       J"
                 + "                A       B      C      D      E      F      G      H       I       J");
-        columnLabel.setFont(myFont);
+        columnLabel.setFont(labelFont);
 
         /* Create target and ocean panels, each containg
            an instance of their respective GUIs */
@@ -208,7 +209,7 @@ public class BattleshipGUI {
         JFrame newGameFrame = new JFrame("New Game");
         JPanel newGamePanel = new JPanel();
 
-        JLabel newGameLabel = new JLabel("Are you sure you want to start a new game");
+        JLabel newGameLabel = new JLabel("Are you sure you want to start a new game?");
         newGameLabel.setFont(myFont);
 
         JButton yesBtn = new JButton("Yes");
