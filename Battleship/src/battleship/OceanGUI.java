@@ -1,3 +1,8 @@
+/* 
+ * CREATED IN NETBEANS IDE 8.2
+ * CS-321-01 Final Project: Battleship
+ * Kyle Daigle, Sean Widmier, Robert Womack, Kelly Manley
+ */
 package battleship;
 
 import java.awt.*;
@@ -377,7 +382,7 @@ public class OceanGUI extends JFrame {
         }
         if (ships == 5) {
             currentState = GameState.PLAYING;
-           //testState = 1;
+            //testState = 1;
         }
     }
 

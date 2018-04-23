@@ -1,3 +1,8 @@
+/* 
+ * CREATED IN NETBEANS IDE 8.2
+ * CS-321-01 Final Project: Battleship
+ * Kyle Daigle, Sean Widmier, Robert Womack, Kelly Manley
+ */
 package battleship;
 
 /**
@@ -16,9 +21,9 @@ public class Fleet {
     private Ship Cruiser;
     private Ship Submarine;
     private Ship Destroyer;
-    
+
     /**
-     * 
+     *
      */
     protected enum GameShip {
         CARRIER(4),
@@ -162,9 +167,9 @@ public class Fleet {
                 break;
         }
     }
-    
+
     /**
-     *  Calls reset ship on each member ship of the Fleet class.
+     * Calls reset ship on each member ship of the Fleet class.
      */
     protected void resetFleet() {
         Carrier.resetShip();

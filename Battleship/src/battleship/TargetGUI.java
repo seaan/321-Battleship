@@ -1,3 +1,8 @@
+/* 
+ * CREATED IN NETBEANS IDE 8.2
+ * CS-321-01 Final Project: Battleship
+ * Kyle Daigle, Sean Widmier, Robert Womack, Kelly Manley
+ */
 package battleship;
 
 import battleship.TargetGrid;
@@ -40,7 +45,7 @@ public class TargetGUI extends JFrame {
     int mouseY;
 
     JFrame frame = new JFrame();
-    
+
     JButton carrier = new JButton("Carrier");
     JButton battleship = new JButton("Battleship");
     JButton cruiser = new JButton("Cruiser");
@@ -77,7 +82,6 @@ public class TargetGUI extends JFrame {
 
         JPanel buttonPanel = new JPanel();
         GridLayout buttonLayout = new GridLayout(5, 1);
-        
 
         carrier.setPreferredSize(new Dimension(100, 40));
         battleship.setPreferredSize(new Dimension(100, 40));
