@@ -17,9 +17,11 @@ import java.io.IOException;
  * Constructs the primary GUI that the player will interact with. This includes:
  * Main menu, rules display, game display, and victory/loss windows.
  *
- * @author Robert Womack
+ * @author Robert Womack, Kyle Daigle
  */
 public class BattleshipGUI {
+    
+    BattleshipGame bsg;
 
     int sunk;       // counter for enemy ships sunk
     Font myFont = new Font("Sanserif", Font.PLAIN, 20);
@@ -29,6 +31,8 @@ public class BattleshipGUI {
      */
     BattleshipGUI() {
 
+        bsg = BattleshipGame.getInstance();
+        
         /* Create and set size of the main menu */
         final JPanel mainPanel = new JPanel();
         final JFrame mainFrame = new JFrame("Main Menu");
@@ -158,8 +162,18 @@ public class BattleshipGUI {
         JButton cruiser = new JButton("Cruiser");
         JButton sub = new JButton("Submarine");
         JButton destroyer = new JButton("Destroyer");
+        
+        gameFrame.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(bsg.checkGameStatus() == 2)
+                    useDefeatWindow(gameFrame, name);
+                else if(bsg.checkGameStatus() == 1)
+                   useVicWindow(gameFrame, name);
+            }
+        });
 
-        /* Set layout of and add buttons to newly created Panel */
+        /* Set layout of and add buttons to newly created Panel 
         JPanel buttonPanel = new JPanel();             
         GridLayout buttonLayout = new GridLayout(5, 1);
         buttonPanel.setLayout(buttonLayout);
@@ -167,9 +181,9 @@ public class BattleshipGUI {
         buttonPanel.add(battleship);
         buttonPanel.add(cruiser);
         buttonPanel.add(sub);
-        buttonPanel.add(destroyer);
+        buttonPanel.add(destroyer);*/
 
-        /* Add actions for all respective ship buttons */
+        /* Add actions for all respective ship buttons 
         carrier.addActionListener(new
                 ActionListener() {
             public void actionPerformed(ActionEvent event) {
@@ -225,12 +239,13 @@ public class BattleshipGUI {
                 }
             }
         });
+        */
 
         /* add all panels to the game frame,
            and apply standard behaviour to the frame */
         gameFrame.add(oceanPanel, BorderLayout.LINE_START);
         gameFrame.add(targetPanel, BorderLayout.CENTER);
-        gameFrame.add(buttonPanel, BorderLayout.LINE_END);
+        //gameFrame.add(buttonPanel, BorderLayout.LINE_END);
         gameFrame.add(columnLabel, BorderLayout.PAGE_START);
         standardizeGUI(gameFrame);
     }
@@ -296,6 +311,42 @@ public class BattleshipGUI {
                 ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 winFrame.setVisible(false);
+                frame.setVisible(false);
+                useMainWindow(name);
+            }
+        });
+
+        exitBtn.addActionListener(new // add actions for exit button
+                ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                System.exit(0);
+            }
+        });
+    }
+    
+    public void useDefeatWindow(JFrame frame, String name) {
+        JFrame loseFrame = new JFrame("You lose!");
+        JPanel losePanel = new JPanel();
+
+        JLabel loseLabel = new JLabel("You lose!");
+        loseLabel.setFont(myFont);
+
+        JButton playBtn = new JButton("Play Again");
+        JButton exitBtn = new JButton("Exit Game");
+
+        losePanel.setLayout(new GridLayout(3, 1));
+        losePanel.add(loseLabel);
+        losePanel.add(playBtn);
+        losePanel.add(exitBtn);
+        losePanel.setPreferredSize(new Dimension(400, 200));
+
+        loseFrame.getContentPane().add(losePanel);
+        standardizeGUI(loseFrame);
+
+        playBtn.addActionListener(new // add actions for rules button
+                ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                loseFrame.setVisible(false);
                 frame.setVisible(false);
                 useMainWindow(name);
             }

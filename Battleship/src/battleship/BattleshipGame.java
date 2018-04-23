@@ -62,9 +62,9 @@ public class BattleshipGame {
      * 0 = no change
      */
     protected int checkGameStatus() {
-        if (ocean.getFriendlyShipsSunk() > 4)
+        if (ocean.getFriendlyShipsSunk() == 5)
             return 2;
-        else if(target.getEnemyShipsSunk() > 4)
+        else if(target.getEnemyShipsSunk() == 5)
             return 1;
         else
             return 0;

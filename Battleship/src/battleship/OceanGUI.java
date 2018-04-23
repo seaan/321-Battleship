@@ -187,9 +187,9 @@ public class OceanGUI extends JFrame {
                         if (bsg.updatePeg(startPosition, 0) == Position.Status.HIT) {
                             board[startRow][startCol] = Peg.HIT;
                             startPosition.setStatus(Position.Status.HIT);
-                            if (bsg.checkGameStatus() == 2) {
+                            /*if (bsg.checkGameStatus() == 2) {
                                 JOptionPane.showMessageDialog(frame, "YOU LOST!!");
-                            }
+                            }*/
                         } else {
                             board[startRow][startCol] = Peg.MISS;
                             startPosition.setStatus(Position.Status.MISS);

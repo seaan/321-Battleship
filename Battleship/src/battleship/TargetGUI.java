@@ -4,6 +4,8 @@ import battleship.TargetGrid;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.border.EmptyBorder;
@@ -64,6 +66,78 @@ public class TargetGUI extends JFrame {
 
         canvas = new DrawCanvas();  // Construct a drawing canvas (a JPanel)
         canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
+        
+        JPanel buttonPanel = new JPanel();
+        GridLayout buttonLayout = new GridLayout(5, 1);
+        JButton carrier = new JButton("Carrier");
+        JButton battleship = new JButton("Battleship");
+        JButton cruiser = new JButton("Cruiser");
+        JButton sub = new JButton("Submarine");
+        JButton destroyer = new JButton("Destroyer");
+        
+        carrier.setPreferredSize(new Dimension(100, 40));
+        battleship.setPreferredSize(new Dimension(100, 40));
+        cruiser.setPreferredSize(new Dimension(100, 40));
+        sub.setPreferredSize(new Dimension(100, 40));
+        destroyer.setPreferredSize(new Dimension(100, 40));
+        
+        buttonPanel.add(carrier);
+        buttonPanel.add(battleship);
+        buttonPanel.add(cruiser);
+        buttonPanel.add(sub);
+        buttonPanel.add(destroyer);
+        buttonPanel.setLayout(buttonLayout);
+        
+        carrier.addActionListener(new // add actions for rules button
+                ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                 bsg.getTargetGrid().incrementEnemyShipsSunk();
+                 checkWin();
+                if (carrier == (JButton) event.getSource()) {
+                    carrier.setEnabled(false);
+                }
+            }
+        });
+        battleship.addActionListener(new // add actions for rules button
+                ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                 bsg.getTargetGrid().incrementEnemyShipsSunk();
+                 checkWin();
+                if (battleship == (JButton) event.getSource()) {
+                    battleship.setEnabled(false);
+                }
+            }
+        });
+        cruiser.addActionListener(new // add actions for rules button
+                ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                bsg.getTargetGrid().incrementEnemyShipsSunk();
+                checkWin();
+                if (cruiser == (JButton) event.getSource()) {
+                    cruiser.setEnabled(false);
+                }
+            }
+        });
+        sub.addActionListener(new // add actions for rules button
+                ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                 bsg.getTargetGrid().incrementEnemyShipsSunk();
+                 checkWin();
+                if (sub == (JButton) event.getSource()) {
+                    sub.setEnabled(false);
+                }
+            }
+        });
+        destroyer.addActionListener(new // add actions for rules button
+                ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                bsg.getTargetGrid().incrementEnemyShipsSunk();
+                checkWin();
+                if (destroyer == (JButton) event.getSource()) {
+                    destroyer.setEnabled(false);
+                }
+            }
+        });
 
         canvas.addMouseListener(new MouseAdapter() {
             @Override
@@ -112,11 +186,17 @@ public class TargetGUI extends JFrame {
         panel.setLayout(new BorderLayout());
         panel.setBorder(new EmptyBorder(10, 10, 10, 10));
         panel.add(canvas, BorderLayout.CENTER);
+        panel.add(buttonPanel, BorderLayout.LINE_END);
         panel.add(guidePanel, BorderLayout.LINE_START);
 
         board = new Peg[ROWS][COLS]; // allocate array
 
         clearGrid(); 
+    }
+    
+    private void checkWin()
+    {
+        
     }
 
     /**
