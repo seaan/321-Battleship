@@ -132,8 +132,8 @@ public class Ship {
         }
 
         /*
-                 * Based on the orientation of the ship, we'll need to fill 
-                 * in the rest of the positions.
+         * Based on the orientation of the ship, we'll need to fill 
+         * in the rest of the positions.
          */
         switch (orientation) {
             case VERTICAL:
@@ -202,6 +202,9 @@ public class Ship {
         return false;
     }
 
+    /**
+     * Resets an individual ship to its original values.
+     */
     protected void resetShip() {
         hitCount = 0;
         isSunk = false;

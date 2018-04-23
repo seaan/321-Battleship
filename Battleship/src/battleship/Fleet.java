@@ -163,6 +163,9 @@ public class Fleet {
         }
     }
     
+    /**
+     *  Calls reset ship on each member ship of the Fleet class.
+     */
     protected void resetFleet() {
         Carrier.resetShip();
         Battleship.resetShip();
