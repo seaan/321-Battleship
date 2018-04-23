@@ -155,6 +155,26 @@ public class BattleshipGUI {
         JPanel targetPanel = new JPanel();
         OceanGUI ocean = new OceanGUI(oceanPanel);
         TargetGUI target = new TargetGUI(targetPanel);
+        
+        oceanPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(bsg.checkGameStatus() == 2)
+                    useDefeatWindow(gameFrame, name);
+                else if(bsg.checkGameStatus() == 1)
+                   useVicWindow(gameFrame, name);
+            }
+        });
+        
+        targetPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(bsg.checkGameStatus() == 2)
+                    useDefeatWindow(gameFrame, name);
+                else if(bsg.checkGameStatus() == 1)
+                   useVicWindow(gameFrame, name);
+            }
+        });
 
         /* Create buttons to mark enemy ships sunk */
         JButton carrier = new JButton("Carrier");
@@ -173,73 +193,6 @@ public class BattleshipGUI {
             }
         });
 
-        /* Set layout of and add buttons to newly created Panel 
-        JPanel buttonPanel = new JPanel();             
-        GridLayout buttonLayout = new GridLayout(5, 1);
-        buttonPanel.setLayout(buttonLayout);
-        buttonPanel.add(carrier);
-        buttonPanel.add(battleship);
-        buttonPanel.add(cruiser);
-        buttonPanel.add(sub);
-        buttonPanel.add(destroyer);*/
-
-        /* Add actions for all respective ship buttons 
-        carrier.addActionListener(new
-                ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                if (carrier == (JButton) event.getSource()) {
-                    carrier.setEnabled(false);
-                    if (checkVictory() == true) {
-                        useVicWindow(gameFrame, name);
-                    }
-                }
-            }
-        });
-        battleship.addActionListener(new
-                ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                if (battleship == (JButton) event.getSource()) {
-                    battleship.setEnabled(false);
-                    if (checkVictory() == true) {
-                        useVicWindow(gameFrame, name);
-                    }
-                }
-            }
-        });
-        cruiser.addActionListener(new
-                ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                if (cruiser == (JButton) event.getSource()) {
-                    cruiser.setEnabled(false);
-                    if (checkVictory() == true) {
-                        useVicWindow(gameFrame, name);
-                    }
-                }
-            }
-        });
-        sub.addActionListener(new
-                ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                if (sub == (JButton) event.getSource()) {
-                    sub.setEnabled(false);
-                    if (checkVictory() == true) {
-                        useVicWindow(gameFrame, name);
-                    }
-                }
-            }
-        });
-        destroyer.addActionListener(new
-                ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                if (destroyer == (JButton) event.getSource()) {
-                    destroyer.setEnabled(false);
-                    if (checkVictory() == true) {
-                        useVicWindow(gameFrame, name);
-                    }
-                }
-            }
-        });
-        */
 
         /* add all panels to the game frame,
            and apply standard behaviour to the frame */
