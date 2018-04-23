@@ -111,5 +111,6 @@ public class OceanGrid {
                 grid[i][j] = Position.Status.EMPTY;
             }
         }
+        shipsSunk = 0;
     }
 }
