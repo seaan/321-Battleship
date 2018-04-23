@@ -162,4 +162,12 @@ public class Fleet {
                 break;
         }
     }
+    
+    protected void resetFleet() {
+        Carrier.resetShip();
+        Battleship.resetShip();
+        Cruiser.resetShip();
+        Submarine.resetShip();
+        Destroyer.resetShip();
+    }
 }

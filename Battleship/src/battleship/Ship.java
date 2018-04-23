@@ -6,8 +6,8 @@
 package battleship;
 
 /**
- * A single ship within the game, has fields detailing the type, length,
- * hit count, sunk status, and position, as well as appropriate accessors and
+ * A single ship within the game, has fields detailing the type, length, hit
+ * count, sunk status, and position, as well as appropriate accessors and
  * mutators. Meant to be aggregated within an instance of Fleet.
  *
  * @author Sean Widmier, Kyle Daigle
@@ -41,13 +41,13 @@ public class Ship {
     }
 
     /**
-     * Constructor for ship, will create a not sunk, not hit ship of
-     * given type and length.
+     * Constructor for ship, will create a not sunk, not hit ship of given type
+     * and length.
      *
      * @param type The type of ship to be created as a string, includes:
      * Carrier, Battleship, Cruiser, Submarine, Destroyer
-     * @param length Appropriate lengths given below:
-     * Carrier = 5, Battleship = 4, Cruiser = 3, Submarine = 2, Destroyer = 2
+     * @param length Appropriate lengths given below: Carrier = 5, Battleship =
+     * 4, Cruiser = 3, Submarine = 2, Destroyer = 2
      */
     protected Ship(Fleet.GameShip type, int length) {
         shipType = type;
@@ -57,15 +57,15 @@ public class Ship {
 
         startPosition = new Position(0, 0, Position.Status.EMPTY);
         endPosition = new Position(0, 0, Position.Status.EMPTY);
-        
+
         orientation = Orientation.NULL;
     }
 
     /**
      * Accessor for shipType.
      *
-     * @return The type of ship as a string, examples:
-     * "Carrier", "Battleship", "Cruiser", "Submarine", "Destroyer"
+     * @return The type of ship as a string, examples: "Carrier", "Battleship",
+     * "Cruiser", "Submarine", "Destroyer"
      */
     protected Fleet.GameShip getType() {
         return shipType;
@@ -90,9 +90,8 @@ public class Ship {
     }
 
     /**
-     * Mutator for hit count. Will also check to see if the ship has been
-     * sunk, and change isSunk if necessary,
-     * as well as sunkCount in OceanGrid.
+     * Mutator for hit count. Will also check to see if the ship has been sunk,
+     * and change isSunk if necessary, as well as sunkCount in OceanGrid.
      */
     protected void incrementHitCount() {
         hitCount++;
@@ -179,25 +178,35 @@ public class Ship {
      */
     protected boolean checkPosition(Position position) {
         /* Check to see if the position is within the range of the ship. */
-        switch(orientation){
+        switch (orientation) {
             case HORIZONTAL:
-                if(position.getRow() == startPosition.getRow()){
-                    if((position.getCol() >= startPosition.getCol()) && (position.getCol() <= endPosition.getCol()))
+                if (position.getRow() == startPosition.getRow()) {
+                    if ((position.getCol() >= startPosition.getCol()) && (position.getCol() <= endPosition.getCol())) {
                         return true;
-                    else if((position.getCol() <= startPosition.getCol()) && (position.getCol() >= endPosition.getCol()))
+                    } else if ((position.getCol() <= startPosition.getCol()) && (position.getCol() >= endPosition.getCol())) {
                         return true;
+                    }
                 }
                 return false;
-                
+
             case VERTICAL:
-                if(position.getCol() == startPosition.getCol()){
-                    if((position.getRow() >= startPosition.getRow()) && (position.getRow() <= endPosition.getRow()))
+                if (position.getCol() == startPosition.getCol()) {
+                    if ((position.getRow() >= startPosition.getRow()) && (position.getRow() <= endPosition.getRow())) {
                         return true;
-                    else if((position.getRow() <= startPosition.getRow()) && (position.getRow() >= endPosition.getRow()))
+                    } else if ((position.getRow() <= startPosition.getRow()) && (position.getRow() >= endPosition.getRow())) {
                         return true;
+                    }
                 }
                 return false;
         }
         return false;
+    }
+
+    protected void resetShip() {
+        hitCount = 0;
+        isSunk = false;
+        startPosition = new Position(0, 0, Position.Status.EMPTY);
+        endPosition = new Position(0, 0, Position.Status.EMPTY);
+        orientation = Orientation.NULL;
     }
 }

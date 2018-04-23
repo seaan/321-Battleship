@@ -26,7 +26,7 @@ public class BattleshipGame {
      * object of this class exists.
      */
     private BattleshipGame() {
-        
+       
     }
 
     /**
@@ -68,6 +68,12 @@ public class BattleshipGame {
             return 1;
         else
             return 0;
+    }
+    
+    protected void resetGame() {
+        ocean.resetGrid();
+        target.resetGrid();
+        ocean.getFleet().resetFleet();
     }
 
     /**

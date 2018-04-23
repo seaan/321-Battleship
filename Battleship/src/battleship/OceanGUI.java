@@ -168,9 +168,8 @@ public class OceanGUI extends JFrame {
                     endCol = mouseX2 / CELL_SIZE;
                     endPosition.setPosition(endCol, endRow);
 
-                    if (startRow >= 0 && startRow < ROWS && startCol >= 0
-                            && startCol < COLS && board[startRow][startCol]
-                            == Peg.EMPTY) {
+                    if (isInRowRange(startRow) && isInColRange(startCol) && 
+                            board[startRow][startCol] == Peg.EMPTY) {
                         startPosition.setStatus(Position.Status.SHIP);
                         endPosition.setStatus(Position.Status.SHIP);
                         setShip(currentShip, startPosition, endPosition);
@@ -179,9 +178,9 @@ public class OceanGUI extends JFrame {
                     }
                 } else if (testState == 1) {
                     startPosition.setStatus(Position.Status.MISS);
-                    if (startRow >= 0 && startRow < ROWS && startCol >= 0
-                            && startCol < COLS && (board[startRow][startCol]
-                            == Peg.EMPTY || board[startRow][startCol] == Peg.SHIP)) {
+                    if (isInRowRange(startRow) && isInColRange(startCol) && 
+                            (board[startRow][startCol]  == Peg.EMPTY || 
+                             board[startRow][startCol] == Peg.SHIP)) {
                        
                         startPosition.setPosition(startCol, startRow);
                         if (bsg.updatePeg(startPosition, 0) == Position.Status.HIT) {
@@ -224,6 +223,30 @@ public class OceanGUI extends JFrame {
             }
         }
         canvas.repaint();
+    }
+    
+    private boolean isOnGrid(int num)
+    {
+        if (isInRowRange(num) && isInColRange(num))
+            return true;
+        else
+            return false;
+    }
+    
+    private boolean isInRowRange(int num)
+    {
+        if(num >= 0 && num < ROWS)
+            return true;
+        else
+            return false;
+    }
+    
+    private boolean isInColRange(int num)
+    {
+        if(num >= 0 && num < COLS)
+            return true;
+        else
+            return false;
     }
     
     /**
