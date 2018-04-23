@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 public class OceanGUI extends JFrame {
 
     BattleshipGame bsg;
+    
     // Grid Layout
     public static final int ROWS = 10;
     public static final int COLS = 10;
@@ -107,8 +108,7 @@ public class OceanGUI extends JFrame {
         ships = 0;
 
         /* Add actions to each button to place ships */
-        carrier.addActionListener(new
-                ActionListener() {
+        carrier.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 currentShip = Fleet.GameShip.CARRIER;
                 if (carrier == (JButton) event.getSource()) {
@@ -116,8 +116,7 @@ public class OceanGUI extends JFrame {
                 }
             }
         });
-        battleship.addActionListener(new
-                ActionListener() {
+        battleship.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 currentShip = Fleet.GameShip.BATTLESHIP;
                 if (battleship == (JButton) event.getSource()) {
@@ -125,8 +124,7 @@ public class OceanGUI extends JFrame {
                 }
             }
         });
-        cruiser.addActionListener(new
-                ActionListener() {
+        cruiser.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 currentShip = Fleet.GameShip.CRUISER;
                 if (cruiser == (JButton) event.getSource()) {
@@ -134,8 +132,7 @@ public class OceanGUI extends JFrame {
                 }
             }
         });
-        sub.addActionListener(new
-                ActionListener() {
+        sub.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 currentShip = Fleet.GameShip.SUBMARINE;
                 if (sub == (JButton) event.getSource()) {
@@ -143,8 +140,7 @@ public class OceanGUI extends JFrame {
                 }
             }
         });
-        destroyer.addActionListener(new
-                ActionListener() {
+        destroyer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 currentShip = Fleet.GameShip.DESTROYER;
                 if (destroyer == (JButton) event.getSource()) {
@@ -237,12 +233,22 @@ public class OceanGUI extends JFrame {
         canvas.repaint();
     }
 
+    /**
+     * Checks to see if all friendly ships have been sunk. If so, shows a dialog
+     * box for losing.
+     */
     private void checkDefeat() {
         if (bsg.checkGameStatus() == 2) {
             JOptionPane.showMessageDialog(frame, "YOU LOST!!");
         }
     }
 
+    /**
+     * Checks to see if a row coordinate is in the range of the grid
+     *
+     * @param num - Integer to check
+     * @return true or false
+     */
     private boolean isInRowRange(int num) {
         if (num >= 0 && num < ROWS) {
             return true;
@@ -251,6 +257,12 @@ public class OceanGUI extends JFrame {
         }
     }
 
+    /**
+     * Checks if a column is in the range of the grid.
+     *
+     * @param num - Integer to check
+     * @return True or false
+     */
     private boolean isInColRange(int num) {
         if (num >= 0 && num < COLS) {
             return true;
@@ -288,15 +300,16 @@ public class OceanGUI extends JFrame {
     }
 
     /**
+     * This function checks to see if a ship can be placed inside the bounds and
+     * places the ship correctly in the back end and on the visual grid
      *
-     * @param type
-     * @param startPosition
-     * @param endPosition
+     * @param type - Type of ship to be placed
+     * @param startPosition - Starting coordinates of the ship
+     * @param endPosition - Ending coordinates of the ship
      */
     private void CheckShipPlacementCol(Fleet.GameShip type, Position startPosition, Position endPosition) {
         if (startPosition.getCol() < endPosition.getCol()) {
-            if (startPosition.getCol() >= 0 && startPosition.getCol() < COLS && startPosition.getCol() + type.size >= 0
-                    && startPosition.getCol() + type.size < COLS) {
+            if (isInColRange(startPosition.getCol()) && isInColRange(startPosition.getCol() + type.size)) {
 
                 startPosition.setPosition(startPosition.getCol(), startPosition.getRow());
                 endPosition.setPosition(startPosition.getCol() + type.size, endPosition.getRow());
@@ -312,8 +325,7 @@ public class OceanGUI extends JFrame {
                 currentShip = type;
             }
         } else {
-            if (startPosition.getCol() >= 0 && startPosition.getCol() < COLS && startPosition.getCol() - type.size >= 0
-                    && startPosition.getCol() - type.size < COLS) {
+            if (isInColRange(startPosition.getCol()) && isInColRange(startPosition.getCol() - type.size)) {
 
                 startPosition.setPosition(startPosition.getCol(), startPosition.getRow());
                 endPosition.setPosition(startPosition.getCol() - type.size, endPosition.getRow());
@@ -331,7 +343,6 @@ public class OceanGUI extends JFrame {
         }
         if (ships == 5) {
             currentState = GameState.PLAYING;
-            //testState = 1;
         }
     }
 
@@ -343,8 +354,7 @@ public class OceanGUI extends JFrame {
      */
     private void CheckShipPlacementRow(Fleet.GameShip type, Position startPosition, Position endPosition) {
         if (startPosition.getRow() < endPosition.getRow()) {
-            if (startPosition.getRow() >= 0 && startPosition.getRow() < ROWS && startPosition.getRow() + type.size >= 0
-                    && startPosition.getRow() + type.size < ROWS) {
+            if (isInRowRange(startPosition.getCol()) && isInRowRange(startPosition.getCol() + type.size)) {
 
                 startPosition.setPosition(startPosition.getCol(), startPosition.getRow());
                 endPosition.setPosition(startPosition.getCol(), startPosition.getRow() + type.size);
@@ -360,8 +370,7 @@ public class OceanGUI extends JFrame {
                 currentShip = type;
             }
         } else {
-            if (startPosition.getRow() >= 0 && startPosition.getRow() < ROWS && startPosition.getRow() - type.size >= 0
-                    && startPosition.getRow() - type.size < ROWS) {
+            if (isInRowRange(startPosition.getCol()) && isInRowRange(startPosition.getCol() - type.size)) {
 
                 startPosition.setPosition(startPosition.getCol(), startPosition.getRow());
                 endPosition.setPosition(startPosition.getCol(), startPosition.getRow() - type.size);
