@@ -71,6 +71,7 @@ public class OceanGUI extends JFrame {
      */
     public OceanGUI(JPanel panel) {
         bsg = BattleshipGame.getInstance();
+        bsg.resetGame();
         Position position = new Position(0, 0, Position.Status.MISS);
 
         canvas = new DrawCanvas();  // Construct a drawing canvas (a JPanel)
