@@ -17,7 +17,7 @@ import javax.swing.border.EmptyBorder;
 public class OceanGUI extends JFrame {
 
     BattleshipGame bsg;
-    
+
     // Grid Layout
     public static final int ROWS = 10;
     public static final int COLS = 10;
@@ -189,7 +189,7 @@ public class OceanGUI extends JFrame {
                             board[startRow][startCol] = Peg.MISS;
                             startPosition.setStatus(Position.Status.MISS);
                         }
-                        canvas.repaint(); 
+                        canvas.repaint();
                         checkDefeat();
                     }
                 }
@@ -275,12 +275,12 @@ public class OceanGUI extends JFrame {
         }
     }
 
-    
     /**
      * Function to set ship in place on grid and in back end.
+     *
      * @param ship - Ship being placed.
      * @param startPosition - Starting coordinates of the ship.
-     * @param endPosition  - Ending coordinates of the ship.
+     * @param endPosition - Ending coordinates of the ship.
      */
     private void setShip(Fleet.GameShip ship, Position startPosition, Position endPosition) {
         if (ship == Fleet.GameShip.NULL) {
@@ -343,7 +343,7 @@ public class OceanGUI extends JFrame {
     /**
      * This function checks to see if a ship can be placed inside the bounds and
      * places the ship correctly in the back end and on the visual grid
-     * 
+     *
      * @param type - Type of ship to be placed
      * @param startPosition - Starting coordinates of the ship
      * @param endPosition - Ending coordinates of the ship

@@ -44,7 +44,7 @@ public class OceanGrid {
      *
      * @return A fleet instance.
      */
-    public static Fleet getFleet() {
+    protected static Fleet getFleet() {
         return fleet;
     }
 
@@ -94,16 +94,6 @@ public class OceanGrid {
      */
     protected int getFriendlyShipsSunk() {
         return shipsSunk;
-    }
-
-    protected void printGrid() {
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                System.out.print(grid[i][j] + "\t");
-            }
-            System.out.println();
-        }
-        System.out.println();
     }
 
     /**

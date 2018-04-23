@@ -27,7 +27,6 @@ public class BattleshipGame {
      * object of this class exists.
      */
     private BattleshipGame() {
-
     }
 
     /**

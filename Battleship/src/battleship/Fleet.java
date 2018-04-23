@@ -16,11 +16,11 @@ package battleship;
 public class Fleet {
 
     /* Instances of each ship needed for a game of Battleship */
-    private Ship Carrier;
-    private Ship Battleship;
-    private Ship Cruiser;
-    private Ship Submarine;
-    private Ship Destroyer;
+    private final Ship Carrier;
+    private final Ship Battleship;
+    private final Ship Cruiser;
+    private final Ship Submarine;
+    private final Ship Destroyer;
 
     /**
      * An enum detailing all of the legal ships for a normal game of Battleship,
@@ -58,7 +58,7 @@ public class Fleet {
      *
      * @return A Ship instance for the Carrier.
      */
-    public Ship getCarrier() {
+    protected Ship getCarrier() {
         return Carrier;
     }
 
@@ -67,7 +67,7 @@ public class Fleet {
      *
      * @return A ship instance for the Battleship.
      */
-    public Ship getBattleship() {
+    protected Ship getBattleship() {
         return Battleship;
     }
 
@@ -76,7 +76,7 @@ public class Fleet {
      *
      * @return A ship instance for the Cruiser.
      */
-    public Ship getCruiser() {
+    protected Ship getCruiser() {
         return Cruiser;
     }
 
@@ -85,7 +85,7 @@ public class Fleet {
      *
      * @return A ship instance for the Submarine.
      */
-    public Ship getSubmarine() {
+    protected Ship getSubmarine() {
         return Submarine;
     }
 
@@ -94,7 +94,7 @@ public class Fleet {
      *
      * @return A ship instance for the Destroyer.
      */
-    public Ship getDestroyer() {
+    protected Ship getDestroyer() {
         return Destroyer;
     }
 

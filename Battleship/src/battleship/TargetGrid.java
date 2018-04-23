@@ -23,7 +23,7 @@ public class TargetGrid {
     /**
      * Makes an instance of TargetGrid such that the resultant grid is empty.
      */
-    public TargetGrid() {
+    protected TargetGrid() {
         grid = new Position.Status[10][10];
 
         for (int i = 0; i < 10; i++) {
