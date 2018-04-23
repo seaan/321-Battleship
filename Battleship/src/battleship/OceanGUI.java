@@ -174,7 +174,6 @@ public class OceanGUI extends JFrame {
                         startPosition.setStatus(Position.Status.SHIP);
                         endPosition.setStatus(Position.Status.SHIP);
                         setShip(currentShip, startPosition, endPosition);
-                        bsg.getOceanGrid().printGrid();
                         canvas.repaint();
                     }
                 } else if (currentState == GameState.PLAYING) {
@@ -187,15 +186,12 @@ public class OceanGUI extends JFrame {
                         if (bsg.updatePeg(startPosition, 0) == Position.Status.HIT) {
                             board[startRow][startCol] = Peg.HIT;
                             startPosition.setStatus(Position.Status.HIT);
-                            /*if (bsg.checkGameStatus() == 2) {
-                                JOptionPane.showMessageDialog(frame, "YOU LOST!!");
-                            }*/
                         } else {
                             board[startRow][startCol] = Peg.MISS;
                             startPosition.setStatus(Position.Status.MISS);
                         }
+                        canvas.repaint(); 
                         checkDefeat();
-                        canvas.repaint();
                     }
                 }
             }
@@ -288,6 +284,13 @@ public class OceanGUI extends JFrame {
         }
     }
 
+    
+    /**
+     * Function to set ship in place on grid and in back end.
+     * @param ship - Ship being placed.
+     * @param startPosition - Starting coordinates of the ship.
+     * @param endPosition  - Ending coordinates of the ship.
+     */
     private void setShip(Fleet.GameShip ship, Position startPosition, Position endPosition) {
         if (ship == Fleet.GameShip.NULL) {
             showError("nullShipPlacement");
@@ -347,10 +350,12 @@ public class OceanGUI extends JFrame {
     }
 
     /**
-     *
-     * @param type
-     * @param startPosition
-     * @param endPosition
+     * This function checks to see if a ship can be placed inside the bounds and
+     * places the ship correctly in the back end and on the visual grid
+     * 
+     * @param type - Type of ship to be placed
+     * @param startPosition - Starting coordinates of the ship
+     * @param endPosition - Ending coordinates of the ship
      */
     private void CheckShipPlacementRow(Fleet.GameShip type, Position startPosition, Position endPosition) {
         if (startPosition.getRow() < endPosition.getRow()) {
