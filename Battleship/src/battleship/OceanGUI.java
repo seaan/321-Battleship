@@ -27,7 +27,6 @@ public class OceanGUI extends JFrame {
     public static final int CANVAS_WIDTH = CELL_SIZE * COLS;  // Allows the canvas to be drawn
     public static final int CANVAS_HEIGHT = CELL_SIZE * ROWS;
     public static final int GRID_WIDTH = 1;
-    public static final int GRID_WIDHT_HALF = GRID_WIDTH / 1;
     public static final int CELL_PADDING = CELL_SIZE / 6;
     public static final int SYMBOL_SIZE = CELL_SIZE - CELL_PADDING * 4; // width/height
 
@@ -351,7 +350,7 @@ public class OceanGUI extends JFrame {
      */
     private void CheckShipPlacementRow(Fleet.GameShip type, Position startPosition, Position endPosition) {
         if (startPosition.getRow() < endPosition.getRow()) {
-            if (isInRowRange(startPosition.getCol()) && isInRowRange(startPosition.getCol() + type.size)) {
+            if (isInRowRange(startPosition.getRow()) && isInRowRange(startPosition.getRow() + type.size)) {
 
                 startPosition.setPosition(startPosition.getCol(), startPosition.getRow());
                 endPosition.setPosition(startPosition.getCol(), startPosition.getRow() + type.size);
@@ -367,7 +366,7 @@ public class OceanGUI extends JFrame {
                 currentShip = type;
             }
         } else {
-            if (isInRowRange(startPosition.getCol()) && isInRowRange(startPosition.getCol() - type.size)) {
+            if (isInRowRange(startPosition.getRow()) && isInRowRange(startPosition.getRow() - type.size)) {
 
                 startPosition.setPosition(startPosition.getCol(), startPosition.getRow());
                 endPosition.setPosition(startPosition.getCol(), startPosition.getRow() - type.size);
@@ -424,11 +423,11 @@ public class OceanGUI extends JFrame {
             //Draw the grid lines after painting pegs so it can go over the ships
             g.setColor(Color.BLACK);
             for (int row = 0; row <= ROWS; row++) {
-                g.fillRoundRect(0, CELL_SIZE * row - GRID_WIDHT_HALF,
+                g.fillRoundRect(0, CELL_SIZE * row - GRID_WIDTH,
                         CANVAS_WIDTH - 1, GRID_WIDTH, GRID_WIDTH, GRID_WIDTH);
             }
             for (int col = 0; col <= COLS; col++) {
-                g.fillRoundRect(CELL_SIZE * col - GRID_WIDHT_HALF, 0,
+                g.fillRoundRect(CELL_SIZE * col - GRID_WIDTH, 0,
                         GRID_WIDTH, CANVAS_HEIGHT - 1, GRID_WIDTH, GRID_WIDTH);
             }
         }

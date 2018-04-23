@@ -28,7 +28,7 @@ public class TargetGrid {
 
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                grid[i][j] = Position.Status.EMPTY;                 //initialize grid to "empty"
+                grid[i][j] = Position.Status.EMPTY;
             }
         }
     }
