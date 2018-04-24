@@ -110,41 +110,29 @@ public class OceanGUI extends JFrame {
         carrier.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 currentShip = Fleet.GameShip.CARRIER;
-                if (carrier == (JButton) event.getSource()) {
-                    carrier.setEnabled(false);
-                }
+                
             }
         });
         battleship.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 currentShip = Fleet.GameShip.BATTLESHIP;
-                if (battleship == (JButton) event.getSource()) {
-                    battleship.setEnabled(false);
-                }
             }
         });
         cruiser.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 currentShip = Fleet.GameShip.CRUISER;
-                if (cruiser == (JButton) event.getSource()) {
-                    cruiser.setEnabled(false);
-                }
             }
         });
         sub.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 currentShip = Fleet.GameShip.SUBMARINE;
-                if (sub == (JButton) event.getSource()) {
-                    sub.setEnabled(false);
-                }
+               
             }
         });
         destroyer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 currentShip = Fleet.GameShip.DESTROYER;
-                if (destroyer == (JButton) event.getSource()) {
-                    destroyer.setEnabled(false);
-                }
+                
             }
         });
 
@@ -312,6 +300,7 @@ public class OceanGUI extends JFrame {
                 for (int i = startPosition.getCol(); i <= startPosition.getCol() + type.size; i++) {
                     board[startPosition.getRow()][i] = Peg.SHIP;
                 }
+                disableButton(type);
                 currentShip = Fleet.GameShip.NULL;
                 ships++;
             } else {
@@ -328,6 +317,7 @@ public class OceanGUI extends JFrame {
                 for (int i = startPosition.getCol(); i >= startPosition.getCol() - type.size; i--) {
                     board[startPosition.getRow()][i] = Peg.SHIP;
                 }
+                disableButton(type);
                 currentShip = Fleet.GameShip.NULL;
                 ships++;
             } else {
@@ -359,6 +349,7 @@ public class OceanGUI extends JFrame {
                 for (int i = startPosition.getRow(); i <= startPosition.getRow() + type.size; i++) {
                     board[i][startPosition.getCol()] = Peg.SHIP;
                 }
+                disableButton(type);
                 currentShip = Fleet.GameShip.NULL;
                 ships++;
             } else {
@@ -375,6 +366,7 @@ public class OceanGUI extends JFrame {
                 for (int i = startPosition.getRow(); i >= startPosition.getRow() - type.size; i--) {
                     board[i][startPosition.getCol()] = Peg.SHIP;
                 }
+                disableButton(type);
                 currentShip = Fleet.GameShip.NULL;
                 ships++;
             } else {
@@ -385,6 +377,33 @@ public class OceanGUI extends JFrame {
         if (ships == 5) {
             currentState = GameState.PLAYING;
             //testState = 1;
+        }
+    }
+    
+    /**
+     * Function to disable the selected ship button and prevent player from
+     * placing multiple ships of the same type
+     * @param ship - Ship for corresponding button that is being disabled
+     */
+    private void disableButton(Fleet.GameShip ship) {
+        switch(ship) {
+            case NULL:
+                break;
+            case CARRIER:
+                carrier.setEnabled(false);
+                break;
+            case BATTLESHIP:
+                battleship.setEnabled(false);
+                break;
+            case CRUISER:
+                cruiser.setEnabled(false);
+                break;
+            case SUBMARINE:
+                sub.setEnabled(false);
+                break;
+            case DESTROYER:
+                destroyer.setEnabled(false);
+                break;
         }
     }
 
