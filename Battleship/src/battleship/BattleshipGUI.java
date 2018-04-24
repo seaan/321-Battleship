@@ -37,7 +37,7 @@ public class BattleshipGUI {
     /**
      * Constructor that sets up the main menu and rules display
      */
-    BattleshipGUI() {
+    protected BattleshipGUI() {
 
         bsg = BattleshipGame.getInstance();
 
@@ -99,7 +99,7 @@ public class BattleshipGUI {
     /**
      * Create the window that asks for the user's name
      */
-    public void useNameWindow() {
+    private void useNameWindow() {
 
         /* Create and set size of the name window */
         final JFrame nameFrame = new JFrame("Enter Name");
@@ -138,7 +138,7 @@ public class BattleshipGUI {
      *
      * @param name The name of the player.
      */
-    public void useMainWindow(String name) {
+    private void useMainWindow(String name) {
 
         /* Create main frame to hold all succeeding
            panels and labels. Apply layout to this frame */
@@ -189,7 +189,7 @@ public class BattleshipGUI {
      *
      * @param txtfld : a given text field to print the output on
      */
-    public static void readFile(JTextArea txtfld) {   // function to read file containing rules
+    private static void readFile(JTextArea txtfld) {   // function to read file containing rules
         try {
             BufferedReader rules = new BufferedReader(new FileReader("testRules.txt"));
 
@@ -207,7 +207,7 @@ public class BattleshipGUI {
      * Create the window used to confirm whether the user whether he/she 
      * desires to play a new game
      */
-    public void useNewGameWindow() {
+    private void useNewGameWindow() {
         JFrame newGameFrame = new JFrame("New Game");
         JPanel newGamePanel = new JPanel();
 
@@ -252,7 +252,7 @@ public class BattleshipGUI {
      *
      * @param frame: The frame to apply the behavior to
      */
-    public void standardizeGUI(JFrame frame) {
+    private void standardizeGUI(JFrame frame) {
         frame.pack();
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
