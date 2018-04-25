@@ -11,7 +11,8 @@ import java.awt.event.*;
 import javax.swing.border.EmptyBorder;
 
 /**
- *
+ * A Graphical component that displays a visual representation of
+ * the Ocean Grid for a game of Battleship
  * @author Kyle Daigle, Sean Widmier, Robert Womack
  */
 public class OceanGUI extends JFrame {
