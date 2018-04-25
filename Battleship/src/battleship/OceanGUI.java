@@ -1,3 +1,8 @@
+/* 
+ * CREATED IN NETBEANS IDE 8.2
+ * CS-321-01 Final Project: Battleship
+ * Kyle Daigle, Sean Widmier, Robert Womack, Kelly Manley
+ */
 package battleship;
 
 import java.awt.*;
@@ -6,12 +11,14 @@ import java.awt.event.*;
 import javax.swing.border.EmptyBorder;
 
 /**
- *
+ * A Graphical component that displays a visual representation of
+ * the Ocean Grid for a game of Battleship
  * @author Kyle Daigle, Sean Widmier, Robert Womack
  */
 public class OceanGUI extends JFrame {
 
     BattleshipGame bsg;
+
     // Grid Layout
     public static final int ROWS = 10;
     public static final int COLS = 10;
@@ -21,7 +28,6 @@ public class OceanGUI extends JFrame {
     public static final int CANVAS_WIDTH = CELL_SIZE * COLS;  // Allows the canvas to be drawn
     public static final int CANVAS_HEIGHT = CELL_SIZE * ROWS;
     public static final int GRID_WIDTH = 1;
-    public static final int GRID_WIDHT_HALF = GRID_WIDTH / 1;
     public static final int CELL_PADDING = CELL_SIZE / 6;
     public static final int SYMBOL_SIZE = CELL_SIZE - CELL_PADDING * 4; // width/height
 
@@ -37,6 +43,7 @@ public class OceanGUI extends JFrame {
     private Position startPosition = new Position(0, 0, Position.Status.EMPTY);
     private Position endPosition = new Position(0, 0, Position.Status.EMPTY);
 
+    // Buttons to place ships
     private JButton carrier = new JButton("Carrier");
     private JButton battleship = new JButton("Battleship");
     private JButton cruiser = new JButton("Cruiser");
@@ -63,8 +70,6 @@ public class OceanGUI extends JFrame {
     public enum Peg {
         EMPTY, HIT, MISS, SHIP
     }
-
-    private int testState;
 
     private Peg[][] board; // Game board of ROWS-by-COLS cells
     private DrawCanvas canvas; // Drawing canvas (JPanel) for the game board
@@ -101,52 +106,34 @@ public class OceanGUI extends JFrame {
         buttonPanel.add(destroyer);
         buttonPanel.setLayout(buttonLayout);
         ships = 0;
-        testState = 0;
-        //currentState = GameState.PLAYING;
 
-        carrier.addActionListener(new // add actions for rules button
-                ActionListener() {
+        /* Add actions to each button to place ships */
+        carrier.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 currentShip = Fleet.GameShip.CARRIER;
-                if (carrier == (JButton) event.getSource()) {
-                    carrier.setEnabled(false);
-                }
+                
             }
         });
-        battleship.addActionListener(new // add actions for rules button
-                ActionListener() {
+        battleship.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 currentShip = Fleet.GameShip.BATTLESHIP;
-                if (battleship == (JButton) event.getSource()) {
-                    battleship.setEnabled(false);
-                }
             }
         });
-        cruiser.addActionListener(new // add actions for rules button
-                ActionListener() {
+        cruiser.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 currentShip = Fleet.GameShip.CRUISER;
-                if (cruiser == (JButton) event.getSource()) {
-                    cruiser.setEnabled(false);
-                }
             }
         });
-        sub.addActionListener(new // add actions for rules button
-                ActionListener() {
+        sub.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 currentShip = Fleet.GameShip.SUBMARINE;
-                if (sub == (JButton) event.getSource()) {
-                    sub.setEnabled(false);
-                }
+               
             }
         });
-        destroyer.addActionListener(new // add actions for rules button
-                ActionListener() {
+        destroyer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 currentShip = Fleet.GameShip.DESTROYER;
-                if (destroyer == (JButton) event.getSource()) {
-                    destroyer.setEnabled(false);
-                }
+                
             }
         });
 
@@ -175,7 +162,6 @@ public class OceanGUI extends JFrame {
                         startPosition.setStatus(Position.Status.SHIP);
                         endPosition.setStatus(Position.Status.SHIP);
                         setShip(currentShip, startPosition, endPosition);
-                        bsg.getOceanGrid().printGrid();
                         canvas.repaint();
                     }
                 } else if (currentState == GameState.PLAYING) {
@@ -188,15 +174,12 @@ public class OceanGUI extends JFrame {
                         if (bsg.updatePeg(startPosition, 0) == Position.Status.HIT) {
                             board[startRow][startCol] = Peg.HIT;
                             startPosition.setStatus(Position.Status.HIT);
-                            /*if (bsg.checkGameStatus() == 2) {
-                                JOptionPane.showMessageDialog(frame, "YOU LOST!!");
-                            }*/
                         } else {
                             board[startRow][startCol] = Peg.MISS;
                             startPosition.setStatus(Position.Status.MISS);
                         }
-                        checkDefeat();
                         canvas.repaint();
+                        checkDefeat();
                     }
                 }
             }
@@ -210,7 +193,6 @@ public class OceanGUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();  // pack all the components in this JFrame
         setTitle("Battleship Testing Grid");
-        //setVisible(true);  // show this JFrame
 
         board = new Peg[ROWS][COLS]; // allocate array
         clearGrid(); // initialize the game board contents and game variables
@@ -235,26 +217,34 @@ public class OceanGUI extends JFrame {
         canvas.repaint();
     }
 
+    /**
+     * Checks to see if all friendly ships have been sunk. If so, shows a dialog
+     * box for losing.
+     */
     private void checkDefeat() {
         if (bsg.checkGameStatus() == 2) {
             JOptionPane.showMessageDialog(frame, "YOU LOST!!");
         }
     }
 
+    /**
+     * Checks to see if a row coordinate is in the range of the grid
+     *
+     * @param num - Integer to check
+     * @return true or false
+     */
     private boolean isInRowRange(int num) {
-        if (num >= 0 && num < ROWS) {
-            return true;
-        } else {
-            return false;
-        }
+        return (num >= 0 && num < ROWS);
     }
 
+    /**
+     * Checks if a column is in the range of the grid.
+     *
+     * @param num - Integer to check
+     * @return True or false
+     */
     private boolean isInColRange(int num) {
-        if (num >= 0 && num < COLS) {
-            return true;
-        } else {
-            return false;
-        }
+        return (num >= 0 && num < COLS);
     }
 
     /**
@@ -274,6 +264,13 @@ public class OceanGUI extends JFrame {
         }
     }
 
+    /**
+     * Function to set ship in place on grid and in back end.
+     *
+     * @param ship - Ship being placed.
+     * @param startPosition - Starting coordinates of the ship.
+     * @param endPosition - Ending coordinates of the ship.
+     */
     private void setShip(Fleet.GameShip ship, Position startPosition, Position endPosition) {
         if (ship == Fleet.GameShip.NULL) {
             showError("nullShipPlacement");
@@ -286,15 +283,16 @@ public class OceanGUI extends JFrame {
     }
 
     /**
+     * This function checks to see if a ship can be placed inside the bounds and
+     * places the ship correctly in the back end and on the visual grid
      *
-     * @param type
-     * @param startPosition
-     * @param endPosition
+     * @param type - Type of ship to be placed
+     * @param startPosition - Starting coordinates of the ship
+     * @param endPosition - Ending coordinates of the ship
      */
     private void CheckShipPlacementCol(Fleet.GameShip type, Position startPosition, Position endPosition) {
         if (startPosition.getCol() < endPosition.getCol()) {
-            if (startPosition.getCol() >= 0 && startPosition.getCol() < COLS && startPosition.getCol() + type.size >= 0
-                    && startPosition.getCol() + type.size < COLS) {
+            if (isInColRange(startPosition.getCol()) && isInColRange(startPosition.getCol() + type.size)) {
 
                 startPosition.setPosition(startPosition.getCol(), startPosition.getRow());
                 endPosition.setPosition(startPosition.getCol() + type.size, endPosition.getRow());
@@ -303,6 +301,7 @@ public class OceanGUI extends JFrame {
                 for (int i = startPosition.getCol(); i <= startPosition.getCol() + type.size; i++) {
                     board[startPosition.getRow()][i] = Peg.SHIP;
                 }
+                disableButton(type);
                 currentShip = Fleet.GameShip.NULL;
                 ships++;
             } else {
@@ -310,8 +309,7 @@ public class OceanGUI extends JFrame {
                 currentShip = type;
             }
         } else {
-            if (startPosition.getCol() >= 0 && startPosition.getCol() < COLS && startPosition.getCol() - type.size >= 0
-                    && startPosition.getCol() - type.size < COLS) {
+            if (isInColRange(startPosition.getCol()) && isInColRange(startPosition.getCol() - type.size)) {
 
                 startPosition.setPosition(startPosition.getCol(), startPosition.getRow());
                 endPosition.setPosition(startPosition.getCol() - type.size, endPosition.getRow());
@@ -320,6 +318,56 @@ public class OceanGUI extends JFrame {
                 for (int i = startPosition.getCol(); i >= startPosition.getCol() - type.size; i--) {
                     board[startPosition.getRow()][i] = Peg.SHIP;
                 }
+                disableButton(type);
+                currentShip = Fleet.GameShip.NULL;
+                ships++;
+            } else {
+                showError("shipOutOfBounds");
+                currentShip = type;
+            }
+        }
+        if (ships == 5) {
+            currentState = GameState.PLAYING;
+        }
+    }
+
+    /**
+     * This function checks to see if a ship can be placed inside the bounds and
+     * places the ship correctly in the back end and on the visual grid
+     *
+     * @param type - Type of ship to be placed
+     * @param startPosition - Starting coordinates of the ship
+     * @param endPosition - Ending coordinates of the ship
+     */
+    private void CheckShipPlacementRow(Fleet.GameShip type, Position startPosition, Position endPosition) {
+        if (startPosition.getRow() < endPosition.getRow()) {
+            if (isInRowRange(startPosition.getRow()) && isInRowRange(startPosition.getRow() + type.size)) {
+
+                startPosition.setPosition(startPosition.getCol(), startPosition.getRow());
+                endPosition.setPosition(startPosition.getCol(), startPosition.getRow() + type.size);
+                bsg.updateShip(startPosition, endPosition, type);
+
+                for (int i = startPosition.getRow(); i <= startPosition.getRow() + type.size; i++) {
+                    board[i][startPosition.getCol()] = Peg.SHIP;
+                }
+                disableButton(type);
+                currentShip = Fleet.GameShip.NULL;
+                ships++;
+            } else {
+                showError("shipOutOfBounds");
+                currentShip = type;
+            }
+        } else {
+            if (isInRowRange(startPosition.getRow()) && isInRowRange(startPosition.getRow() - type.size)) {
+
+                startPosition.setPosition(startPosition.getCol(), startPosition.getRow());
+                endPosition.setPosition(startPosition.getCol(), startPosition.getRow() - type.size);
+                bsg.updateShip(startPosition, endPosition, type);
+
+                for (int i = startPosition.getRow(); i >= startPosition.getRow() - type.size; i--) {
+                    board[i][startPosition.getCol()] = Peg.SHIP;
+                }
+                disableButton(type);
                 currentShip = Fleet.GameShip.NULL;
                 ships++;
             } else {
@@ -332,52 +380,31 @@ public class OceanGUI extends JFrame {
             //testState = 1;
         }
     }
-
+    
     /**
-     *
-     * @param type
-     * @param startPosition
-     * @param endPosition
+     * Function to disable the selected ship button and prevent player from
+     * placing multiple ships of the same type
+     * @param ship - Ship for corresponding button that is being disabled
      */
-    private void CheckShipPlacementRow(Fleet.GameShip type, Position startPosition, Position endPosition) {
-        if (startPosition.getRow() < endPosition.getRow()) {
-            if (startPosition.getRow() >= 0 && startPosition.getRow() < ROWS && startPosition.getRow() + type.size >= 0
-                    && startPosition.getRow() + type.size < ROWS) {
-
-                startPosition.setPosition(startPosition.getCol(), startPosition.getRow());
-                endPosition.setPosition(startPosition.getCol(), startPosition.getRow() + type.size);
-                bsg.updateShip(startPosition, endPosition, type);
-
-                for (int i = startPosition.getRow(); i <= startPosition.getRow() + type.size; i++) {
-                    board[i][startPosition.getCol()] = Peg.SHIP;
-                }
-                currentShip = Fleet.GameShip.NULL;
-                ships++;
-            } else {
-                showError("shipOutOfBounds");
-                currentShip = type;
-            }
-        } else {
-            if (startPosition.getRow() >= 0 && startPosition.getRow() < ROWS && startPosition.getRow() - type.size >= 0
-                    && startPosition.getRow() - type.size < ROWS) {
-
-                startPosition.setPosition(startPosition.getCol(), startPosition.getRow());
-                endPosition.setPosition(startPosition.getCol(), startPosition.getRow() - type.size);
-                bsg.updateShip(startPosition, endPosition, type);
-
-                for (int i = startPosition.getRow(); i >= startPosition.getRow() - type.size; i--) {
-                    board[i][startPosition.getCol()] = Peg.SHIP;
-                }
-                currentShip = Fleet.GameShip.NULL;
-                ships++;
-            } else {
-                showError("shipOutOfBounds");
-                currentShip = type;
-            }
-        }
-        if (ships == 5) {
-            currentState = GameState.PLAYING;
-           //testState = 1;
+    private void disableButton(Fleet.GameShip ship) {
+        switch(ship) {
+            case NULL:
+                break;
+            case CARRIER:
+                carrier.setEnabled(false);
+                break;
+            case BATTLESHIP:
+                battleship.setEnabled(false);
+                break;
+            case CRUISER:
+                cruiser.setEnabled(false);
+                break;
+            case SUBMARINE:
+                sub.setEnabled(false);
+                break;
+            case DESTROYER:
+                destroyer.setEnabled(false);
+                break;
         }
     }
 
@@ -416,11 +443,11 @@ public class OceanGUI extends JFrame {
             //Draw the grid lines after painting pegs so it can go over the ships
             g.setColor(Color.BLACK);
             for (int row = 0; row <= ROWS; row++) {
-                g.fillRoundRect(0, CELL_SIZE * row - GRID_WIDHT_HALF,
+                g.fillRoundRect(0, CELL_SIZE * row - GRID_WIDTH,
                         CANVAS_WIDTH - 1, GRID_WIDTH, GRID_WIDTH, GRID_WIDTH);
             }
             for (int col = 0; col <= COLS; col++) {
-                g.fillRoundRect(CELL_SIZE * col - GRID_WIDHT_HALF, 0,
+                g.fillRoundRect(CELL_SIZE * col - GRID_WIDTH, 0,
                         GRID_WIDTH, CANVAS_HEIGHT - 1, GRID_WIDTH, GRID_WIDTH);
             }
         }

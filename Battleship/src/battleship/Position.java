@@ -1,3 +1,8 @@
+/* 
+ * CREATED IN NETBEANS IDE 8.2
+ * CS-321-01 Final Project: Battleship
+ * Kyle Daigle, Sean Widmier, Robert Womack, Kelly Manley
+ */
 package battleship;
 
 /**
@@ -43,7 +48,7 @@ public class Position {
      * @param col The horizontal acolis location on the appropriate grid.
      * @param row The vertical acolis location on the appropriate grid.
      */
-    public void setPosition(int col, int row) {
+    protected void setPosition(int col, int row) {
         this.col = col;
         this.row = row;
     }
@@ -53,7 +58,7 @@ public class Position {
      *
      * @param status The status (EMPTY, HIT, MISS, SHIP) of the Position.
      */
-    public void setStatus(Status status) {
+    protected void setStatus(Status status) {
         this.status = status;
     }
 
@@ -62,7 +67,7 @@ public class Position {
      *
      * @return The status (EMPTY, HIT, MISS, SHIP) of the Position.
      */
-    public Status getStatus() {
+    protected Status getStatus() {
         return status;
     }
 
@@ -71,7 +76,7 @@ public class Position {
      *
      * @return The horizontal location of the Position.
      */
-    public int getCol() {
+    protected int getCol() {
         return col;
     }
 
@@ -80,7 +85,7 @@ public class Position {
      *
      * @return The vertical location of the Position.
      */
-    public int getRow() {
+    protected int getRow() {
         return row;
     }
 }

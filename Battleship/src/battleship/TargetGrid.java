@@ -1,10 +1,16 @@
+/* 
+ * CREATED IN NETBEANS IDE 8.2
+ * CS-321-01 Final Project: Battleship
+ * Kyle Daigle, Sean Widmier, Robert Womack, Kelly Manley
+ */
 package battleship;
 
 /**
- * A singleton that acts as the target grid for a game of Battleship.
+ * This class acts as the target grid for a game of Battleship.
  * The target grid is where the user places pegs indicating whether their shots
  * have hit or missed an enemy ship. TargetGrid contains a grid indicating the
- * Status of each location.
+ * Status of each location. Visually represented by the TargetGUI JPanel 
+ * component
  *
  * @author Kyle Daigle, Sean Widmier
  */
@@ -18,12 +24,12 @@ public class TargetGrid {
     /**
      * Makes an instance of TargetGrid such that the resultant grid is empty.
      */
-    public TargetGrid() {
+    protected TargetGrid() {
         grid = new Position.Status[10][10];
 
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                grid[i][j] = Position.Status.EMPTY;                 //initialize grid to "empty"
+                grid[i][j] = Position.Status.EMPTY;
             }
         }
     }
@@ -33,6 +39,7 @@ public class TargetGrid {
      * position.
      *
      * @param position The Position on which the peg to be set is.
+     * @return The status of the peg at position.
      */
     protected Position.Status setPeg(Position position) {
         grid[position.getCol()][position.getRow()] = position.getStatus();
@@ -48,14 +55,14 @@ public class TargetGrid {
     protected Position.Status getGridAt(Position position) {
         return grid[position.getCol()][position.getRow()];
     }
-    
+
     /**
      * Mutates the counter for the number of enemy ships sunk.
      */
     protected void incrementEnemyShipsSunk() {
         shipsSunk++;
     }
-    
+
     /**
      * Accessor for the counter for the number of enemy ships sunk.
      *
@@ -64,14 +71,13 @@ public class TargetGrid {
     protected int getEnemyShipsSunk() {
         return shipsSunk;
     }
-    
+
     /**
      * Resets each position such that it is empty.
      */
     protected void resetGrid() {
-        for(int i = 0; i < 10; i++) {
-            for(int j = 0; j < 10; j++)
-            {
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
                 grid[i][j] = Position.Status.EMPTY;
             }
         }

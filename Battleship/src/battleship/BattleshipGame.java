@@ -1,8 +1,12 @@
+/* 
+ * CREATED IN NETBEANS IDE 8.2
+ * CS-321-01 Final Project: Battleship
+ * Kyle Daigle, Sean Widmier, Robert Womack, Kelly Manley
+ */
 package battleship;
 
 /**
- * Contains elements of a game of battleship, as well as handle the
- * interactions between the GUI and the underlying data structures.
+ * Singleton class that contains elements of a game of battleship
  *
  * @author Sean Widmier, Kyle Daigle
  */
@@ -11,10 +15,6 @@ public class BattleshipGame {
     /* Singleton instance of object */
     private static BattleshipGame instance = null;
 
-    /* Field to hold the player's name, which will be used in initalizeGame */
-    private String playerName;
-    
-    
     /* An instance of both TargetGrid and OceanGrid are needed. */
     static TargetGrid target = new TargetGrid();
     static OceanGrid ocean = new OceanGrid();
@@ -26,7 +26,6 @@ public class BattleshipGame {
      * object of this class exists.
      */
     private BattleshipGame() {
-       
     }
 
     /**
@@ -57,19 +56,19 @@ public class BattleshipGame {
     /**
      * Checks the number of friendly and enemy ships sunk.
      * If either are above 4, the game has ended.
-     * 1 = victory
-     * 2 = defeat
-     * 0 = no change
+     *
+     * @return 1 = victory, 2 = defeat, 0 = no change
      */
     protected int checkGameStatus() {
-        if (ocean.getFriendlyShipsSunk() == 5)
+        if (ocean.getFriendlyShipsSunk() == 5) {
             return 2;
-        else if(target.getEnemyShipsSunk() == 5)
+        } else if (target.getEnemyShipsSunk() == 5) {
             return 1;
-        else
+        } else {
             return 0;
+        }
     }
-    
+
     /**
      * Resets each member of BattleshipGame such that it will be a new game.
      */

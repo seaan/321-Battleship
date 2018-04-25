@@ -1,3 +1,8 @@
+/* 
+ * CREATED IN NETBEANS IDE 8.2
+ * CS-321-01 Final Project: Battleship
+ * Kyle Daigle, Sean Widmier, Robert Womack, Kelly Manley
+ */
 package battleship;
 
 import battleship.TargetGrid;
@@ -11,28 +16,47 @@ import java.awt.event.MouseEvent;
 import javax.swing.border.EmptyBorder;
 
 /**
- *
+ * A Graphical component that displays a visual representation of
+ * the Target Grid for a game of Battleship
  * @author Kyle Daigle, Robert Womack
  */
 public class TargetGUI extends JFrame {
 
     BattleshipGame bsg;
 
-    /* Number of Rows */
+    /**
+     * Number of Rows the grid
+     */
     public static final int ROWS = 10;
-    /* Number of Cols */
+    /**
+     * Number of Columns in the grid
+     */
     public static final int COLS = 10;
-    /* Size of each square */
+    /**
+     * Size of each square
+     */
     public static final int CELL_SIZE = 50;
-    /* Width of the canvas */
+    /**
+     * Width of the canvas
+     */
     public static final int CANVAS_WIDTH = CELL_SIZE * COLS;
-    /* Height of the canvas */
+    /**
+     * Height of the canvas
+     */
     public static final int CANVAS_HEIGHT = CELL_SIZE * ROWS;
-    /* Width of the grid lines */
+    /**
+     * Width of the grid lines
+     */
     public static final int GRID_WIDTH = 1;
 
+    /**
+     * Padding for each cell
+     */
     public static final int CELL_PADDING = CELL_SIZE / 6;
-    public static final int SYMBOL_SIZE = CELL_SIZE - CELL_PADDING * 4; // width/height
+    /**
+     * Size of the symbol for each cell, width/height
+     */
+    public static final int SYMBOL_SIZE = CELL_SIZE - CELL_PADDING * 4;
 
     int row;
     int col;
@@ -40,7 +64,7 @@ public class TargetGUI extends JFrame {
     int mouseY;
 
     JFrame frame = new JFrame();
-    
+
     JButton carrier = new JButton("Carrier");
     JButton battleship = new JButton("Battleship");
     JButton cruiser = new JButton("Cruiser");
@@ -51,7 +75,18 @@ public class TargetGUI extends JFrame {
      * Enumerated data type for each peg type. This is used to paint the canvas
      */
     public enum Peg {
-        EMPTY, HIT, MISS
+        /**
+         * Empty space
+         */
+        EMPTY,
+        /**
+         * Hit peg, red
+         */
+        HIT,
+        /**
+         * Miss peg, white
+         */
+        MISS
     }
 
     private Peg[][] board; // Game board of ROWS-by-COLS cells
@@ -62,7 +97,7 @@ public class TargetGUI extends JFrame {
      * Constructor to setup the game and the GUI components. It controls the
      * entire Target GUI and handles actions involving it.
      *
-     * @Param JPanal grid will be contained in.
+     * @param panel grid will be contained in.
      */
     public TargetGUI(JPanel panel) {
 
@@ -77,7 +112,6 @@ public class TargetGUI extends JFrame {
 
         JPanel buttonPanel = new JPanel();
         GridLayout buttonLayout = new GridLayout(5, 1);
-        
 
         carrier.setPreferredSize(new Dimension(100, 40));
         battleship.setPreferredSize(new Dimension(100, 40));
