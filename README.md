@@ -2,6 +2,7 @@
 Java version of the game Battleship for CS 321: Intro to Object Oriented Programming Java. 
 
 Rules can be found below: 
+
 OBJECTIVE:      Be the first to sink all 5 of your opponents ships!		
 HOW TO PLAY:    Secretly place your fleet of 5 ships on your OCEAN grid (the grid on the LEFTSIDE of the display).
                 Your opponent does the same. Decide who will go first. You and your opponent will alternate turns,
