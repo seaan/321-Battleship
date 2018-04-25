@@ -150,7 +150,11 @@ public class OceanGUI extends JFrame {
                     startCol = mouseX / CELL_SIZE;
                     startPosition.setPosition(startCol, startRow);
                 }
-                if (currentState == GameState.SETUP && e.getButton() == 3) {
+                if (currentState == GameState.SETUP && 
+                        currentShip == Fleet.GameShip.NULL) {
+                    showError("notEnoughShips");
+                }
+                else if (currentState == GameState.SETUP && e.getButton() == 3) {
                     mouseX2 = e.getX();
                     mouseY2 = e.getY();
 
@@ -262,6 +266,9 @@ public class OceanGUI extends JFrame {
             JOptionPane.showMessageDialog(frame, "Please select a ship to "
                     + "place.", "Warning",
                     JOptionPane.WARNING_MESSAGE);
+        } else if (error == "notEnoughShips") {
+            JOptionPane.showMessageDialog(frame, "Please place all five ships "
+                    , "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }
 
