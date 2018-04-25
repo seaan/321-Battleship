@@ -13,6 +13,7 @@ import javax.swing.border.EmptyBorder;
 /**
  * A Graphical component that displays a visual representation of
  * the Ocean Grid for a game of Battleship
+ *
  * @author Kyle Daigle, Sean Widmier, Robert Womack
  */
 public class OceanGUI extends JFrame {
@@ -111,7 +112,7 @@ public class OceanGUI extends JFrame {
         carrier.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 currentShip = Fleet.GameShip.CARRIER;
-                
+
             }
         });
         battleship.addActionListener(new ActionListener() {
@@ -127,13 +128,13 @@ public class OceanGUI extends JFrame {
         sub.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 currentShip = Fleet.GameShip.SUBMARINE;
-               
+
             }
         });
         destroyer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 currentShip = Fleet.GameShip.DESTROYER;
-                
+
             }
         });
 
@@ -380,14 +381,15 @@ public class OceanGUI extends JFrame {
             //testState = 1;
         }
     }
-    
+
     /**
      * Function to disable the selected ship button and prevent player from
      * placing multiple ships of the same type
+     *
      * @param ship - Ship for corresponding button that is being disabled
      */
     private void disableButton(Fleet.GameShip ship) {
-        switch(ship) {
+        switch (ship) {
             case NULL:
                 break;
             case CARRIER:

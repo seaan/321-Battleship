@@ -18,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 /**
  * A Graphical component that displays a visual representation of
  * the Target Grid for a game of Battleship
+ *
  * @author Kyle Daigle, Robert Womack
  */
 public class TargetGUI extends JFrame {
