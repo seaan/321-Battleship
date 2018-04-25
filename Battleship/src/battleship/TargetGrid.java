@@ -9,7 +9,8 @@ package battleship;
  * This class acts as the target grid for a game of Battleship.
  * The target grid is where the user places pegs indicating whether their shots
  * have hit or missed an enemy ship. TargetGrid contains a grid indicating the
- * Status of each location.
+ * Status of each location. Visually represented by the TargetGUI JPanel 
+ * component
  *
  * @author Kyle Daigle, Sean Widmier
  */

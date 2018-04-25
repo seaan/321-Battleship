@@ -10,7 +10,8 @@ package battleship;
  * The ocean grid is where the user places their ships, and marks where the
  * enemy has hit their ships or missed a shot. OceanGrid contains an instance of
  * Fleet, as well as a counter for the number of ships sunk and a grid
- * indicating the Status of each location.
+ * indicating the Status of each location. Visually represented by the OceanGUI
+ * JPanel component.
  *
  * @author Kyle Daigle, Sean Widmier
  */
