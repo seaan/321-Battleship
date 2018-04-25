@@ -6,8 +6,7 @@
 package battleship;
 
 /**
- * Contains elements of a game of battleship, as well as handle the
- * interactions between the GUI and the underlying data structures.
+ * Singleton class that contains elements of a game of battleship
  *
  * @author Sean Widmier, Kyle Daigle
  */

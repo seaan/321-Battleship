@@ -6,7 +6,7 @@
 package battleship;
 
 /**
- * A singleton that acts as the ocean grid for a game of Battleship.
+ * Class that acts as the ocean grid for a game of Battleship.
  * The ocean grid is where the user places their ships, and marks where the
  * enemy has hit their ships or missed a shot. OceanGrid contains an instance of
  * Fleet, as well as a counter for the number of ships sunk and a grid
