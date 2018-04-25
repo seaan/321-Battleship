@@ -14,15 +14,15 @@ package battleship;
  */
 public class Position {
 
-    /* The horizontal acolis location of the position on the appropriate grid. */
+    /* The horizontal axis location of the position on the appropriate grid. */
     private int col;
-    /* The vertical acolis location of the position on the appopriate grid. */
+    /* The vertical axis location of the position on the appopriate grid. */
     private int row;
 
     private Status status;
 
     /**
-     * Details whether the position is emptrow or filled with a
+     * Details whether the position is empty or filled with a
      * hit peg, miss peg, or ship.
      */
     protected enum Status {
@@ -33,7 +33,7 @@ public class Position {
      * Constructor for Position, will set inputs to fields.
      *
      * @param col The horizontal axis location on the appropriate grid.
-     * @param row The vertical acolis location on the appropriate grid.
+     * @param row The vertical axis location on the appropriate grid.
      * @param status The status (EMPTY, HIT, MISS, SHIP) of the Position.
      */
     protected Position(int col, int row, Status status) {
@@ -45,8 +45,8 @@ public class Position {
     /**
      * Mutates the location fields of the Position.
      *
-     * @param col The horizontal acolis location on the appropriate grid.
-     * @param row The vertical acolis location on the appropriate grid.
+     * @param col The horizontal axis location on the appropriate grid.
+     * @param row The vertical axis location on the appropriate grid.
      */
     protected void setPosition(int col, int row) {
         this.col = col;
